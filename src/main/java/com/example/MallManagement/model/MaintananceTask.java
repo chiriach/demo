@@ -11,6 +11,10 @@ public class MaintananceTask{
         this.description = description;
         this.status = status;
         this.assignmentId = assignmentId;
+
+        if(!this.status.equals("Planned") && !this.status.equals("Active") && !this.status.equals("Done") ){
+            throw new IllegalArgumentException();
+        }
     }
 
     public String getId() {

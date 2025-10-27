@@ -6,11 +6,15 @@ public class StaffAssignment {
     private String staffId;
     private String shift;
 
-    public StaffAssignment(String id, String floorId, String staffId, String shift){
+    public StaffAssignment(String id, String floorId, String staffId, String shift) {
         this.id = id;
         this.floorId = floorId;
         this.staffId = staffId;
         this.shift = shift;
+
+        if (!this.shift.equals("Morning") && !this.shift.equals("Evening") && !this.shift.equals("Night")) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public String getId() {

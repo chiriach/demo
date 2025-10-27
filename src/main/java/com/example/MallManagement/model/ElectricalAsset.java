@@ -11,8 +11,15 @@ public class ElectricalAsset{
         this.floorId = floorId;
         this.type = type;
         this.status = status;
-    }
 
+        if (!this.type.equals("Lift") && !this.type.equals("AC") && !this.type.equals("Light") && !this.type.equals("Escalator")) {
+            throw new IllegalArgumentException();
+        }
+
+        if (!this.status.equals("Working") && !this.status.equals("Down") ) {
+            throw new IllegalArgumentException();
+        }
+    }
     public String getId() {
         return id;
     }
