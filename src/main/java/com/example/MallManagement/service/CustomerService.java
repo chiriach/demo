@@ -2,9 +2,11 @@ package com.example.MallManagement.service;
 
 import com.example.MallManagement.model.Customer;
 import com.example.MallManagement.repository.CustomerRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class CustomerService {
     private final CustomerRepository customerRepo;
 
@@ -14,7 +16,7 @@ public class CustomerService {
 
     public void addCustomer(Customer customer) {
         customerRepo.save(customer);
-    }
+    } 
 
     public List<Customer> getAllCustomers() {
         return customerRepo.findAll();

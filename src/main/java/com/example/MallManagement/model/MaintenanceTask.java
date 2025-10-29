@@ -1,12 +1,12 @@
 package com.example.MallManagement.model;
 
-public class MaintananceTask{
+public class MaintenanceTask {
     private String id;
     private String description;
     private String status;
     private String assignmentId;
 
-    public MaintananceTask(String id, String description, String status, String assignmentId) {
+    public MaintenanceTask(String id, String description, String status, String assignmentId) {
         this.id = id;
         this.description = description;
         this.status = status;

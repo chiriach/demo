@@ -2,6 +2,7 @@ package com.example.MallManagement.repository;
 import com.example.MallManagement.model.Floor;
 import java.util.*;
 
+@org.springframework.stereotype.Repository
 public class FloorRepository implements Repository<Floor> {
     private final List<Floor> floors = new ArrayList<>();
 

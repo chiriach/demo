@@ -3,6 +3,7 @@ import com.example.MallManagement.model.Shop;
 
 import java.util.*;
 
+@org.springframework.stereotype.Repository
 public class ShopRepository implements Repository<Shop> {
     private final List<Shop> shops = new ArrayList<>();
 

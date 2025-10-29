@@ -4,9 +4,11 @@ import com.example.MallManagement.model.Purchase;
 import com.example.MallManagement.repository.CustomerRepository;
 import com.example.MallManagement.repository.PurchaseRepository;
 import com.example.MallManagement.repository.ShopRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class PurchaseService {
     private final PurchaseRepository purchaseRepo;
     private final ShopRepository shopRepo;
@@ -19,7 +21,7 @@ public class PurchaseService {
     }
 
     public void makePurchase(Purchase purchase) {
-        // Basic validation logic
+
         if (shopRepo.findById(purchase.getShopId()) != null &&
                 customerRepo.findById(purchase.getCustomerId()) != null) {
             purchaseRepo.save(purchase);

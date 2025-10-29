@@ -5,7 +5,7 @@ public class Floor {
     private String id;
     private int number;
     private List<Shop> shops;
-    private List<MaintananceTask> tasks;
+    private List<MaintenanceTask> tasks;
     private List<ElectricalAsset> electricals;
     private List<StaffAssignment> assignments;
 
@@ -42,11 +42,11 @@ public class Floor {
         this.shops = shops;
     }
 
-    public List<MaintananceTask> getTasks() {
+    public List<MaintenanceTask> getTasks() {
         return tasks;
     }
 
-    public void setTasks(List<MaintananceTask> tasks) {
+    public void setTasks(List<MaintenanceTask> tasks) {
         this.tasks = tasks;
     }
 

@@ -4,6 +4,7 @@ import com.example.MallManagement.model.Purchase;
 
 import java.util.*;
 
+@org.springframework.stereotype.Repository
 public class PurchaseRepository implements Repository<Purchase> {
     private final List<Purchase> purchases = new ArrayList<>();
 

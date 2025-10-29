@@ -4,6 +4,7 @@ import com.example.MallManagement.model.Customer;
 
 import java.util.*;
 
+@org.springframework.stereotype.Repository
 public class CustomerRepository implements Repository<Customer> {
     private final List<Customer> customers = new ArrayList<>();
 

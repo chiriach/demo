@@ -4,6 +4,7 @@ import com.example.MallManagement.model.Staff;
 
 import java.util.*;
 
+@org.springframework.stereotype.Repository
 public class StaffRepository implements Repository<Staff> {
     private final List<Staff> staffList = new ArrayList<>();
 

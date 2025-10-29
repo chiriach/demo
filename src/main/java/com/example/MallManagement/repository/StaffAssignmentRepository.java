@@ -2,6 +2,7 @@ package com.example.MallManagement.repository;
 import com.example.MallManagement.model.StaffAssignment;
 import java.util.*;
 
+@org.springframework.stereotype.Repository
 public class StaffAssignmentRepository implements Repository<StaffAssignment> {
     private final List<StaffAssignment> staffAssignments = new ArrayList<>();
 

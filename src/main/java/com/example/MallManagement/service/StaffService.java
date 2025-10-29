@@ -2,9 +2,11 @@ package com.example.MallManagement.service;
 
 import com.example.MallManagement.model.Staff;
 import com.example.MallManagement.repository.StaffRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class StaffService {
     private final StaffRepository staffRepo;
 
