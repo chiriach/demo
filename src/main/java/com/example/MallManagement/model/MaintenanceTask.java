@@ -5,12 +5,14 @@ public class MaintenanceTask {
     private String description;
     private String status;
     private String assignmentId;
+    private int duration;
 
-    public MaintenanceTask(String id, String description, String status, String assignmentId) {
+    public MaintenanceTask(String id, String description, String status, String assignmentId, int duration) {
         this.id = id;
         this.description = description;
         this.status = status;
         this.assignmentId = assignmentId;
+        this.duration = duration;
 
         if(!this.status.equals("Planned") && !this.status.equals("Active") && !this.status.equals("Done") ){
             throw new IllegalArgumentException();
@@ -48,4 +50,13 @@ public class MaintenanceTask {
     public void setAssignmentId(String assignmentId) {
         this.assignmentId = assignmentId;
     }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 }
+
