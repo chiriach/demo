@@ -6,8 +6,9 @@ public class MaintenanceStaff extends Staff{
     private List assignments;
     private String type;
 
-    MaintenanceStaff(String id, String name, String type) {
-        super(id, name);
+    MaintenanceStaff(String id, String name, String type, int salary) {
+        super(id, name, salary);
+        this.type = type;
         this.assignments = new List();
         if(!this.type.equals("Electrical") && !this.type.equals("Cleaning")) throw new IllegalArgumentException();
     }

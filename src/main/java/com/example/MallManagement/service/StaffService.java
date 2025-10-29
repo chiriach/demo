@@ -1,32 +1,52 @@
 package com.example.MallManagement.service;
 
 import com.example.MallManagement.model.Staff;
-import com.example.MallManagement.repository.StaffRepository;
+import com.example.MallManagement.repository.MaintenanceStaffRepository;
+import com.example.MallManagement.repository.SecurityStaffRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 public class StaffService {
-    private final StaffRepository staffRepo;
+    private final MaintenanceStaffRepository maintenanceStaffRepo;
+    private final SecurityStaffRepository securityStaffRepo;
 
-    public StaffService(StaffRepository staffRepo) {
-        this.staffRepo = staffRepo;
+    public StaffService(MaintenanceStaffRepository maintenanceStaffRepo,
+                        SecurityStaffRepository securityStaffRepo) {
+        this.maintenanceStaffRepo = maintenanceStaffRepo;
+        this.securityStaffRepo = securityStaffRepo;
     }
 
-    public void addStaff(Staff staff) {
-        staffRepo.save(staff);
+    public void addMaintenanceStaff(Staff staff) {
+        maintenanceStaffRepo.save(staff);
     }
 
-    public List<Staff> getAllStaff() {
-        return staffRepo.findAll();
+    public void addSecurityStaff(Staff staff) {
+        securityStaffRepo.save(staff);
     }
 
-    public Staff findStaff(String id) {
-        return staffRepo.findById(id);
+    public List<Staff> getAllMaintenanceStaff() {
+        return maintenanceStaffRepo.findAll();
     }
 
-    public void deleteStaff(String id) {
-        staffRepo.delete(id);
+    public List<Staff> getAllSecurityStaff() {
+        return securityStaffRepo.findAll();
+    }
+
+    public Staff findMaintenanceStaff(String id) {
+        return maintenanceStaffRepo.findById(id);
+    }
+
+    public Staff findSecurityStaff(String id) {
+        return securityStaffRepo.findById(id);
+    }
+
+    public void deleteMaintenanceStaff(String id) {
+        maintenanceStaffRepo.delete(id);
+    }
+
+    public void deleteSecurityStaff(String id) {
+        securityStaffRepo.delete(id);
     }
 }

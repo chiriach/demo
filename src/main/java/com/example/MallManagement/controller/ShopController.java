@@ -20,7 +20,7 @@ public class ShopController {
     public String listShops(Model model) {
         List<Shop> shops = shopService.getAllShops();
         model.addAttribute("shops", shops);
-        return "shops"; // → shops.html
+        return "shops";
     }
 
     @PostMapping("/add")

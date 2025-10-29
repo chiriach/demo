@@ -19,7 +19,7 @@ public class PurchaseController {
     @GetMapping
     public String listPurchases(Model model) {
         model.addAttribute("purchases", purchaseService.getAllPurchases());
-        return "purchases"; // → purchases.html
+        return "purchases";
     }
 
     @PostMapping("/add")

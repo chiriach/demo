@@ -7,12 +7,14 @@ public class Shop{
     private String id, name, ownerName;
     private double areaSqm;
     private List purchases;
+    private int rating;
 
-    Shop(String id, String name,String ownerName, double areaSqm){
+    Shop(String id, String name, String ownerName, double areaSqm, int rating){
         this.id = id;
         this.name = name;
         this.ownerName = ownerName;
         this. areaSqm = areaSqm;
+        this.rating = rating;
         this.purchases = new List();
     }
 
@@ -55,4 +57,13 @@ public class Shop{
     public void setPurchases(List purchases) {
         this.purchases = purchases;
     }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
 }

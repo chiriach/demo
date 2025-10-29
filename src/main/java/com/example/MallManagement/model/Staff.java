@@ -3,9 +3,12 @@ package com.example.MallManagement.model;
 public abstract class Staff {
 
     private String id, name;
-    Staff(String id, String name){
+    private int salary;
+
+    Staff(String id, String name, int salary){
         this.id = id;
         this.name = name;
+        this.salary = salary;
     }
 
     public String getName() {
@@ -22,5 +25,13 @@ public abstract class Staff {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 }

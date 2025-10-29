@@ -18,7 +18,7 @@ public class MaintenanceController {
     @GetMapping
     public String listTasks(Model model) {
         model.addAttribute("tasks", maintenanceService.getTasks());
-        return "maintenance"; // → maintenance.html
+        return "maintenance";
     }
 
     @PostMapping("/add")

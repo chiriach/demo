@@ -20,7 +20,7 @@ public class MallController {
     public String listMalls(Model model) {
         List<Mall> malls = mallService.getAllMalls();
         model.addAttribute("malls", malls);
-        return "malls"; // → lädt malls.html (aus templates/)
+        return "malls";
     }
 
     @PostMapping("/add")
