@@ -32,6 +32,7 @@ public class MallService {
         mallRepo.delete(id);
     }
 
+
     public void addFloorToMall(String mallId, Floor floor) {
         Mall mall = mallRepo.findById(mallId);
         if (mall != null) {
