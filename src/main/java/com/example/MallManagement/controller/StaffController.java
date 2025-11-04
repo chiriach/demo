@@ -17,7 +17,6 @@ public class StaffController {
         this.staffService = staffService;
     }
 
-    // ===== Maintenance Staff =====
     @GetMapping("/maintenance")
     public String listMaintenanceStaff(Model model) {
         List<Staff> maintenanceStaff = staffService.getAllMaintenanceStaff();
