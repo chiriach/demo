@@ -41,5 +41,4 @@ public class MallController {
         mallService.deleteMall(id);
         return "redirect:/malls";
     }
-
 }

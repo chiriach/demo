@@ -31,6 +31,12 @@ public class MallService {
     }
 
     public void deleteMall(String id) {
+        Mall mall = mallRepo.findById(id);
+        if (mall != null) {
+            for (Floor floor : mall.getFloors()) {
+                floorRepo.delete(floor.getId());
+            }
+        }
         mallRepo.delete(id);
     }
 
