@@ -10,22 +10,5 @@ import java.util.*;
 @Controller
 @RequestMapping("/customers")
 public class CustomerController {
-    private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
-
-    @GetMapping
-    public String listCustomers(Model model) {
-        model.addAttribute("customers", customerService.getAllCustomers());
-        return "customers";
-    }
-
-    @PostMapping("/add")
-    @ResponseBody
-    public String addCustomer(@RequestBody Customer customer) {
-        customerService.addCustomer(customer);
-        return "Kunde hinzugefügt!";
-    }
 }

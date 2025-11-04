@@ -10,22 +10,5 @@ import java.util.*;
 @Controller
 @RequestMapping("/purchases")
 public class PurchaseController {
-    private final PurchaseService purchaseService;
 
-    public PurchaseController(PurchaseService purchaseService) {
-        this.purchaseService = purchaseService;
-    }
-
-    @GetMapping
-    public String listPurchases(Model model) {
-        model.addAttribute("purchases", purchaseService.getAllPurchases());
-        return "purchases";
-    }
-
-    @PostMapping("/add")
-    @ResponseBody
-    public String makePurchase(@RequestBody Purchase purchase) {
-        purchaseService.makePurchase(purchase);
-        return "Kauf erfolgreich!";
-    }
 }

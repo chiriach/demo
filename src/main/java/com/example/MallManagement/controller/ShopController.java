@@ -10,23 +10,6 @@ import java.util.*;
 @Controller
 @RequestMapping("/shops")
 public class ShopController {
-    private final ShopService shopService;
 
-    public ShopController(ShopService shopService) {
-        this.shopService = shopService;
-    }
-
-    @GetMapping
-    public String listShops(Model model) {
-        List<Shop> shops = shopService.getAllShops();
-        model.addAttribute("shops", shops);
-        return "shops";
-    }
-
-    @PostMapping("/add")
-    @ResponseBody
-    public String addShop(@RequestBody Shop shop) {
-        shopService.addShop(shop);
-        return "Shop hinzugefügt!";
     }
 }
