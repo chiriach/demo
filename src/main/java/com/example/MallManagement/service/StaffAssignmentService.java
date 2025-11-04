@@ -21,8 +21,6 @@ public class StaffAssignmentService {
         this.maintenanceStaffRepo = maintenanceStaffRepo;
         this.securityStaffRepo = securityStaffRepo;
     }
-
-    // Assign a staff member to a task
     public void assignStaff(StaffAssignment assignment) {
 
         if (securityStaffRepo.findById(assignment.getStaffId()) != null || maintenanceStaffRepo.findById(assignment.getStaffId()) != null) {

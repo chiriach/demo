@@ -10,13 +10,9 @@ import java.util.*;
 public class CustomerService {
     private final CustomerRepository customerRepo;
 
-    public CustomerService(CustomerRepository customerRepo) {
-        this.customerRepo = customerRepo;
-    }
+    public CustomerService(CustomerRepository customerRepo) {this.customerRepo = customerRepo;}
 
-    public void addCustomer(Customer customer) {
-        customerRepo.save(customer);
-    } 
+    public void addCustomer(Customer customer) {customerRepo.save(customer);}
 
     public List<Customer> getAllCustomers() {
         return customerRepo.findAll();
