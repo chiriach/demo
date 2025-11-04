@@ -1,8 +1,15 @@
-<form th:action="@{/malls}" th:object="${mall}" method="post" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Mall</title>
+</head>
+<body>
+<h1>Create Mall</h1>
+<form th:action="@{/malls}" th:object="${mall}" method="post">
     <label>Name:</label>
-    <input type="text" th:field="*{name}" required />
+    <input type="text" th:field="*{name}" /><br>
     <label>City:</label>
-    <input type="text" th:field="*{city}" required />
-    <button type="submit">Erstellen</button>
+    <input type="text" th:field="*{city}" /><br>
+    <button type="submit">Save</button>
 </form>
-<a th:href="@{/malls}" xmlns:th="http://www.w3.org/1999/xhtml">Zuruck zur Liste</a>
+</body>
+</html>

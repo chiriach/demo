@@ -6,7 +6,7 @@ import com.example.MallManagement.repository.FloorRepository;
 import com.example.MallManagement.repository.MallRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
 
 @Service
 public class MallService {
@@ -18,24 +18,16 @@ public class MallService {
         this.floorRepo = floorRepo;
     }
 
-    public void addMall(Mall mall) {
-        mallRepo.save(mall);
-    }
+    public void addMall(Mall mall) { mallRepo.save(mall); }
 
-    public List<Mall> getAllMalls() {
-        return mallRepo.findAll();
-    }
+    public List<Mall> getAllMalls() { return mallRepo.findAll(); }
 
-    public Mall findMall(String id) {
-        return mallRepo.findById(id);
-    }
+    public Mall findMall(String id) { return mallRepo.findById(id); }
 
     public void deleteMall(String id) {
-        Mall mall = mallRepo.findById(id);
-        if (mall != null) {
-            for (Floor floor : mall.getFloors()) {
-                floorRepo.delete(floor.getId());
-            }
+        Mall mall = findMall(id);
+        for(Floor floor : mall.getFloors()){
+            floorRepo.delete(floor.getId());
         }
         mallRepo.delete(id);
     }
@@ -45,6 +37,14 @@ public class MallService {
         if (mall != null) {
             floorRepo.save(floor);
             mall.getFloors().add(floor);
+        }
+    }
+
+    public void deleteFloorFromMall(String mallId, String floorId) {
+        Mall mall = mallRepo.findById(mallId);
+        if (mall != null) {
+            mall.getFloors().removeIf(f -> f.getId().equals(floorId));
+            floorRepo.delete(floorId);
         }
     }
 }

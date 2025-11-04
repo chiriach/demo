@@ -2,42 +2,47 @@ package com.example.MallManagement.controller;
 
 import com.example.MallManagement.model.Floor;
 import com.example.MallManagement.service.FloorService;
-import com.example.MallManagement.service.MallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/malls/{mallId}/floors")
+@RequestMapping("/floors")
 public class FloorController {
 
     private final FloorService floorService;
-    private final MallService mallService;
 
     @Autowired
-    public FloorController(FloorService floorService, MallService mallService) {
+    public FloorController(FloorService floorService) {
         this.floorService = floorService;
-        this.mallService = mallService;
     }
 
+    // ✅ GET /floors – show all floors
+    @GetMapping
+    public String listFloors(Model model) {
+        model.addAttribute("floors", floorService.getAllFloors());
+        return "floor/index";
+    }
+
+    // ✅ GET /floors/new – create standalone floor
     @GetMapping("/new")
-    public String showCreateForm(@PathVariable String mallId, Model model) {
-        model.addAttribute("mallId", mallId);
+    public String showCreateForm(Model model) {
         model.addAttribute("floor", new Floor("0", 0));
         return "floor/form";
     }
 
+    // ✅ POST /floors – save new floor
     @PostMapping
-    public String createFloor(@PathVariable String mallId, @ModelAttribute Floor floor) {
-        mallService.addFloorToMall(mallId, floor);
-        return "redirect:/malls";
+    public String createFloor(@ModelAttribute Floor floor) {
+        floorService.addFloor(floor);
+        return "redirect:/floors";
+    }
+
+    // ✅ POST /floors/{id}/delete – delete floor
+    @PostMapping("/{id}/delete")
+    public String deleteFloor(@PathVariable String id) {
+        floorService.deleteFloor(id);
+        return "redirect:/floors";
     }
 }
-
-//    @PostMapping("/{floorId}/delete")
-//    public String deleteFloor(@PathVariable String mallId, @PathVariable String floorId) {
-//        mallService.deleteFloorFromMall(mallId, floorId);
-//        return "redirect:/malls";
-//    }
-//}

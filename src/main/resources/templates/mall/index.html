@@ -1,42 +1,39 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Mall List</title>
 </head>
 <body>
-<h1>Liste der Malls</h1>
-
+<h1>All Malls</h1>
+<a href="/malls/new">Add New Mall</a>
 <table border="1">
-    <thead>
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>City</th>
         <th>Floors</th>
-        <th>Aktionen</th>
+        <th>Actions</th>
     </tr>
-    </thead>
-    <tbody>
     <tr th:each="mall : ${malls}">
         <td th:text="${mall.id}"></td>
         <td th:text="${mall.name}"></td>
         <td th:text="${mall.city}"></td>
         <td>
             <ul>
-                <li th:each="floor : ${mall.floors}"
-                    th:text="'Floor ' + ${floor.number}"></li>
+                <li th:each="floor : ${mall.floors}">
+                    Floor <span th:text="${floor.number}"></span>
+                    <form th:action="@{'/malls/' + ${mall.id} + '/floors/' + ${floor.id} + '/delete'}" method="post" style="display:inline">
+                        <button type="submit">Delete Floor</button>
+                    </form>
+                </li>
             </ul>
+            <a th:href="@{'/malls/' + ${mall.id} + '/floors/new'}">Add Floor</a>
         </td>
         <td>
             <form th:action="@{'/malls/' + ${mall.id} + '/delete'}" method="post">
-                <button type="submit">Löschen</button>
+                <button type="submit">Delete Mall</button>
             </form>
         </td>
     </tr>
-    </tbody>
 </table>
-<br>
-
 </body>
 </html>

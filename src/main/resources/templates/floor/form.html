@@ -1,0 +1,13 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Floor</title>
+</head>
+<body>
+<h1>Add Floor</h1>
+<form th:action="@{'/malls/' + ${mallId} + '/floors'}" th:object="${floor}" method="post">
+    <label>Floor Number:</label>
+    <input type="number" th:field="*{number}" /><br>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

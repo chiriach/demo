@@ -1,5 +1,6 @@
 package com.example.MallManagement.controller;
 
+import com.example.MallManagement.model.Floor;
 import com.example.MallManagement.model.Mall;
 import com.example.MallManagement.service.MallService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,25 @@ public class MallController {
     @PostMapping("/{id}/delete")
     public String deleteMall(@PathVariable String id) {
         mallService.deleteMall(id);
+        return "redirect:/malls";
+    }
+
+    @GetMapping("/{mallId}/floors/new")
+    public String showAddFloorForm(@PathVariable String mallId, Model model) {
+        model.addAttribute("mallId", mallId);
+        model.addAttribute("floor", new Floor("0", 0));
+        return "floor/form";
+    }
+
+    @PostMapping("/{mallId}/floors")
+    public String addFloorToMall(@PathVariable String mallId, @ModelAttribute Floor floor) {
+        mallService.addFloorToMall(mallId, floor);
+        return "redirect:/malls";
+    }
+
+    @PostMapping("/{mallId}/floors/{floorId}/delete")
+    public String deleteFloorFromMall(@PathVariable String mallId, @PathVariable String floorId) {
+        mallService.deleteFloorFromMall(mallId, floorId);
         return "redirect:/malls";
     }
 }

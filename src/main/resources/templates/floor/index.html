@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Floor List</title>
+</head>
+<body>
+<h1>All Floors</h1>
+
+<a href="/floors/new">Add New Floor</a> |
+<a href="/malls">Back to Malls</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Number</th>
+        <th>Shops</th>
+        <th>Maintenance Tasks</th>
+        <th>Electrical Assets</th>
+        <th>Staff Assignments</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="floor : ${floors}">
+        <td th:text="${floor.id}"></td>
+        <td th:text="${floor.number}"></td>
+        <td th:text="${#lists.size(floor.shops)}"></td>
+        <td th:text="${#lists.size(floor.tasks)}"></td>
+        <td th:text="${#lists.size(floor.electricals)}"></td>
+        <td th:text="${#lists.size(floor.assignments)}"></td>
+        <td>
+            <form th:action="@{'/floors/' + ${floor.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

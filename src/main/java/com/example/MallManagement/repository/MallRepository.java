@@ -1,4 +1,5 @@
 package com.example.MallManagement.repository;
+
 import com.example.MallManagement.model.Mall;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
@@ -9,7 +10,7 @@ public class MallRepository implements Repository<Mall> {
     private final List<Mall> malls = new ArrayList<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
 
-    MallRepository(){
+    public MallRepository() {
         Mall mall1 = new Mall(String.valueOf(idGenerator.getAndIncrement()), "MegaMall", "Berlin");
         Mall mall2 = new Mall(String.valueOf(idGenerator.getAndIncrement()), "CityMall", "Munich");
         malls.add(mall1);
@@ -25,10 +26,9 @@ public class MallRepository implements Repository<Mall> {
         }
         malls.add(mall);
     }
+
     @Override
-    public List<Mall> findAll() {
-        return this.malls;
-    }
+    public List<Mall> findAll() { return malls; }
 
     @Override
     public Mall findById(String id) {

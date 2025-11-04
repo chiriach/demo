@@ -8,25 +8,18 @@ import java.util.List;
 
 @Service
 public class FloorService {
+
     private final FloorRepository floorRepo;
 
     public FloorService(FloorRepository floorRepo) {
         this.floorRepo = floorRepo;
     }
 
-    public void addFloor(Floor floor) {
-        floorRepo.save(floor);
-    }
+    public void addFloor(Floor floor) { floorRepo.save(floor); }
 
-    public List<Floor> getAllFloors() {
-        return floorRepo.findAll();
-    }
+    public List<Floor> getAllFloors() { return floorRepo.findAll(); }
 
-    public Floor findFloor(String id) {
-        return floorRepo.findById(id);
-    }
+    public Floor findFloor(String id) { return floorRepo.findById(id); }
 
-    public void deleteFloor(String id) {
-        floorRepo.delete(id);
-    }
+    public void deleteFloor(String id) { floorRepo.delete(id); }
 }

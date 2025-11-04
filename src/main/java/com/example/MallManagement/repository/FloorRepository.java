@@ -1,20 +1,27 @@
 package com.example.MallManagement.repository;
+
 import com.example.MallManagement.model.Floor;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicLong;
 
 @org.springframework.stereotype.Repository
 public class FloorRepository implements Repository<Floor> {
+
     private final List<Floor> floors = new ArrayList<>();
+    private final AtomicLong idGenerator = new AtomicLong(1);
 
     @Override
     public void save(Floor floor) {
-        delete(floor.getId());
+        if (floor.getId() == null || floor.getId().isEmpty() || floor.getId().equals("0")) {
+            floor.setId(String.valueOf(idGenerator.getAndIncrement()));
+        } else {
+            delete(floor.getId());
+        }
         floors.add(floor);
     }
+
     @Override
-    public List<Floor> findAll() {
-        return new ArrayList<>(floors);
-    }
+    public List<Floor> findAll() { return floors; }
 
     @Override
     public Floor findById(String id) {
