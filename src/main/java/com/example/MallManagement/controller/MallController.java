@@ -33,3 +33,4 @@ public class MallController {
         return "Mall erfolgreich hinzugefügt!";
     }
 }
+
