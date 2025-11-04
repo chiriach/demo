@@ -1,0 +1,8 @@
+<form th:action="@{/malls}" th:object="${mall}" method="post" xmlns:th="http://www.w3.org/1999/xhtml">
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" required />
+    <label>City:</label>
+    <input type="text" th:field="*{city}" required />
+    <button type="submit">Erstellen</button>
+</form>
+<a th:href="@{/malls}" xmlns:th="http://www.w3.org/1999/xhtml">Zuruck zur Liste</a>
