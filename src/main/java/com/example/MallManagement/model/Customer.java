@@ -3,7 +3,7 @@ package com.example.MallManagement.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer {
+public class Customer implements Identifiable{
 
     private String id;
     private String name;

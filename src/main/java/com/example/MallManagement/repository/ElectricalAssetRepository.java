@@ -1,5 +1,6 @@
 package com.example.MallManagement.repository;
 
+import com.example.MallManagement.model.Customer;
 import com.example.MallManagement.model.ElectricalAsset;
 
 
@@ -8,7 +9,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 
 @org.springframework.stereotype.Repository
-public class ElectricalAssetRepository implements Repository<ElectricalAsset> {
+public class ElectricalAssetRepository extends InMemoryRepository<ElectricalAsset> implements RepositoryInterface<ElectricalAsset> {
 
     private final List<ElectricalAsset> assets = new ArrayList<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
@@ -21,31 +22,4 @@ public class ElectricalAssetRepository implements Repository<ElectricalAsset> {
         assets.add(a2);
     }
 
-    @Override
-    public void save(ElectricalAsset asset) {
-        if (asset.getId() == null || asset.getId().isEmpty() || asset.getId().equals("0")) {
-            asset.setId(String.valueOf(idGenerator.getAndIncrement()));
-        } else {
-            delete(asset.getId());
-        }
-        assets.add(asset);
-    }
-
-    @Override
-    public List<ElectricalAsset> findAll() {
-        return new ArrayList<>(assets);
-    }
-
-    @Override
-    public ElectricalAsset findById(String id) {
-        for (ElectricalAsset a : assets) {
-            if (a.getId().equals(id)) return a;
-        }
-        return null;
-    }
-
-    @Override
-    public void delete(String id) {
-        assets.removeIf(a -> a.getId().equals(id));
-    }
 }

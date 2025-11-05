@@ -2,7 +2,7 @@ package com.example.MallManagement.model;
 
 import java.util.*;
 
-public class Mall {
+public class Mall implements Identifiable{
     private String id;
     private String name;
     private String city;

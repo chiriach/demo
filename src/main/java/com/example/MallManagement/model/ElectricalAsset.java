@@ -1,8 +1,6 @@
 package com.example.MallManagement.model;
 
-
-
-public class ElectricalAsset {
+public class ElectricalAsset implements Identifiable{
     private String id;
     private String floorId;
     private Type type;

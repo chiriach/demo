@@ -1,6 +1,6 @@
 package com.example.MallManagement.model;
 
-public class SecurityStaff extends Staff {
+public class SecurityStaff extends Staff implements Identifiable{
 
     private String badgeNo;
 

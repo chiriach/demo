@@ -5,7 +5,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @org.springframework.stereotype.Repository
-public class CustomerRepository implements Repository<Customer> {
+public class CustomerRepository extends InMemoryRepository<Customer> implements RepositoryInterface<Customer>{
 
     private final List<Customer> customers = new ArrayList<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
@@ -17,33 +17,5 @@ public class CustomerRepository implements Repository<Customer> {
 
         customers.add(c1);
         customers.add(c2);
-    }
-
-    @Override
-    public void save(Customer customer) {
-        if (customer.getId() == null || customer.getId().isEmpty() || customer.getId().equals("0")) {
-            customer.setId(String.valueOf(idGenerator.getAndIncrement()));
-        } else {
-            delete(customer.getId());
-        }
-        customers.add(customer);
-    }
-
-    @Override
-    public List<Customer> findAll() {
-        return new ArrayList<>(customers);
-    }
-
-    @Override
-    public Customer findById(String id) {
-        for (Customer c : customers)
-            if (c.getId().equals(id))
-                return c;
-        return null;
-    }
-
-    @Override
-    public void delete(String id) {
-        customers.removeIf(c -> c.getId().equals(id));
     }
 }

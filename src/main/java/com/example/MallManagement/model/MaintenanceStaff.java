@@ -1,7 +1,7 @@
 package com.example.MallManagement.model;
 import java.awt.*;
 
-public class MaintenanceStaff extends Staff{
+public class MaintenanceStaff extends Staff implements Identifiable{
 
     private List assignments;
     private Type type;

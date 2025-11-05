@@ -1,11 +1,12 @@
 package com.example.MallManagement.repository;
 
+import com.example.MallManagement.model.Floor;
 import com.example.MallManagement.model.Mall;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @org.springframework.stereotype.Repository
-public class MallRepository implements Repository<Mall> {
+public class MallRepository extends InMemoryRepository<Mall> implements RepositoryInterface<Mall> {
 
     private final List<Mall> malls = new ArrayList<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
@@ -17,29 +18,4 @@ public class MallRepository implements Repository<Mall> {
         malls.add(mall2);
     }
 
-    @Override
-    public void save(Mall mall) {
-        if (mall.getId() == null || mall.getId().isEmpty() || mall.getId().equals("0")) {
-            mall.setId(String.valueOf(idGenerator.getAndIncrement()));
-        } else {
-            delete(mall.getId());
-        }
-        malls.add(mall);
-    }
-
-    @Override
-    public List<Mall> findAll() { return malls; }
-
-    @Override
-    public Mall findById(String id) {
-        for (Mall m : malls)
-            if (m.getId().equals(id))
-                return m;
-        return null;
-    }
-
-    @Override
-    public void delete(String id) {
-        malls.removeIf(m -> m.getId().equals(id));
-    }
 }

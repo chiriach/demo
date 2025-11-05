@@ -1,6 +1,6 @@
 package com.example.MallManagement.model;
 
-public class StaffAssignment {
+public class StaffAssignment implements Identifiable{
     private String id;
     private String floorId;
     private String staffId;

@@ -1,7 +1,7 @@
 package com.example.MallManagement.model;
 
 import java.util.*;
-public class Floor {
+public class Floor implements Identifiable{
     private String id;
     private int number;
     private List<Shop> shops;

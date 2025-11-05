@@ -1,6 +1,6 @@
 package com.example.MallManagement.model;
 
-public class Purchase {
+public class Purchase implements Identifiable{
 
     private String id, customerId, shopId;
     private double amount;

@@ -1,6 +1,6 @@
 package com.example.MallManagement.model;
 
-public abstract class Staff {
+public abstract class Staff implements Identifiable{
 
     private String id, name;
     private int salary;

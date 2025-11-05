@@ -1,13 +1,13 @@
 package com.example.MallManagement.model;
 
-public class MaintenanceTask {
+public class MaintenanceTask implements Identifiable{
     private String id;
     private String description;
     private Status status;
     private String assignmentId;
     private int duration;
 
-    public enum Status{
+    public enum Status {
         Planned, Active, Done
     };
 
