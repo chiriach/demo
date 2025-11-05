@@ -6,7 +6,7 @@ public class Customer {
     private String id, name, currency;
     private List purchases;
 
-    Customer(String id, String name, String currency){
+    public Customer(String id, String name, String currency){
         this.id = id;
         this.name = name;
         this.currency = currency;

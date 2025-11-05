@@ -9,7 +9,7 @@ public class Shop{
     private List purchases;
     private int rating;
 
-    Shop(String id, String name, String ownerName, double areaSqm, int rating){
+    public Shop(String id, String name, String ownerName, double areaSqm, int rating){
         this.id = id;
         this.name = name;
         this.ownerName = ownerName;

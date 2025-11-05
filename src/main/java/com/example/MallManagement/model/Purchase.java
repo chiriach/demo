@@ -5,7 +5,7 @@ public class Purchase {
     private String id, customerId, shopId;
     private double amount;
 
-    Purchase(String id, String customerId, String shopId, double amount){
+    public Purchase(String id, String customerId, String shopId, double amount){
         this.id = id;
         this.customerId = customerId;
         this.shopId = shopId;

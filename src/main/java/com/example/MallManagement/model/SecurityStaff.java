@@ -4,7 +4,7 @@ public class SecurityStaff extends Staff {
 
     private String badgeNo;
 
-    SecurityStaff(String id, String name, String badgeNo,int salary) {
+    public SecurityStaff(String id, String name, String badgeNo, int salary) {
         super(id, name, salary);
         this.badgeNo = badgeNo;
     }
