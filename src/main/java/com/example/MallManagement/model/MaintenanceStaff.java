@@ -4,13 +4,18 @@ import java.awt.*;
 public class MaintenanceStaff extends Staff{
 
     private List assignments;
-    private String type;
+    private Type type;
 
-    public MaintenanceStaff(String id, String name, String type, int salary) {
+    public enum Type{
+        Electrical, Cleaning
+    };
+
+
+    public MaintenanceStaff(String id, String name, Type type, int salary) {
         super(id, name, salary);
         this.type = type;
         this.assignments = new List();
-        if(!this.type.equals("Electrical") && !this.type.equals("Cleaning")) throw new IllegalArgumentException();
+
     }
 
     public List getAssignments() {
@@ -21,11 +26,11 @@ public class MaintenanceStaff extends Staff{
         this.assignments = assignments;
     }
 
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 }

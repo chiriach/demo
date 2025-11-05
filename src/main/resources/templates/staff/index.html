@@ -5,50 +5,32 @@
 <body>
 <h1>All Staff</h1>
 <a href="/staff/new">Add New Staff</a>
-
-<h2>Maintenance Staff</h2>
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Salary</th>
         <th>Type</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="staff : ${maintenanceStaffList}">
-        <td th:text="${staff.id}"></td>
-        <td th:text="${staff.name}"></td>
-        <td th:text="${staff.salary}"></td>
-        <td th:text="${staff.type}"></td>
-        <td>
-            <form th:action="@{'/staff/maintenance/' + ${staff.id} + '/delete'}" method="post">
-                <button type="submit">Delete</button>
-            </form>
-        </td>
-    </tr>
-</table>
-
-<h2>Security Staff</h2>
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
+        <th>Badge No / Assignments</th>
         <th>Salary</th>
-        <th>Badge No.</th>
         <th>Actions</th>
     </tr>
-    <tr th:each="staff : ${securityStaffList}">
+    <tr th:each="staff : ${staffList}">
         <td th:text="${staff.id}"></td>
         <td th:text="${staff.name}"></td>
-        <td th:text="${staff.salary}"></td>
-        <td th:text="${staff.badgeNo}"></td>
+        <td th:text="${staff.getClass().getSimpleName()}"></td>
         <td>
-            <form th:action="@{'/staff/security/' + ${staff.id} + '/delete'}" method="post">
-                <button type="submit">Delete</button>
+            <span th:if="${staff instanceof T(com.example.MallManagement.model.SecurityStaff)}"
+                  th:text="${((T(com.example.MallManagement.model.SecurityStaff))staff).badgeNo}"></span>
+            <span th:if="${staff instanceof T(com.example.MallManagement.model.MaintenanceStaff)}"
+                  th:text="${#lists.size(((T(com.example.MallManagement.model.MaintenanceStaff))staff).assignments)} + ' assignments'"></span>
+        </td>
+        <td th:text="${staff.salary}"></td>
+        <td>
+            <form th:action="@{'/staff/' + ${staff.id} + '/delete'}" method="post">
+                <button type="submit">Delete Staff</button>
             </form>
         </td>
     </tr>
 </table>
-
 </body>
 </html>

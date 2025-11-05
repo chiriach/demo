@@ -12,8 +12,8 @@ public class MaintenanceTaskRepository implements Repository<MaintenanceTask> {
 
     public MaintenanceTaskRepository() {
         // Sample data
-        MaintenanceTask t1 = new MaintenanceTask(String.valueOf(idGenerator.getAndIncrement()), "Fix escalator", "Planned", "A101", 4);
-        MaintenanceTask t2 = new MaintenanceTask(String.valueOf(idGenerator.getAndIncrement()), "Replace lights", "Active", "A102", 2);
+        MaintenanceTask t1 = new MaintenanceTask(String.valueOf(idGenerator.getAndIncrement()), "Fix escalator", MaintenanceTask.Status.Planned, "A101", 4);
+        MaintenanceTask t2 = new MaintenanceTask(String.valueOf(idGenerator.getAndIncrement()), "Replace lights", MaintenanceTask.Status.Active, "A102", 2);
         tasks.add(t1);
         tasks.add(t2);
     }

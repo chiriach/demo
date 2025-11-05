@@ -28,7 +28,7 @@ public class ElectricalAssetController {
     // Show form for creating new asset
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("asset", new ElectricalAsset("", "", "Lift", "Working"));
+        model.addAttribute("asset", new ElectricalAsset("", "", ElectricalAsset.Type.Lift, ElectricalAsset.Status.Working));
         return "electrical/form";
     }
 

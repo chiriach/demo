@@ -1,33 +1,38 @@
 package com.example.MallManagement.repository;
 
-import com.example.MallManagement.model.Staff;
+import com.example.MallManagement.model.MaintenanceStaff;
+import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
-@org.springframework.stereotype.Repository
-public class MaintenanceStaffRepository implements Repository<Staff> {
-    private final List<Staff> staffList = new ArrayList<>();
+@Repository
+public class MaintenanceStaffRepository {
 
-    @Override
-    public void save(Staff staff) {
-        delete(staff.getId());
+    private final List<MaintenanceStaff> staffList = new ArrayList<>();
+    private final AtomicLong idGenerator = new AtomicLong(1);
+
+    public void save(MaintenanceStaff staff) {
+        if (staff.getId() == null || staff.getId().isEmpty() || staff.getId().equals("0")) {
+            staff.setId(String.valueOf(idGenerator.getAndIncrement()));
+        } else {
+            delete(staff.getId());
+        }
         staffList.add(staff);
     }
 
-    @Override
-    public List<Staff> findAll() {
+    public List<MaintenanceStaff> findAll() {
         return new ArrayList<>(staffList);
     }
 
-    @Override
-    public Staff findById(String id) {
-        for (Staff s : staffList)
-            if (s.getId().equals(id))
-                return s;
-        return null;
+    public MaintenanceStaff findById(String id) {
+        return staffList.stream()
+                .filter(s -> s.getId().equals(id))
+                .findFirst()
+                .orElse(null);
     }
 
-    @Override
     public void delete(String id) {
         staffList.removeIf(s -> s.getId().equals(id));
     }

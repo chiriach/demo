@@ -4,17 +4,18 @@ public class StaffAssignment {
     private String id;
     private String floorId;
     private String staffId;
-    private String shift;
+    private Shift shift;
 
-    public StaffAssignment(String id, String floorId, String staffId, String shift) {
+    public enum Shift{
+        Morning, Evening, Night
+    };
+
+    public StaffAssignment(String id, String floorId, String staffId, Shift shift) {
         this.id = id;
         this.floorId = floorId;
         this.staffId = staffId;
         this.shift = shift;
 
-        if (!this.shift.equals("Morning") && !this.shift.equals("Evening") && !this.shift.equals("Night")) {
-            throw new IllegalArgumentException();
-        }
     }
 
     public String getId() {
@@ -41,11 +42,11 @@ public class StaffAssignment {
         this.staffId = staffId;
     }
 
-    public String getShift() {
+    public Shift getShift() {
         return shift;
     }
 
-    public void setShift(String shift) {
+    public void setShift(Shift shift) {
         this.shift = shift;
     }
 }
