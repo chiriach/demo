@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class InMemoryRepository<T extends Identifiable> implements RepositoryInterface<T>{
 
-    private final List<T> entities = new ArrayList<>();
-    private final AtomicLong idGenerator = new AtomicLong(1);
+    protected final List<T> entities = new ArrayList<>();
+    protected final AtomicLong idGenerator = new AtomicLong(1);
 
     @Override
     public void save(T entity) {

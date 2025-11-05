@@ -1,12 +1,12 @@
 package com.example.MallManagement.model;
 
-import java.awt.*;
+import java.util.*;
 
 public class Shop implements Identifiable {
 
     private String id, name, ownerName;
     private double areaSqm;
-    private List purchases;
+    private List<Purchase> purchases;
     private int rating;
 
     public Shop(String id, String name, String ownerName, double areaSqm, int rating){
@@ -15,7 +15,7 @@ public class Shop implements Identifiable {
         this.ownerName = ownerName;
         this. areaSqm = areaSqm;
         this.rating = rating;
-        this.purchases = new List();
+        this.purchases = new ArrayList<>();
     }
 
     public String getId() {
