@@ -7,6 +7,8 @@ public class MaintenanceTask {
     private String assignmentId;
     private int duration;
 
+    public MaintenanceTask() {} // ✅ Required for Spring binding
+
     public MaintenanceTask(String id, String description, String status, String assignmentId, int duration) {
         this.id = id;
         this.description = description;
@@ -14,49 +16,23 @@ public class MaintenanceTask {
         this.assignmentId = assignmentId;
         this.duration = duration;
 
-        if(!this.status.equals("Planned") && !this.status.equals("Active") && !this.status.equals("Done") ){
-            throw new IllegalArgumentException();
+        if(!this.status.equals("Planned") && !this.status.equals("Active") && !this.status.equals("Done")) {
+            throw new IllegalArgumentException("Invalid status: " + status);
         }
     }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public String getDescription() {
-        return description;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public String getAssignmentId() { return assignmentId; }
+    public void setAssignmentId(String assignmentId) { this.assignmentId = assignmentId; }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getAssignmentId() {
-        return assignmentId;
-    }
-
-    public void setAssignmentId(String assignmentId) {
-        this.assignmentId = assignmentId;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
+    public int getDuration() { return duration; }
+    public void setDuration(int duration) { this.duration = duration; }
 }
-

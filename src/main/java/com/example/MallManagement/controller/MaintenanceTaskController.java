@@ -1,43 +1,48 @@
 package com.example.MallManagement.controller;
 
 import com.example.MallManagement.model.MaintenanceTask;
-import com.example.MallManagement.service.MaintenanceService;
+import com.example.MallManagement.service.MaintenanceTaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/maintenance")
-public class MaintenanceController {
+public class MaintenanceTaskController {
 
-    private final MaintenanceService maintenanceService;
+    private final MaintenanceTaskService taskService;
 
     @Autowired
-    public MaintenanceController(MaintenanceService maintenanceService) {
-        this.maintenanceService = maintenanceService;
+    public MaintenanceTaskController(MaintenanceTaskService taskService) {
+        this.taskService = taskService;
     }
 
     @GetMapping
     public String listTasks(Model model) {
-        model.addAttribute("tasks", maintenanceService.getTasks());
+        model.addAttribute("tasks", taskService.getAllTasks());
         return "maintenance/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("task", new MaintenanceTask("0", "", "Planned", "", 0));
+        model.addAttribute("task", new MaintenanceTask());
         return "maintenance/form";
     }
 
     @PostMapping
     public String createTask(@ModelAttribute MaintenanceTask task) {
-        maintenanceService.planTask(task);
+        // Validate status manually (simple safeguard)
+        if (!task.getStatus().equals("Planned") && !task.getStatus().equals("Active") && !task.getStatus().equals("Done")) {
+            throw new IllegalArgumentException("Invalid task status: " + task.getStatus());
+        }
+        taskService.addTask(task);
         return "redirect:/maintenance";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteTask(@PathVariable String id) {
+        taskService.deleteTask(id);
         return "redirect:/maintenance";
     }
 }
