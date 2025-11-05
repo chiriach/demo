@@ -4,9 +4,8 @@ import com.example.MallManagement.model.Purchase;
 import com.example.MallManagement.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import java.util.*;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/purchases")
@@ -27,13 +26,13 @@ public class PurchaseController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("purchase", new Purchase("0", "", "", 0.0));
+        model.addAttribute("purchase", new Purchase());
         return "purchase/form";
     }
 
     @PostMapping
     public String createPurchase(@ModelAttribute Purchase purchase) {
-        purchaseService.makePurchase(purchase);
+        purchaseService.addPurchase(purchase);
         return "redirect:/purchases";
     }
 

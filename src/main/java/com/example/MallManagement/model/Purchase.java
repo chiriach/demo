@@ -12,6 +12,10 @@ public class Purchase {
         this.amount = amount;
     }
 
+    public Purchase() {
+
+    }
+
     public String getId() {
         return id;
     }
