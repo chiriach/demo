@@ -1,0 +1,28 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Electrical Asset</title>
+</head>
+<body>
+<h1>Create Electrical Asset</h1>
+<form th:action="@{/assets}" th:object="${asset}" method="post">
+    <label>Floor ID:</label>
+    <input type="text" th:field="*{floorId}" /><br>
+
+    <label>Type:</label>
+    <select th:field="*{type}">
+        <option value="Lift">Lift</option>
+        <option value="AC">AC</option>
+        <option value="Light">Light</option>
+        <option value="Escalator">Escalator</option>
+    </select><br>
+
+    <label>Status:</label>
+    <select th:field="*{status}">
+        <option value="Working">Working</option>
+        <option value="Down">Down</option>
+    </select><br>
+
+    <button type="submit">Save Asset</button>
+</form>
+</body>
+</html>
