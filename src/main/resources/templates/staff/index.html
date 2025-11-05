@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Staff List</title>
+</head>
+<body>
+<h1>All Staff</h1>
+<a href="/staff/new">Add New Staff</a>
+
+<h2>Maintenance Staff</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Type</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="staff : ${maintenanceStaffList}">
+        <td th:text="${staff.id}"></td>
+        <td th:text="${staff.name}"></td>
+        <td th:text="${staff.salary}"></td>
+        <td th:text="${staff.type}"></td>
+        <td>
+            <form th:action="@{'/staff/maintenance/' + ${staff.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+<h2>Security Staff</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Salary</th>
+        <th>Badge No.</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="staff : ${securityStaffList}">
+        <td th:text="${staff.id}"></td>
+        <td th:text="${staff.name}"></td>
+        <td th:text="${staff.salary}"></td>
+        <td th:text="${staff.badgeNo}"></td>
+        <td>
+            <form th:action="@{'/staff/security/' + ${staff.id} + '/delete'}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Plan Task</title>
+</head>
+<body>
+<h1>Plan Maintenance Task</h1>
+<form th:action="@{/maintenance}" th:object="${task}" method="post">
+    <label>Description:</label>xmlns:th="http://www.thymeleaf.org">
+    <input type="text" th:field="*{description}" /><br>
+
+    <label>Status:</label>
+    <input type="text" th:field="*{status}" /><br>
+
+    <label>Assignment ID:</label>
+    <input type="text" th:field="*{assignmentId}" /><br>
+
+    <label>Duration:</label>
+    <input type="number" th:field="*{duration}" /><br>
+
+    <button type="submit">Save Task</button>
+</form>
+</body>
+</html>

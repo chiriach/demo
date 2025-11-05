@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Maintenance Tasks</title>
+</head>
+<body>
+<h1>All Maintenance Tasks</h1>
+<a href="/maintenance/new">Add New Task</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Assignment ID</th>
+        <th>Duration</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.status}"></td>
+        <td th:text="${task.assignmentId}"></td>
+        <td th:text="${task.duration}"></td>
+        <td>
+            <form th:action="@{'/maintenance/' + ${task.id} + '/delete'}" method="post">
+                <button type="submit">Delete Task</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

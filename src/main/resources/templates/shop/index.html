@@ -1,0 +1,33 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Shop List</title>
+</head>
+<body>
+<h1>All Shops</h1>
+<a href="/shops/new">Add New Shop</a>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Owner Name</th>
+        <th>Area (sqm)</th>
+        <th>Rating</th>
+        <th>Purchases (Count)</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="shop : ${shops}">
+        <td th:text="${shop.id}"></td>
+        <td th:text="${shop.name}"></td>
+        <td th:text="${shop.ownerName}"></td>
+        <td th:text="${shop.areaSqm}"></td>
+        <td th:text="${shop.rating}"></td>
+        <td th:text="${#lists.size(shop.purchases)}"></td>
+        <td>
+            <form th:action="@{'/shops/' + ${shop.id} + '/delete'}" method="post">
+                <button type="submit">Delete Shop</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
