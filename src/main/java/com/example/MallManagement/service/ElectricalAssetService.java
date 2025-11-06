@@ -7,27 +7,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ElectricalAssetService {
-
-    private final ElectricalAssetRepository assetRepo;
+public class ElectricalAssetService extends com.example.MallManagement.service.Service<ElectricalAsset> {
 
     public ElectricalAssetService(ElectricalAssetRepository assetRepo) {
-        this.assetRepo = assetRepo;
+        super(assetRepo);
     }
 
-    public void addAsset(ElectricalAsset asset) {
-        assetRepo.save(asset);
-    }
-
-    public List<ElectricalAsset> getAllAssets() {
-        return assetRepo.findAll();
-    }
-
-    public ElectricalAsset findAsset(String id) {
-        return assetRepo.findById(id);
-    }
-
-    public void deleteAsset(String id) {
-        assetRepo.delete(id);
-    }
 }

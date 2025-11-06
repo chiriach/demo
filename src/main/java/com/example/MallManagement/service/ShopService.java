@@ -7,26 +7,10 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class ShopService {
-    private final ShopRepository shopRepo;
+public class ShopService extends com.example.MallManagement.service.Service<Shop> {
 
     public ShopService(ShopRepository shopRepo) {
-        this.shopRepo = shopRepo;
+        super(shopRepo);
     }
 
-    public void addShop(Shop shop) {
-        shopRepo.save(shop);
-    }
-
-    public List<Shop> getAllShops() {
-        return shopRepo.findAll();
-    }
-
-    public Shop findShop(String id) {
-        return shopRepo.findById(id);
-    }
-
-    public void deleteShop(String id) {
-        shopRepo.delete(id);
-    }
 }

@@ -21,7 +21,7 @@ public class MallController {
 
     @GetMapping
     public String listMalls(Model model) {
-        model.addAttribute("malls", mallService.getAllMalls());
+        model.addAttribute("malls", mallService.findAll());
         return "mall/index";
     }
 
@@ -33,13 +33,13 @@ public class MallController {
 
     @PostMapping
     public String createMall(@ModelAttribute Mall mall) {
-        mallService.addMall(mall);
+        mallService.add(mall);
         return "redirect:/malls";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteMall(@PathVariable String id) {
-        mallService.deleteMall(id);
+        mallService.delete(id);
         return "redirect:/malls";
     }
 

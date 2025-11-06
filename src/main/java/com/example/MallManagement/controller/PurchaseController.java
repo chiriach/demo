@@ -20,7 +20,7 @@ public class PurchaseController {
 
     @GetMapping
     public String listPurchases(Model model) {
-        model.addAttribute("purchases", purchaseService.getAllPurchases());
+        model.addAttribute("purchases", purchaseService.findAll());
         return "purchase/index";
     }
 
@@ -32,13 +32,13 @@ public class PurchaseController {
 
     @PostMapping
     public String createPurchase(@ModelAttribute Purchase purchase) {
-        purchaseService.addPurchase(purchase);
+        purchaseService.add(purchase);
         return "redirect:/purchases";
     }
 
     @PostMapping("/{id}/delete")
     public String deletePurchase(@PathVariable String id) {
-        purchaseService.deletePurchase(id);
+        purchaseService.delete(id);
         return "redirect:/purchases";
     }
 }

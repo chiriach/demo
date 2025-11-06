@@ -18,31 +18,27 @@ public class FloorController {
         this.floorService = floorService;
     }
 
-    // ✅ GET /floors – show all floors
     @GetMapping
     public String listFloors(Model model) {
-        model.addAttribute("floors", floorService.getAllFloors());
+        model.addAttribute("floors", floorService.findAll());
         return "floor/index";
     }
 
-    // ✅ GET /floors/new – create standalone floor
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("floor", new Floor("0", 0));
         return "floor/form";
     }
 
-    // ✅ POST /floors – save new floor
     @PostMapping
     public String createFloor(@ModelAttribute Floor floor) {
-        floorService.addFloor(floor);
+        floorService.add(floor);
         return "redirect:/floors";
     }
 
-    // ✅ POST /floors/{id}/delete – delete floor
     @PostMapping("/{id}/delete")
     public String deleteFloor(@PathVariable String id) {
-        floorService.deleteFloor(id);
+        floorService.delete(id);
         return "redirect:/floors";
     }
 }

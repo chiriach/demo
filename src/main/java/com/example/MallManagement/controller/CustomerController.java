@@ -20,7 +20,7 @@ public class CustomerController {
 
     @GetMapping
     public String listCustomers(Model model) {
-        model.addAttribute("customers", customerService.getAllCustomers());
+        model.addAttribute("customers", customerService.findAll());
         return "customer/index";
     }
 
@@ -32,13 +32,13 @@ public class CustomerController {
 
     @PostMapping
     public String createCustomer(@ModelAttribute Customer customer) {
-        customerService.addCustomer(customer);
+        customerService.add(customer);
         return "redirect:/customers";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteCustomer(@PathVariable String id) {
-        customerService.deleteCustomer(id);
+        customerService.delete(id);
         return "redirect:/customers";
     }
 }

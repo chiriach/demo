@@ -20,7 +20,7 @@ public class MaintenanceTaskController {
 
     @GetMapping
     public String listTasks(Model model) {
-        model.addAttribute("tasks", taskService.getAllTasks());
+        model.addAttribute("tasks", taskService.findAll());
         return "maintenance/index";
     }
 
@@ -36,13 +36,13 @@ public class MaintenanceTaskController {
         if (!task.getStatus().equals("Planned") && !task.getStatus().equals("Active") && !task.getStatus().equals("Done")) {
             throw new IllegalArgumentException("Invalid task status: " + task.getStatus());
         }
-        taskService.addTask(task);
+        taskService.add(task);
         return "redirect:/maintenance";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteTask(@PathVariable String id) {
-        taskService.deleteTask(id);
+        taskService.delete(id);
         return "redirect:/maintenance";
     }
 }

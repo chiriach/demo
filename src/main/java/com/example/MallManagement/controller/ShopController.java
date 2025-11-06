@@ -21,7 +21,7 @@ public class ShopController {
 
     @GetMapping
     public String listShops(Model model) {
-        model.addAttribute("shops", shopService.getAllShops());
+        model.addAttribute("shops", shopService.findAll());
         return "shop/index";
     }
 
@@ -33,13 +33,13 @@ public class ShopController {
 
     @PostMapping
     public String createShop(@ModelAttribute Shop shop) {
-        shopService.addShop(shop);
+        shopService.add(shop);
         return "redirect:/shops";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteShop(@PathVariable String id) {
-        shopService.deleteShop(id);
+        shopService.delete(id);
         return "redirect:/shops";
     }
 }

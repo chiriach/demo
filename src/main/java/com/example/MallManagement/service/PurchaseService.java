@@ -6,26 +6,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PurchaseService {
-    private final PurchaseRepository purchaseRepo;
+public class PurchaseService extends com.example.MallManagement.service.Service<Purchase> {
 
     public PurchaseService(PurchaseRepository purchaseRepo) {
-        this.purchaseRepo = purchaseRepo;
-    }
-
-    public List<Purchase> getAllPurchases() {
-        return purchaseRepo.findAll();
-    }
-
-    public void addPurchase(Purchase purchase) {
-        purchaseRepo.save(purchase);
-    }
-
-    public void deletePurchase(String id) {
-        purchaseRepo.delete(id);
-    }
-
-    public Purchase findPurchase(String id) {
-        return purchaseRepo.findById(id);
+        super(purchaseRepo);
     }
 }

@@ -7,27 +7,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SecurityStaffService {
-
-    private final SecurityStaffRepository repository;
-
-    public SecurityStaffService(SecurityStaffRepository repository) {
-        this.repository = repository;
+public class SecurityStaffService extends com.example.MallManagement.service.Service<SecurityStaff> {
+    public SecurityStaffService(SecurityStaffRepository securityStaffRepo) {
+        super(securityStaffRepo);
     }
 
-    public void addStaff(SecurityStaff staff) {
-        repository.save(staff);
-    }
-
-    public List<SecurityStaff> getAllStaff() {
-        return repository.findAll();
-    }
-
-    public SecurityStaff findStaff(String id) {
-        return repository.findById(id);
-    }
-
-    public void deleteStaff(String id) {
-        repository.delete(id);
-    }
 }

@@ -18,31 +18,27 @@ public class ElectricalAssetController {
         this.assetService = assetService;
     }
 
-    // Show all assets
     @GetMapping
     public String listAssets(Model model) {
-        model.addAttribute("assets", assetService.getAllAssets());
+        model.addAttribute("assets", assetService.findAll());
         return "electrical/index";
     }
 
-    // Show form for creating new asset
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("asset", new ElectricalAsset("", "", ElectricalAsset.Type.Lift, ElectricalAsset.Status.Working));
         return "electrical/form";
     }
 
-    // Handle form submission to create asset
     @PostMapping
     public String createAsset(@ModelAttribute ElectricalAsset asset) {
-        assetService.addAsset(asset);
+        assetService.add(asset);
         return "redirect:/assets";
     }
 
-    // Delete asset
     @PostMapping("/{id}/delete")
     public String deleteAsset(@PathVariable String id) {
-        assetService.deleteAsset(id);
+        assetService.delete(id);
         return "redirect:/assets";
     }
 }
