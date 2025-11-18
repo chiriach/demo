@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Security Staff</title>
@@ -20,8 +19,11 @@
         <td th:text="${staff.badgeNo}"></td>
         <td th:text="${staff.salary}"></td>
         <td>
-            <form th:action="@{'/security_staff/' + ${staff.id} + '/delete'}" method="post">
-                <button type="submit">Delete</button>
+            <a th:href="@{'/security_staff/' + ${staff.id} + '/update'}">
+                <button type="button">Update Staff</button>
+            </a>
+            <form th:action="@{'/security_staff/' + ${staff.id} + '/delete'}" method="post" style="display:inline;">
+                <button type="submit">Delete Staff</button>
             </form>
         </td>
     </tr>

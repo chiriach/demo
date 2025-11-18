@@ -1,15 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Customer</title>
+    <title>Customer</title>
 </head>
 <body>
-<h1>Create Customer</h1>
-<form th:action="@{/customers}" th:object="${customer}" method="post">
+<h1 th:text="${customer.id} != null ? 'Edit Customer' : 'Create Customer'"></h1>
+
+<form th:action="${customer.id} != null ? @{'/customers/' + ${customer.id} + '/update'} : @{/customers}"
+      th:object="${customer}" method="post">
+
     <label>Name:</label>
     <input type="text" th:field="*{name}" /><br>
+
     <label>Currency:</label>
     <input type="text" th:field="*{currency}" /><br>
-    <button type="submit">Save</button>
+
+    <button type="submit">Save Customer</button>
 </form>
 </body>
 </html>

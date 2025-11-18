@@ -1,11 +1,13 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Maintenance Staff</title>
+    <title>Maintenance Staff</title>
 </head>
 <body>
-<h1>Create Maintenance Staff</h1>
-<form th:action="@{/maintenance_staff}" th:object="${staff}" method="post">
+<h1 th:text="${staff.id} != null ? 'Edit Maintenance Staff' : 'Create Maintenance Staff'"></h1>
+
+<form th:action="${staff.id} != null ? @{'/maintenance_staff/' + ${staff.id} + '/update'} : @{/maintenance_staff}"
+      th:object="${staff}" method="post">
+
     <label>Name:</label>
     <input type="text" th:field="*{name}" /><br>
 
@@ -14,12 +16,11 @@
 
     <label>Type:</label>
     <select th:field="*{type}">
-        <option th:value="Electrical" th:text="'Electrical'"></option>
-        <option th:value="Cleaning" th:text="'Cleaning'"></option>
+        <option value="Electrical">Electrical</option>
+        <option value="Cleaning">Cleaning</option>
     </select><br><br>
 
-    <button type="submit">Save</button>
+    <button type="submit">Save Staff</button>
 </form>
-<a th:href="@{/maintenance_staff}">Back to Staff List</a>
 </body>
 </html>

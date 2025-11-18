@@ -19,7 +19,10 @@
         <td th:text="${asset.type}"></td>
         <td th:text="${asset.status}"></td>
         <td>
-            <form th:action="@{'/assets/' + ${asset.id} + '/delete'}" method="post">
+            <a th:href="@{'/assets/' + ${asset.id} + '/update'}">
+                <button type="button">Update Asset</button>
+            </a>
+            <form th:action="@{'/assets/' + ${asset.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete Asset</button>
             </form>
         </td>

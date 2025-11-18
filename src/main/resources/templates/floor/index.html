@@ -1,7 +1,6 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Floor List</title>
+    <title>Floors</title>
 </head>
 <body>
 <h1>All Floors</h1>
@@ -24,7 +23,10 @@
         <td th:text="${#lists.size(floor.electricals)}"></td>
         <td th:text="${#lists.size(floor.assignments)}"></td>
         <td>
-            <form th:action="@{'/floors/' + ${floor.id} + '/delete'}" method="post">
+            <a th:href="@{'/floors/' + ${floor.id} + '/update'}">
+                <button type="button">Update Floor</button>
+            </a>
+            <form th:action="@{'/floors/' + ${floor.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete Floor</button>
             </form>
         </td>

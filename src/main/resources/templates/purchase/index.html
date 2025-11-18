@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Purchase List</title>
+    <title>Purchases</title>
 </head>
 <body>
 <h1>All Purchases</h1>
-<a href="/purchases/new">Make New Purchase</a>
+<a th:href="@{/purchases/new}">Make New Purchase</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -19,7 +19,10 @@
         <td th:text="${purchase.shopId}"></td>
         <td th:text="${purchase.amount}"></td>
         <td>
-            <form th:action="@{'/purchases/' + ${purchase.id} + '/delete'}" method="post">
+            <a th:href="@{'/purchases/' + ${purchase.id} + '/update'}">
+                <button type="button">Update Purchase</button>
+            </a>
+            <form th:action="@{'/purchases/' + ${purchase.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete Purchase</button>
             </form>
         </td>

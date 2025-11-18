@@ -27,7 +27,7 @@ public class ShopController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("shop", new Shop("0", "", "", 0.0, 0));
+        model.addAttribute("shop", new Shop(null, "", "", 0.0, 0));
         return "shop/form";
     }
 
@@ -42,4 +42,22 @@ public class ShopController {
         shopService.delete(id);
         return "redirect:/shops";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Shop shop = shopService.findById(id);
+        if (shop == null) return "redirect:/shops";
+
+        model.addAttribute("shop", shop);
+        return "shop/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateShop(@PathVariable String id,
+                             @ModelAttribute Shop updatedShop) {
+
+        shopService.update(id, updatedShop);
+        return "redirect:/shops";
+    }
+
 }

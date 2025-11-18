@@ -32,5 +32,10 @@ public class Service<E extends Identifiable> implements ServiceInterface<E> {
     public void delete(String id) {
         repository.delete(id);
     }
+
+    @Override
+    public void update(String id, E updateEntity) {
+        repository.update(id, updateEntity);
+    }
 }
 

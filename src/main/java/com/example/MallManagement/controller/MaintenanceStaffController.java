@@ -41,4 +41,22 @@ public class MaintenanceStaffController {
         maintenanceStaffService.delete(id);
         return "redirect:/maintenance_staff";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        MaintenanceStaff staff = maintenanceStaffService.findById(id);
+        if (staff == null) return "redirect:/maintenance_staff";
+
+        model.addAttribute("staff", staff);
+        return "maintenance_staff/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateStaff(@PathVariable String id,
+                              @ModelAttribute MaintenanceStaff updatedStaff) {
+
+        maintenanceStaffService.update(id, updatedStaff);
+        return "redirect:/maintenance_staff";
+    }
+
 }

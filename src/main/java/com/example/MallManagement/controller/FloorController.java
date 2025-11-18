@@ -26,7 +26,7 @@ public class FloorController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("floor", new Floor("0", 0));
+        model.addAttribute("floor", new Floor(null, 0));
         return "floor/form";
     }
 
@@ -41,4 +41,22 @@ public class FloorController {
         floorService.delete(id);
         return "redirect:/floors";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Floor floor = floorService.findById(id);
+        if (floor == null) return "redirect:/floors";
+
+        model.addAttribute("floor", floor);
+        return "floor/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateFloor(@PathVariable String id,
+                              @ModelAttribute Floor updatedFloor) {
+
+        floorService.update(id, updatedFloor);
+        return "redirect:/floors";
+    }
+
 }

@@ -41,4 +41,22 @@ public class MaintenanceTaskController {
         taskService.delete(id);
         return "redirect:/tasks";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        MaintenanceTask task = taskService.findById(id);
+        if (task == null) return "redirect:/tasks";
+
+        model.addAttribute("task", task);
+        return "task/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateTask(@PathVariable String id,
+                             @ModelAttribute MaintenanceTask updatedTask) {
+
+        taskService.update(id, updatedTask);
+        return "redirect:/tasks";
+    }
+
 }

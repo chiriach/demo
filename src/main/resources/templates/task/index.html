@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Maintenance Tasks</title>
@@ -22,7 +21,10 @@
         <td th:text="${task.assignmentId}"></td>
         <td th:text="${task.duration}"></td>
         <td>
-            <form th:action="@{'/tasks/' + ${task.id} + '/delete'}" method="post">
+            <a th:href="@{'/tasks/' + ${task.id} + '/update'}">
+                <button type="button">Update Task</button>
+            </a>
+            <form th:action="@{'/tasks/' + ${task.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete Task</button>
             </form>
         </td>

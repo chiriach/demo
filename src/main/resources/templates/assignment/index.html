@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Staff Assignments</title>
@@ -20,8 +19,11 @@
         <td th:text="${assignment.staffId}"></td>
         <td th:text="${assignment.shift}"></td>
         <td>
-            <form th:action="@{'/assignments/' + ${assignment.id} + '/delete'}" method="post">
-                <button type="submit">Delete</button>
+            <a th:href="@{'/assignments/' + ${assignment.id} + '/update'}">
+                <button type="button">Update Assignment</button>
+            </a>
+            <form th:action="@{'/assignments/' + ${assignment.id} + '/delete'}" method="post" style="display:inline;">
+                <button type="submit">Delete Assignment</button>
             </form>
         </td>
     </tr>

@@ -41,4 +41,22 @@ public class PurchaseController {
         purchaseService.delete(id);
         return "redirect:/purchases";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Purchase purchase = purchaseService.findById(id);
+        if (purchase == null) return "redirect:/purchases";
+
+        model.addAttribute("purchase", purchase);
+        return "purchase/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updatePurchase(@PathVariable String id,
+                                 @ModelAttribute Purchase updatedPurchase) {
+
+        purchaseService.update(id, updatedPurchase);
+        return "redirect:/purchases";
+    }
+
 }

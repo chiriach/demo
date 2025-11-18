@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 @Controller
 @RequestMapping("/assets")
 public class ElectricalAssetController {
@@ -26,7 +25,7 @@ public class ElectricalAssetController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("asset", new ElectricalAsset("", "", ElectricalAsset.Type.Lift, ElectricalAsset.Status.Working));
+        model.addAttribute("asset", new ElectricalAsset(null, "", ElectricalAsset.Type.Lift, ElectricalAsset.Status.Working));
         return "asset/form";
     }
 
@@ -39,6 +38,23 @@ public class ElectricalAssetController {
     @PostMapping("/{id}/delete")
     public String deleteAsset(@PathVariable String id) {
         assetService.delete(id);
+        return "redirect:/assets";
+    }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        ElectricalAsset asset = assetService.findById(id);
+        if (asset == null) return "redirect:/assets";
+
+        model.addAttribute("asset", asset);
+        return "asset/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateAsset(@PathVariable String id,
+                              @ModelAttribute ElectricalAsset updatedAsset) {
+
+        assetService.update(id, updatedAsset);
         return "redirect:/assets";
     }
 }

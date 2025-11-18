@@ -1,10 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Make Purchase</title>
+    <title>Purchase</title>
 </head>
 <body>
-<h1>Make a Purchase</h1>
-<form th:action="@{/purchases}" th:object="${purchase}" method="post">
+<h1 th:text="${purchase.id} != null ? 'Edit Purchase' : 'Make Purchase'"></h1>
+
+<form th:action="${purchase.id} != null ? @{'/purchases/' + ${purchase.id} + '/update'} : @{/purchases}"
+      th:object="${purchase}" method="post">
+
     <label>Customer ID:</label>
     <input type="text" th:field="*{customerId}" /><br>
 
@@ -12,7 +15,7 @@
     <input type="text" th:field="*{shopId}" /><br>
 
     <label>Amount:</label>
-    <input type-="number" step="0.01" th:field="*{amount}" /><br>
+    <input type="number" step="0.01" th:field="*{amount}" /><br><br>
 
     <button type="submit">Save Purchase</button>
 </form>

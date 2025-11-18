@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Customer List</title>
+    <title>Customers</title>
 </head>
 <body>
 <h1>All Customers</h1>
-<a href="/customers/new">Add New Customer</a>
+<a th:href="@{/customers/new}">Add New Customer</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -19,7 +19,10 @@
         <td th:text="${customer.currency}"></td>
         <td th:text="${#lists.size(customer.purchases)}"></td>
         <td>
-            <form th:action="@{'/customers/' + ${customer.id} + '/delete'}" method="post">
+            <a th:href="@{'/customers/' + ${customer.id} + '/update'}">
+                <button type="button">Update Customer</button>
+            </a>
+            <form th:action="@{'/customers/' + ${customer.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete Customer</button>
             </form>
         </td>

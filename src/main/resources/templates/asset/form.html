@@ -1,10 +1,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Electrical Asset</title>
+    <title>Electrical Asset</title>
 </head>
 <body>
-<h1>Create Electrical Asset</h1>
-<form th:action="@{/assets}" th:object="${asset}" method="post">
+<h1 th:text="${asset.id} != null ? 'Edit Electrical Asset' : 'Create Electrical Asset'"></h1>
+
+<form th:action="${asset.id} != null ? @{'/assets/' + ${asset.id} + '/update'} : @{/assets}"
+      th:object="${asset}" method="post">
+
     <label>Floor ID:</label>
     <input type="text" th:field="*{floorId}" /><br>
 

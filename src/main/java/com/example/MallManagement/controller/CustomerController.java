@@ -41,4 +41,22 @@ public class CustomerController {
         customerService.delete(id);
         return "redirect:/customers";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Customer customer = customerService.findById(id);
+        if (customer == null) return "redirect:/customers";
+
+        model.addAttribute("customer", customer);
+        return "customer/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateCustomer(@PathVariable String id,
+                                 @ModelAttribute Customer updatedCustomer) {
+
+        customerService.update(id, updatedCustomer);
+        return "redirect:/customers";
+    }
+
 }

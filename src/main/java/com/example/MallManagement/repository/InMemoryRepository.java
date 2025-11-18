@@ -46,4 +46,31 @@ public class InMemoryRepository<E extends Identifiable> implements RepositoryInt
     public void delete(String id) {
         data.removeIf(e -> e.getId().equals(id));
     }
+
+    @Override
+    public void update(String id, E updatedEntity) {
+        E existing = findById(id);
+        if (existing == null) {
+            throw new RuntimeException("Entity with ID " + id + " not found.");
+        }
+
+        // Copy all fields from updatedEntity to existing, excluding 'id' and final fields
+        try {
+            Class<?> clazz = existing.getClass();
+            while (clazz != null) { // include superclass fields
+                var fields = clazz.getDeclaredFields();
+                for (var field : fields) {
+                    field.setAccessible(true);
+                    if (!java.lang.reflect.Modifier.isFinal(field.getModifiers()) &&
+                            !field.getName().equals("id")) { // don't overwrite ID
+                        Object newValue = field.get(updatedEntity);
+                        field.set(existing, newValue);
+                    }
+                }
+                clazz = clazz.getSuperclass();
+            }
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException("Failed to update entity", e);
+        }
+    }
 }

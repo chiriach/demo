@@ -41,4 +41,21 @@ public class StaffAssignmentController {
         service.delete(id);
         return "redirect:/assignments";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        StaffAssignment assignment = service.findById(id);
+        if (assignment == null) return "redirect:/assignments";
+
+        model.addAttribute("assignment", assignment);
+        return "assignment/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateAssignment(@PathVariable String id,
+                                   @ModelAttribute StaffAssignment updatedAssignment) {
+
+        service.update(id, updatedAssignment);
+        return "redirect:/assignments";
+    }
 }

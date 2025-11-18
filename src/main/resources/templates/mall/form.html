@@ -1,15 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Mall</title>
+    <title>Mall</title>
 </head>
 <body>
-<h1>Create Mall</h1>
-<form th:action="@{/malls}" th:object="${mall}" method="post">
+<h1 th:text="${mall.id} != null ? 'Edit Mall' : 'Create Mall'"></h1>
+
+<form th:action="${mall.id} != null ? @{'/malls/' + ${mall.id} + '/update'} : @{/malls}"
+      th:object="${mall}" method="post">
+
     <label>Name:</label>
     <input type="text" th:field="*{name}" /><br>
+
     <label>City:</label>
-    <input type="text" th:field="*{city}" /><br>
-    <button type="submit">Save</button>
+    <input type="text" th:field="*{city}" /><br><br>
+
+    <button type="submit">Save Mall</button>
 </form>
 </body>
 </html>

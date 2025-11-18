@@ -1,12 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Mall List</title>
+    <title>Malls</title>
 </head>
 <body>
 <h1>All Malls</h1>
-
-<a href="/malls/new">Add New Mall</a>
-
+<a th:href="@{/malls/new}">Add New Mall</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -15,12 +13,10 @@
         <th>Floors</th>
         <th>Actions</th>
     </tr>
-
     <tr th:each="mall : ${malls}">
         <td th:text="${mall.id}"></td>
         <td th:text="${mall.name}"></td>
         <td th:text="${mall.city}"></td>
-
         <td>
             <ul>
                 <li th:each="floor : ${mall.floors}">
@@ -28,15 +24,15 @@
                 </li>
             </ul>
         </td>
-
         <td>
-            <form th:action="@{'/malls/' + ${mall.id} + '/delete'}" method="post">
+            <a th:href="@{'/malls/' + ${mall.id} + '/update'}">
+                <button type="button">Update Mall</button>
+            </a>
+            <form th:action="@{'/malls/' + ${mall.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete Mall</button>
             </form>
         </td>
     </tr>
-
 </table>
-
 </body>
 </html>

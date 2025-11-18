@@ -27,7 +27,7 @@ public class MallController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("mall", new Mall("0", "", ""));
+        model.addAttribute("mall", new Mall(null, "", ""));
         return "mall/form";
     }
 
@@ -42,4 +42,22 @@ public class MallController {
         mallService.delete(id);
         return "redirect:/malls";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        Mall mall = mallService.findById(id);
+        if (mall == null) return "redirect:/malls";
+
+        model.addAttribute("mall", mall);
+        return "mall/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateMall(@PathVariable String id,
+                             @ModelAttribute Mall updatedMall) {
+
+        mallService.update(id, updatedMall);
+        return "redirect:/malls";
+    }
+
 }

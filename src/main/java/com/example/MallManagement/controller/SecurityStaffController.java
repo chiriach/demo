@@ -41,4 +41,22 @@ public class SecurityStaffController {
         service.delete(id);
         return "redirect:/security_staff";
     }
+
+    @GetMapping("/{id}/update")
+    public String showEditForm(@PathVariable String id, Model model) {
+        SecurityStaff staff = service.findById(id);
+        if (staff == null) return "redirect:/security_staff";
+
+        model.addAttribute("staff", staff);
+        return "security_staff/form";
+    }
+
+    @PostMapping("/{id}/update")
+    public String updateStaff(@PathVariable String id,
+                              @ModelAttribute SecurityStaff updatedStaff) {
+
+        service.update(id, updatedStaff);
+        return "redirect:/security_staff";
+    }
+
 }

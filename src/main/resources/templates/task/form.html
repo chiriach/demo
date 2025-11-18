@@ -1,19 +1,21 @@
-<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create Maintenance Task</title>
+    <title>Maintenance Task</title>
 </head>
 <body>
-<h1>Create Maintenance Task</h1>
-<form th:action="@{/tasks}" th:object="${task}" method="post">
+<h1 th:text="${task.id} != null ? 'Edit Maintenance Task' : 'Create Maintenance Task'"></h1>
+
+<form th:action="${task.id} != null ? @{'/tasks/' + ${task.id} + '/update'} : @{/tasks}"
+      th:object="${task}" method="post">
+
     <label>Description:</label>
     <input type="text" th:field="*{description}" /><br>
 
     <label>Status:</label>
     <select th:field="*{status}">
-        <option th:value="Planned" th:text="'Planned'"></option>
-        <option th:value="Active" th:text="'Active'"></option>
-        <option th:value="Done" th:text="'Done'"></option>
+        <option value="Planned">Planned</option>
+        <option value="Active">Active</option>
+        <option value="Done">Done</option>
     </select><br>
 
     <label>Assignment ID:</label>
@@ -22,8 +24,7 @@
     <label>Duration (hours):</label>
     <input type="number" th:field="*{duration}" min="0" /><br><br>
 
-    <button type="submit">Save</button>
+    <button type="submit">Save Task</button>
 </form>
-<a th:href="@{/tasks}">Back to Tasks</a>
 </body>
 </html>

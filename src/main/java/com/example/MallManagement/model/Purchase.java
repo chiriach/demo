@@ -5,15 +5,13 @@ public class Purchase implements Identifiable{
     private String id, customerId, shopId;
     private double amount;
 
+    public Purchase() {}
+
     public Purchase(String id, String customerId, String shopId, double amount){
         this.id = id;
         this.customerId = customerId;
         this.shopId = shopId;
         this.amount = amount;
-    }
-
-    public Purchase() {
-
     }
 
     public String getId() {
