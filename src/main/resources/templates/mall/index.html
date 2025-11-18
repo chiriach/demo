@@ -4,7 +4,9 @@
 </head>
 <body>
 <h1>All Malls</h1>
+
 <a href="/malls/new">Add New Mall</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
@@ -13,27 +15,28 @@
         <th>Floors</th>
         <th>Actions</th>
     </tr>
+
     <tr th:each="mall : ${malls}">
         <td th:text="${mall.id}"></td>
         <td th:text="${mall.name}"></td>
         <td th:text="${mall.city}"></td>
+
         <td>
             <ul>
                 <li th:each="floor : ${mall.floors}">
                     Floor <span th:text="${floor.number}"></span>
-                    <form th:action="@{'/malls/' + ${mall.id} + '/floors/' + ${floor.id} + '/delete'}" method="post" style="display:inline">
-                        <button type="submit">Delete Floor</button>
-                    </form>
                 </li>
             </ul>
-            <a th:href="@{'/malls/' + ${mall.id} + '/floors/new'}">Add Floor</a>
         </td>
+
         <td>
             <form th:action="@{'/malls/' + ${mall.id} + '/delete'}" method="post">
                 <button type="submit">Delete Mall</button>
             </form>
         </td>
     </tr>
+
 </table>
+
 </body>
 </html>

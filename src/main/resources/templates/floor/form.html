@@ -1,13 +1,22 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Floor</title>
+    <title>Create Floor</title>
 </head>
 <body>
-<h1>Add Floor</h1>
-<form th:action="@{'/malls/' + ${mallId} + '/floors'}" th:object="${floor}" method="post">
-    <label>Floor Number:</label>
-    <input type="number" th:field="*{number}" /><br>
+<h1>Create Floor</h1>
+<form th:action="@{/floors}" th:object="${floor}" method="post">
+    <label>Number:</label>
+    <input type="number" th:field="*{number}" min="0" /><br><br>
+
+    <!-- Optional: just show counts for now -->
+    <label>Shops:</label> <span th:text="${#lists.size(floor.shops)}">0</span><br>
+    <label>Tasks:</label> <span th:text="${#lists.size(floor.tasks)}">0</span><br>
+    <label>Electricals:</label> <span th:text="${#lists.size(floor.electricals)}">0</span><br>
+    <label>Assignments:</label> <span th:text="${#lists.size(floor.assignments)}">0</span><br><br>
+
     <button type="submit">Save</button>
 </form>
+<a th:href="@{/floors}">Back to Floors</a>
 </body>
 </html>

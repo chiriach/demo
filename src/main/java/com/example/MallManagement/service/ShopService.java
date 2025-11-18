@@ -12,5 +12,4 @@ public class ShopService extends com.example.MallManagement.service.Service<Shop
     public ShopService(ShopRepository shopRepo) {
         super(shopRepo);
     }
-
 }

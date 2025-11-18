@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Security Staff</title>
+</head>
+<body>
+<h1>Create Security Staff</h1>
+<form th:action="@{/security_staff}" th:object="${staff}" method="post">
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" /><br>
+
+    <label>Badge No:</label>
+    <input type="text" th:field="*{badgeNo}" /><br>
+
+    <label>Salary:</label>
+    <input type="number" th:field="*{salary}" /><br><br>
+
+    <button type="submit">Save</button>
+</form>
+<a th:href="@{/security_staff}">Back to Staff List</a>
+</body>
+</html>

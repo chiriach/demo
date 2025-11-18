@@ -21,13 +21,13 @@ public class ElectricalAssetController {
     @GetMapping
     public String listAssets(Model model) {
         model.addAttribute("assets", assetService.findAll());
-        return "electrical/index";
+        return "asset/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("asset", new ElectricalAsset("", "", ElectricalAsset.Type.Lift, ElectricalAsset.Status.Working));
-        return "electrical/form";
+        return "asset/form";
     }
 
     @PostMapping

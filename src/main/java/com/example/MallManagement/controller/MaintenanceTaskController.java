@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/maintenance")
+@RequestMapping("/tasks")
 public class MaintenanceTaskController {
 
     private final MaintenanceTaskService taskService;
@@ -21,28 +21,24 @@ public class MaintenanceTaskController {
     @GetMapping
     public String listTasks(Model model) {
         model.addAttribute("tasks", taskService.findAll());
-        return "maintenance/index";
+        return "task/index";
     }
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("task", new MaintenanceTask());
-        return "maintenance/form";
+        return "task/form";
     }
 
     @PostMapping
     public String createTask(@ModelAttribute MaintenanceTask task) {
-        // Validate status manually (simple safeguard)
-        if (!task.getStatus().equals("Planned") && !task.getStatus().equals("Active") && !task.getStatus().equals("Done")) {
-            throw new IllegalArgumentException("Invalid task status: " + task.getStatus());
-        }
         taskService.add(task);
-        return "redirect:/maintenance";
+        return "redirect:/tasks";
     }
 
     @PostMapping("/{id}/delete")
     public String deleteTask(@PathVariable String id) {
         taskService.delete(id);
-        return "redirect:/maintenance";
+        return "redirect:/tasks";
     }
 }

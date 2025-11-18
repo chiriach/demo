@@ -1,20 +1,19 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Floor List</title>
 </head>
 <body>
 <h1>All Floors</h1>
-
-<a href="/malls">Back to Malls</a>
-
+<a th:href="@{/floors/new}">Add New Floor</a>
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Number</th>
         <th>Shops</th>
-        <th>Maintenance Tasks</th>
-        <th>Electrical Assets</th>
-        <th>Staff Assignments</th>
+        <th>Tasks</th>
+        <th>Electricals</th>
+        <th>Assignments</th>
         <th>Actions</th>
     </tr>
     <tr th:each="floor : ${floors}">
@@ -26,7 +25,7 @@
         <td th:text="${#lists.size(floor.assignments)}"></td>
         <td>
             <form th:action="@{'/floors/' + ${floor.id} + '/delete'}" method="post">
-                <button type="submit">Delete</button>
+                <button type="submit">Delete Floor</button>
             </form>
         </td>
     </tr>

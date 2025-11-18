@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Staff Assignment</title>
+</head>
+<body>
+<h1>Create Staff Assignment</h1>
+<form th:action="@{/assignments}" th:object="${assignment}" method="post">
+    <label>Floor ID:</label>
+    <input type="text" th:field="*{floorId}" /><br>
+
+    <label>Staff ID:</label>
+    <input type="text" th:field="*{staffId}" /><br>
+
+    <label>Shift:</label>
+    <select th:field="*{shift}">
+        <option th:value="Morning" th:text="'Morning'"></option>
+        <option th:value="Evening" th:text="'Evening'"></option>
+        <option th:value="Night" th:text="'Night'"></option>
+    </select><br><br>
+
+    <button type="submit">Save</button>
+</form>
+<a th:href="@{/assignments}">Back to Assignments</a>
+</body>
+</html>

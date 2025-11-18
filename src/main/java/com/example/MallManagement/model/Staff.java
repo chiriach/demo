@@ -1,14 +1,27 @@
 package com.example.MallManagement.model;
 
+import java.util.*;
+
+
 public abstract class Staff implements Identifiable{
 
     private String id, name;
     private int salary;
+    private List<StaffAssignment> assignments;
 
     Staff(String id, String name, int salary){
         this.id = id;
         this.name = name;
         this.salary = salary;
+        this.assignments = new ArrayList<>();
+    }
+
+    public List<StaffAssignment> getAssignments() {
+        return assignments;
+    }
+
+    public void setAssignments(List<StaffAssignment> assignments) {
+        this.assignments = assignments;
     }
 
     public String getName() {
