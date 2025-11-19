@@ -1,0 +1,12 @@
+[
+  {"id":"1","floorId":"1","staffId":"S1","shift":"Morning"},
+  {"id":"2","floorId":"1","staffId":"S2","shift":"Evening"},
+  {"id":"3","floorId":"2","staffId":"S3","shift":"Morning"},
+  {"id":"4","floorId":"2","staffId":"S4","shift":"Evening"},
+  {"id":"5","floorId":"3","staffId":"S5","shift":"Morning"},
+  {"id":"6","floorId":"3","staffId":"S6","shift":"Evening"},
+  {"id":"7","floorId":"4","staffId":"S7","shift":"Morning"},
+  {"id":"8","floorId":"4","staffId":"S8","shift":"Evening"},
+  {"id":"9","floorId":"5","staffId":"S9","shift":"Morning"},
+  {"id":"10","floorId":"5","staffId":"S10","shift":"Evening"}
+]

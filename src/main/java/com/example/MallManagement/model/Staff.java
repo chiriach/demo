@@ -9,6 +9,8 @@ public abstract class Staff implements Identifiable{
     private int salary;
     private List<StaffAssignment> assignments;
 
+    public Staff(){}
+
     Staff(String id, String name, int salary){
         this.id = id;
         this.name = name;

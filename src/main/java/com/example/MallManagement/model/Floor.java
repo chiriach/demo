@@ -9,6 +9,8 @@ public class Floor implements Identifiable{
     private List<ElectricalAsset> electricals;
     private List<StaffAssignment> assignments;
 
+    public Floor(){}
+
     public Floor(String id, int number) {
         this.id = id;
         this.number = number;

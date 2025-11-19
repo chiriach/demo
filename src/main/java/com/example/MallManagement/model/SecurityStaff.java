@@ -4,6 +4,8 @@ public class SecurityStaff extends Staff implements Identifiable{
 
     private String badgeNo;
 
+    public SecurityStaff(){}
+
     public SecurityStaff(String id, String name, String badgeNo, int salary) {
         super(id, name, salary);
         this.badgeNo = badgeNo;

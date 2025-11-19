@@ -1,0 +1,12 @@
+[
+  {"id":"1","description":"Clean AC","status":"Planned","assignmentId":"1","duration":2},
+  {"id":"2","description":"Check lights","status":"Active","assignmentId":"2","duration":1},
+  {"id":"3","description":"Test escalator","status":"Planned","assignmentId":"3","duration":3},
+  {"id":"4","description":"Fix elevator","status":"Done","assignmentId":"4","duration":5},
+  {"id":"5","description":"Inspect wiring","status":"Planned","assignmentId":"5","duration":4},
+  {"id":"6","description":"Replace bulbs","status":"Done","assignmentId":"6","duration":2},
+  {"id":"7","description":"Maintenance HVAC","status":"Active","assignmentId":"7","duration":3},
+  {"id":"8","description":"Check fire alarms","status":"Done","assignmentId":"8","duration":2},
+  {"id":"9","description":"Clean corridors","status":"Planned","assignmentId":"9","duration":1},
+  {"id":"10","description":"Replace filters","status":"Active","assignmentId":"10","duration":3}
+]

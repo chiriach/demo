@@ -1,0 +1,12 @@
+[
+  {"id":"1","name":"Sec1","badgeNo":"B001","salary":2800,"assignments":[]},
+  {"id":"2","name":"Sec2","badgeNo":"B002","salary":2900,"assignments":[]},
+  {"id":"3","name":"Sec3","badgeNo":"B003","salary":2700,"assignments":[]},
+  {"id":"4","name":"Sec4","badgeNo":"B004","salary":3000,"assignments":[]},
+  {"id":"5","name":"Sec5","badgeNo":"B005","salary":3100,"assignments":[]},
+  {"id":"6","name":"Sec6","badgeNo":"B006","salary":2800,"assignments":[]},
+  {"id":"7","name":"Sec7","badgeNo":"B007","salary":2950,"assignments":[]},
+  {"id":"8","name":"Sec8","badgeNo":"B008","salary":3000,"assignments":[]},
+  {"id":"9","name":"Sec9","badgeNo":"B009","salary":2850,"assignments":[]},
+  {"id":"10","name":"Sec10","badgeNo":"B010","salary":2900,"assignments":[]}
+]

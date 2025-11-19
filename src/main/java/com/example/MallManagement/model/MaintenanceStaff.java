@@ -8,6 +8,8 @@ public class MaintenanceStaff extends Staff implements Identifiable{
         Electrical, Cleaning
     };
 
+    public MaintenanceStaff(){}
+
     public MaintenanceStaff(String id, String name, Type type, int salary) {
         super(id, name, salary);
         this.type = type;

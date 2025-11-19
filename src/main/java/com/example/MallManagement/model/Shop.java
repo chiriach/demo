@@ -9,6 +9,8 @@ public class Shop implements Identifiable {
     private List<Purchase> purchases;
     private int rating;
 
+    public Shop(){}
+
     public Shop(String id, String name, String ownerName, double areaSqm, int rating){
         this.id = id;
         this.name = name;

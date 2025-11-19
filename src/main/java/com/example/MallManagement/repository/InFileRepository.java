@@ -1,16 +1,29 @@
 package com.example.MallManagement.repository;
 
 import com.example.MallManagement.model.Identifiable;
-import org.springframework.stereotype.Repository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class InMemoryRepository<E extends Identifiable> implements RepositoryInterface<E> {
 
-    protected final List<E> data = new ArrayList<>();
+public class InFileRepository<E extends Identifiable> implements RepositoryInterface<E> {
+
+    private final String filePath;
+    private final ObjectMapper mapper;
+    private final Class<E> clazz;
+    protected final List<E> entities;
     protected final AtomicLong idGenerator = new AtomicLong(1);
+
+    public InFileRepository(String filePath, Class<E> clazz) {
+        this.filePath = filePath;
+        this.clazz = clazz;
+        this.mapper = new ObjectMapper();
+        this.entities = loadFromFile();
+    }
 
     @Override
     public void save(E entity) {
@@ -26,18 +39,18 @@ public class InMemoryRepository<E extends Identifiable> implements RepositoryInt
             // Update existing → remove old version
             delete(entity.getId());
         }
-
-        data.add(entity);
+        saveToFile();
+        entities.add(entity);
     }
 
     @Override
     public List<E> findAll() {
-        return data;
+        return entities;
     }
 
     @Override
     public E findById(String id) {
-        return data.stream()
+        return entities.stream()
                 .filter(e -> e.getId().equals(id))
                 .findFirst()
                 .orElse(null);
@@ -45,7 +58,8 @@ public class InMemoryRepository<E extends Identifiable> implements RepositoryInt
 
     @Override
     public void delete(String id) {
-        data.removeIf(e -> e.getId().equals(id));
+        entities.removeIf(e -> e.getId().equals(id));
+        saveToFile();
     }
 
     @Override
@@ -72,6 +86,31 @@ public class InMemoryRepository<E extends Identifiable> implements RepositoryInt
             }
         } catch (IllegalAccessException e) {
             throw new RuntimeException("Failed to update entity", e);
+        }
+        saveToFile();
+    }
+
+    private List<E> loadFromFile() {
+        File file = new File(filePath);
+        if (!file.exists() || file.length() == 0) {
+            return new ArrayList<>();
+        }
+        try {
+            // Read JSON array into List<E>
+            return mapper.readValue(file,
+                    mapper.getTypeFactory().constructCollectionType(List.class, clazz));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+
+    private void saveToFile(){
+        try {
+            mapper.writerWithDefaultPrettyPrinter().writeValue(new File(filePath), entities);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save devices to file");
         }
     }
 }

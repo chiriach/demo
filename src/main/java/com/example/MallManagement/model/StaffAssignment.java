@@ -10,6 +10,8 @@ public class StaffAssignment implements Identifiable{
         Morning, Evening, Night
     };
 
+    public StaffAssignment(){}
+
     public StaffAssignment(String id, String floorId, String staffId, Shift shift) {
         this.id = id;
         this.floorId = floorId;

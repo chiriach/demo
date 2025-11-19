@@ -1,0 +1,12 @@
+[
+  {"id":"1","number":0,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"2","number":1,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"3","number":2,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"4","number":3,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"5","number":4,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"6","number":5,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"7","number":6,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"8","number":7,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"9","number":8,"shops":[],"tasks":[],"electricals":[],"assignments":[]},
+  {"id":"10","number":9,"shops":[],"tasks":[],"electricals":[],"assignments":[]}
+]

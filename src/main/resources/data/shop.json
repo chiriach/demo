@@ -1,0 +1,12 @@
+[
+  {"id":"1","name":"Shop1","ownerName":"Owner1","areaSqm":50.0,"purchases":[],"rating":5},
+  {"id":"2","name":"Shop2","ownerName":"Owner2","areaSqm":60.0,"purchases":[],"rating":4},
+  {"id":"3","name":"Shop3","ownerName":"Owner3","areaSqm":70.0,"purchases":[],"rating":5},
+  {"id":"4","name":"Shop4","ownerName":"Owner4","areaSqm":80.0,"purchases":[],"rating":3},
+  {"id":"5","name":"Shop5","ownerName":"Owner5","areaSqm":55.0,"purchases":[],"rating":4},
+  {"id":"6","name":"Shop6","ownerName":"Owner6","areaSqm":65.0,"purchases":[],"rating":5},
+  {"id":"7","name":"Shop7","ownerName":"Owner7","areaSqm":75.0,"purchases":[],"rating":3},
+  {"id":"8","name":"Shop8","ownerName":"Owner8","areaSqm":85.0,"purchases":[],"rating":4},
+  {"id":"9","name":"Shop9","ownerName":"Owner9","areaSqm":95.0,"purchases":[],"rating":5},
+  {"id":"10","name":"Shop10","ownerName":"Owner10","areaSqm":100.0,"purchases":[],"rating":4}
+]

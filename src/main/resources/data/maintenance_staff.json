@@ -1,0 +1,12 @@
+[
+  {"id":"1","name":"John","type":"Electrical","salary":3000,"assignments":[]},
+  {"id":"2","name":"Anna","type":"Cleaning","salary":2500,"assignments":[]},
+  {"id":"3","name":"Mike","type":"Electrical","salary":3200,"assignments":[]},
+  {"id":"4","name":"Sara","type":"Cleaning","salary":2600,"assignments":[]},
+  {"id":"5","name":"Tom","type":"Electrical","salary":3100,"assignments":[]},
+  {"id":"6","name":"Lucy","type":"Cleaning","salary":2400,"assignments":[]},
+  {"id":"7","name":"Jack","type":"Electrical","salary":3300,"assignments":[]},
+  {"id":"8","name":"Emma","type":"Cleaning","salary":2700,"assignments":[]},
+  {"id":"9","name":"Leo","type":"Electrical","salary":3400,"assignments":[]},
+  {"id":"10","name":"Mia","type":"Cleaning","salary":2500,"assignments":[]}
+]
