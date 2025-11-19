@@ -16,13 +16,14 @@ public class InFileRepository<E extends Identifiable> implements RepositoryInter
     private final ObjectMapper mapper;
     private final Class<E> clazz;
     protected final List<E> entities;
-    protected final AtomicLong idGenerator = new AtomicLong(1);
+    protected final AtomicLong idGenerator;
 
     public InFileRepository(String filePath, Class<E> clazz) {
         this.filePath = filePath;
         this.clazz = clazz;
         this.mapper = new ObjectMapper();
         this.entities = loadFromFile();
+        this.idGenerator =new AtomicLong(entities.size() + 1);
     }
 
     @Override

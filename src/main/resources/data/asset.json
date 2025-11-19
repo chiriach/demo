@@ -1,12 +1,51 @@
-[
-  {"id":"1","floorId":"1","type":"Lift","status":"Working"},
-  {"id":"2","floorId":"1","type":"AC","status":"Working"},
-  {"id":"3","floorId":"2","type":"Light","status":"Down"},
-  {"id":"4","floorId":"2","type":"Escalator","status":"Working"},
-  {"id":"5","floorId":"3","type":"Lift","status":"Down"},
-  {"id":"6","floorId":"3","type":"AC","status":"Working"},
-  {"id":"7","floorId":"4","type":"Light","status":"Working"},
-  {"id":"8","floorId":"4","type":"Escalator","status":"Down"},
-  {"id":"9","floorId":"5","type":"Lift","status":"Working"},
-  {"id":"10","floorId":"5","type":"AC","status":"Working"}
-]
+[ {
+  "id" : "1",
+  "floorId" : "1",
+  "type" : "AC",
+  "status" : "Working"
+}, {
+  "id" : "2",
+  "floorId" : "1",
+  "type" : "AC",
+  "status" : "Working"
+}, {
+  "id" : "3",
+  "floorId" : "2",
+  "type" : "Light",
+  "status" : "Down"
+}, {
+  "id" : "4",
+  "floorId" : "2",
+  "type" : "Escalator",
+  "status" : "Working"
+}, {
+  "id" : "5",
+  "floorId" : "3",
+  "type" : "Lift",
+  "status" : "Down"
+}, {
+  "id" : "6",
+  "floorId" : "3",
+  "type" : "AC",
+  "status" : "Working"
+}, {
+  "id" : "7",
+  "floorId" : "4",
+  "type" : "Light",
+  "status" : "Working"
+}, {
+  "id" : "8",
+  "floorId" : "4",
+  "type" : "Escalator",
+  "status" : "Down"
+}, {
+  "id" : "9",
+  "floorId" : "5",
+  "type" : "Lift",
+  "status" : "Working"
+}, {
+  "id" : "10",
+  "floorId" : "5",
+  "type" : "AC",
+  "status" : "Working"
+} ]

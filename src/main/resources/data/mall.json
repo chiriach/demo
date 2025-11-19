@@ -1,12 +1,51 @@
-[
-  {"id":"1","name":"Mall1","city":"CityA","floors":[]},
-  {"id":"2","name":"Mall2","city":"CityB","floors":[]},
-  {"id":"3","name":"Mall3","city":"CityC","floors":[]},
-  {"id":"4","name":"Mall4","city":"CityD","floors":[]},
-  {"id":"5","name":"Mall5","city":"CityE","floors":[]},
-  {"id":"6","name":"Mall6","city":"CityF","floors":[]},
-  {"id":"7","name":"Mall7","city":"CityG","floors":[]},
-  {"id":"8","name":"Mall8","city":"CityH","floors":[]},
-  {"id":"9","name":"Mall9","city":"CityI","floors":[]},
-  {"id":"10","name":"Mall10","city":"CityJ","floors":[]}
-]
+[ {
+  "id" : "1",
+  "name" : "Mall1",
+  "city" : "CityA",
+  "floors" : [ ]
+}, {
+  "id" : "2",
+  "name" : "Mall2",
+  "city" : "CityB",
+  "floors" : [ ]
+}, {
+  "id" : "3",
+  "name" : "Mall3",
+  "city" : "CityC",
+  "floors" : [ ]
+}, {
+  "id" : "4",
+  "name" : "Mall4",
+  "city" : "CityD",
+  "floors" : [ ]
+}, {
+  "id" : "5",
+  "name" : "Mall5",
+  "city" : "CityE",
+  "floors" : [ ]
+}, {
+  "id" : "6",
+  "name" : "Mall6",
+  "city" : "CityF",
+  "floors" : [ ]
+}, {
+  "id" : "7",
+  "name" : "Mall7",
+  "city" : "CityG",
+  "floors" : [ ]
+}, {
+  "id" : "8",
+  "name" : "Mall8",
+  "city" : "CityH",
+  "floors" : [ ]
+}, {
+  "id" : "9",
+  "name" : "Mall9",
+  "city" : "CityI",
+  "floors" : [ ]
+}, {
+  "id" : "10",
+  "name" : "Mall10",
+  "city" : "CityJ",
+  "floors" : [ ]
+} ]
