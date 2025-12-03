@@ -25,12 +25,10 @@ public class Shop {
     @Max(value = 5, message = "Bewertung max. 5")
     private int rating;
 
-    // Beziehung: Shop liegt auf einem Floor
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "floor_id")
     private Floor floor;
 
-    // Ein Shop hat viele Einkäufe
     @OneToMany(mappedBy = "shop", cascade = CascadeType.ALL)
     private List<Purchase> purchases = new ArrayList<>();
 
@@ -44,7 +42,6 @@ public class Shop {
         this.floor = floor;
     }
 
-    // Getter & Setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

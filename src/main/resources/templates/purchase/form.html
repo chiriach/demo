@@ -1,35 +1,44 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Purchase</title>
+    <title>Purchase Form</title>
 </head>
 <body>
-<h1 th:text="${purchase.id} != null ? 'Edit Purchase' : 'Make Purchase'"></h1>
+
+<h1 th:text="${purchase.id} != null ? 'Edit Purchase' : 'Create Purchase'"></h1>
 
 <form th:action="${purchase.id} != null ? @{'/purchases/' + ${purchase.id} + '/update'} : @{/purchases}"
       th:object="${purchase}" method="post">
 
+    <label>Amount:</label>
+    <input type="number" step="0.01" th:field="*{amount}" />
+    <br><br>
+
     <label>Customer:</label>
-    <select th:field="*{customer}">
+    <select name="customerId">
         <option value="">-- Select Customer --</option>
         <option th:each="c : ${customers}"
                 th:value="${c.id}"
-                th:text="${c.name} + ' (' + ${c.currency} + ')'"></option>
+                th:text="${c.name}"
+                th:selected="${purchase.customer != null and purchase.customer.id == c.id}">
+        </option>
     </select>
-    <br>
+    <br><br>
 
     <label>Shop:</label>
-    <select th:field="*{shop}">
+    <select name="shopId">
         <option value="">-- Select Shop --</option>
         <option th:each="s : ${shops}"
                 th:value="${s.id}"
-                th:text="${s.name}"></option>
+                th:text="${s.name}"
+                th:selected="${purchase.shop != null and purchase.shop.id == s.id}">
+        </option>
     </select>
-    <br>
-
-    <label>Amount:</label>
-    <input type="number" step="0.01" th:field="*{amount}" /><br><br>
+    <br><br>
 
     <button type="submit">Save Purchase</button>
 </form>
+
+<a href="/purchases">Back to List</a>
+
 </body>
 </html>

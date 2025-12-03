@@ -31,7 +31,6 @@ public abstract class Staff {
         this.salary = salary;
     }
 
-    // Getter & Setter (ID ist jetzt Long!)
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

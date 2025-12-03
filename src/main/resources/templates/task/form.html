@@ -1,10 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Maintenance Task Form</title>
-    <style>
-        .error { color: red; font-size: 0.9em; display: block; margin-top: 5px; }
-        input, select { margin-bottom: 10px; display: block; }
-    </style>
 </head>
 <body>
 
@@ -20,30 +16,25 @@
 
     <label>Description:</label>
     <input type="text" th:field="*{description}" />
-    <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error"></span>
-
     <label>Status:</label>
     <select th:field="*{status}">
         <option value="Planned">Planned</option>
         <option value="Active">Active</option>
         <option value="Done">Done</option>
     </select>
+    <br><br>
 
     <label>Floor:</label>
-    <select th:field="*{floor}">
+    <select name="floorId">
         <option value="">-- Select Floor --</option>
         <option th:each="f : ${floors}"
                 th:value="${f.id}"
-                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'">
+                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"
+                th:selected="${task.floor != null and task.floor.id == f.id}">
         </option>
     </select>
-    <span th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}" class="error"></span>
+    <br><br>
 
-    <label>Duration (hours):</label>
-    <input type="number" th:field="*{duration}" min="0" />
-    <span th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}" class="error"></span>
-
-    <br>
     <button type="submit">Save Task</button>
 </form>
 

@@ -4,7 +4,9 @@
 </head>
 <body>
 <h1>All Electrical Assets</h1>
-<a href="/assets/new">Add New Asset</a>
+
+<a href="/electrical-assets/new">Add New Asset</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
@@ -15,14 +17,16 @@
     </tr>
     <tr th:each="asset : ${assets}">
         <td th:text="${asset.id}"></td>
-        <td th:text="${asset.floorId}"></td>
+
+        <td th:text="${asset.floor != null ? asset.floor.id : 'N/A'}"></td>
+
         <td th:text="${asset.type}"></td>
         <td th:text="${asset.status}"></td>
         <td>
-            <a th:href="@{'/assets/' + ${asset.id} + '/update'}">
+            <a th:href="@{'/electrical-assets/' + ${asset.id} + '/update'}">
                 <button type="button">Update Asset</button>
             </a>
-            <form th:action="@{'/assets/' + ${asset.id} + '/delete'}" method="post" style="display:inline;">
+            <form th:action="@{'/electrical-assets/' + ${asset.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete Asset</button>
             </form>
         </td>

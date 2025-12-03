@@ -13,12 +13,10 @@ public class Purchase {
     @Positive(message = "Betrag muss positiv sein")
     private double amount;
 
-    // Beziehung zum Kunden
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    // Beziehung zum Shop
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "shop_id")
     private Shop shop;
@@ -31,7 +29,6 @@ public class Purchase {
         this.shop = shop;
     }
 
-    // Getter & Setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

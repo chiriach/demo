@@ -18,7 +18,6 @@ public class Customer {
     @NotBlank(message = "Währung ist erforderlich")
     private String currency;
 
-    // Ein Kunde tätigt viele Einkäufe
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Purchase> purchases = new ArrayList<>();
 

@@ -20,7 +20,9 @@ public class PurchaseController {
     private final ShopService shopService;
 
     @Autowired
-    public PurchaseController(PurchaseService purchaseService, CustomerService customerService, ShopService shopService) {
+    public PurchaseController(PurchaseService purchaseService,
+                              CustomerService customerService,
+                              ShopService shopService) {
         this.purchaseService = purchaseService;
         this.customerService = customerService;
         this.shopService = shopService;
@@ -41,12 +43,22 @@ public class PurchaseController {
     }
 
     @PostMapping
-    public String createPurchase(@Valid @ModelAttribute Purchase purchase, BindingResult result, Model model) {
+    public String createPurchase(@Valid @ModelAttribute Purchase purchase,
+                                 BindingResult result,
+                                 @RequestParam(value = "customerId", required = false) Long customerId,
+                                 @RequestParam(value = "shopId", required = false) Long shopId,
+                                 Model model) {
+
         if (result.hasErrors()) {
             model.addAttribute("customers", customerService.findAll());
             model.addAttribute("shops", shopService.findAll());
             return "purchase/form";
         }
+
+        // Link manually
+        if (customerId != null) purchase.setCustomer(customerService.findById(customerId));
+        if (shopId != null) purchase.setShop(shopService.findById(shopId));
+
         purchaseService.save(purchase);
         return "redirect:/purchases";
     }
@@ -69,15 +81,30 @@ public class PurchaseController {
     }
 
     @PostMapping("/{id}/update")
-    public String updatePurchase(@PathVariable Long id, @Valid @ModelAttribute Purchase updatedPurchase, BindingResult result, Model model) {
+    public String updatePurchase(@PathVariable Long id,
+                                 @Valid @ModelAttribute("purchase") Purchase formData,
+                                 BindingResult result,
+                                 @RequestParam(value = "customerId", required = false) Long customerId,
+                                 @RequestParam(value = "shopId", required = false) Long shopId,
+                                 Model model) {
+
         if (result.hasErrors()) {
-            updatedPurchase.setId(id);
+            formData.setId(id);
             model.addAttribute("customers", customerService.findAll());
             model.addAttribute("shops", shopService.findAll());
             return "purchase/form";
         }
-        updatedPurchase.setId(id);
-        purchaseService.save(updatedPurchase);
+
+        // Safe Update
+        Purchase existing = purchaseService.findById(id);
+        if (existing != null) {
+            existing.setAmount(formData.getAmount());
+
+            if (customerId != null) existing.setCustomer(customerService.findById(customerId));
+            if (shopId != null) existing.setShop(shopService.findById(shopId));
+
+            purchaseService.save(existing);
+        }
         return "redirect:/purchases";
     }
 }

@@ -5,17 +5,19 @@
 <body>
 <h1 th:text="${asset.id} != null ? 'Edit Electrical Asset' : 'Create Electrical Asset'"></h1>
 
-<form th:action="${asset.id} != null ? @{'/assets/' + ${asset.id} + '/update'} : @{/assets}"
+<form th:action="${asset.id} != null ? @{'/electrical-assets/' + ${asset.id} + '/update'} : @{/electrical-assets}"
       th:object="${asset}" method="post">
 
     <label>Floor:</label>
-    <select th:field="*{floor}">
+    <select name="floorId">
         <option value="">-- Select Floor --</option>
         <option th:each="f : ${floors}"
                 th:value="${f.id}"
-                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"></option>
+                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"
+                th:selected="${asset.floor != null and asset.floor.id == f.id}">
+        </option>
     </select>
-    <br>
+    <br><br>
 
     <label>Type:</label>
     <select th:field="*{type}">
@@ -23,7 +25,7 @@
         <option value="AC">AC</option>
         <option value="Light">Light</option>
         <option value="Escalator">Escalator</option>
-    </select><br>
+    </select><br><br>
 
     <label>Status:</label>
     <select th:field="*{status}">

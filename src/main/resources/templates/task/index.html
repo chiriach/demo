@@ -10,16 +10,16 @@
         <th>ID</th>
         <th>Description</th>
         <th>Status</th>
-        <th>Assignment ID</th>
-        <th>Duration (hrs)</th>
+        <th>Floor ID</th>
         <th>Actions</th>
     </tr>
     <tr th:each="task : ${tasks}">
         <td th:text="${task.id}"></td>
         <td th:text="${task.description}"></td>
         <td th:text="${task.status}"></td>
-        <td th:text="${task.assignmentId}"></td>
-        <td th:text="${task.duration}"></td>
+
+        <td th:text="${task.floor != null ? task.floor.id : 'N/A'}"></td>
+
         <td>
             <a th:href="@{'/tasks/' + ${task.id} + '/update'}">
                 <button type="button">Update Task</button>

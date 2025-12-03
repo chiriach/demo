@@ -1,5 +1,6 @@
 package com.example.MallManagement.controller;
 
+import com.example.MallManagement.model.Staff;
 import com.example.MallManagement.model.StaffAssignment;
 import com.example.MallManagement.service.FloorService;
 import com.example.MallManagement.service.MaintenanceStaffService;
@@ -35,12 +36,19 @@ public class StaffAssignmentController {
         this.securityStaffService = securityStaffService;
     }
 
-    // Hilfsmethode um alle Mitarbeiter für das Dropdown zu sammeln
-    private List<Object> getAllStaff() {
-        List<Object> allStaff = new ArrayList<>();
+    // Combine lists for the dropdown
+    private List<Staff> getAllStaff() {
+        List<Staff> allStaff = new ArrayList<>();
         allStaff.addAll(maintenanceStaffService.findAll());
         allStaff.addAll(securityStaffService.findAll());
         return allStaff;
+    }
+
+    // Helper to find staff by ID from either service
+    private Staff findStaffById(Long id) {
+        Staff s = maintenanceStaffService.findById(id);
+        if (s != null) return s;
+        return securityStaffService.findById(id);
     }
 
     @GetMapping
@@ -53,17 +61,27 @@ public class StaffAssignmentController {
     public String showCreateForm(Model model) {
         model.addAttribute("assignment", new StaffAssignment());
         model.addAttribute("floors", floorService.findAll());
-        model.addAttribute("staffList", getAllStaff()); // Kombinierte Liste
+        model.addAttribute("staffList", getAllStaff());
         return "assignment/form";
     }
 
     @PostMapping
-    public String createAssignment(@Valid @ModelAttribute StaffAssignment assignment, BindingResult result, Model model) {
+    public String createAssignment(@Valid @ModelAttribute StaffAssignment assignment,
+                                   BindingResult result,
+                                   @RequestParam(value = "floorId", required = false) Long floorId,
+                                   @RequestParam(value = "staffId", required = false) Long staffId,
+                                   Model model) {
+
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             model.addAttribute("staffList", getAllStaff());
             return "assignment/form";
         }
+
+        // Link manually
+        if (floorId != null) assignment.setFloor(floorService.findById(floorId));
+        if (staffId != null) assignment.setStaff(findStaffById(staffId));
+
         assignmentService.save(assignment);
         return "redirect:/assignments";
     }
@@ -86,15 +104,30 @@ public class StaffAssignmentController {
     }
 
     @PostMapping("/{id}/update")
-    public String updateAssignment(@PathVariable Long id, @Valid @ModelAttribute StaffAssignment updatedAssignment, BindingResult result, Model model) {
+    public String updateAssignment(@PathVariable Long id,
+                                   @Valid @ModelAttribute("assignment") StaffAssignment formData,
+                                   BindingResult result,
+                                   @RequestParam(value = "floorId", required = false) Long floorId,
+                                   @RequestParam(value = "staffId", required = false) Long staffId,
+                                   Model model) {
+
         if (result.hasErrors()) {
-            updatedAssignment.setId(id);
+            formData.setId(id);
             model.addAttribute("floors", floorService.findAll());
             model.addAttribute("staffList", getAllStaff());
             return "assignment/form";
         }
-        updatedAssignment.setId(id);
-        assignmentService.save(updatedAssignment);
+
+        // Safe Update
+        StaffAssignment existing = assignmentService.findById(id);
+        if (existing != null) {
+            existing.setShift(formData.getShift());
+
+            if (floorId != null) existing.setFloor(floorService.findById(floorId));
+            if (staffId != null) existing.setStaff(findStaffById(staffId));
+
+            assignmentService.save(existing);
+        }
         return "redirect:/assignments";
     }
 }

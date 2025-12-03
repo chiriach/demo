@@ -21,8 +21,6 @@ public class Mall {
     @NotBlank(message = "Stadt darf nicht leer sein")
     private String city;
 
-    // Beziehung: Eine Mall hat viele Floors
-    // "mappedBy = mall" bedeutet: Das Feld 'mall' in der Klasse Floor steuert die Beziehung
     @OneToMany(mappedBy = "mall", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Floor> floors = new ArrayList<>();
 
@@ -33,7 +31,6 @@ public class Mall {
         this.city = city;
     }
 
-    // Getter und Setter
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 

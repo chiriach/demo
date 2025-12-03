@@ -1,5 +1,6 @@
 package com.example.MallManagement.controller;
 
+import com.example.MallManagement.model.Floor;
 import com.example.MallManagement.model.MaintenanceTask;
 import com.example.MallManagement.service.FloorService;
 import com.example.MallManagement.service.MaintenanceTaskService;
@@ -37,11 +38,27 @@ public class MaintenanceTaskController {
     }
 
     @PostMapping
-    public String createTask(@Valid @ModelAttribute MaintenanceTask task, BindingResult result, Model model) {
+    public String createTask(@Valid @ModelAttribute MaintenanceTask task,
+                             BindingResult result,
+                             @RequestParam(value = "floorId", required = false) Long floorId,
+                             Model model) {
+
+        if (floorId == null) {
+            // Manual error if no floor selected
+            // result.rejectValue... (optional)
+        }
+
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             return "task/form";
         }
+
+        // Link Floor manually
+        if (floorId != null) {
+            Floor selectedFloor = floorService.findById(floorId);
+            task.setFloor(selectedFloor);
+        }
+
         taskService.save(task);
         return "redirect:/tasks";
     }
@@ -62,14 +79,30 @@ public class MaintenanceTaskController {
     }
 
     @PostMapping("/{id}/update")
-    public String updateTask(@PathVariable Long id, @Valid @ModelAttribute MaintenanceTask updatedTask, BindingResult result, Model model) {
+    public String updateTask(@PathVariable Long id,
+                             @Valid @ModelAttribute("task") MaintenanceTask formData,
+                             BindingResult result,
+                             @RequestParam(value = "floorId", required = false) Long floorId,
+                             Model model) {
+
         if (result.hasErrors()) {
-            updatedTask.setId(id);
+            formData.setId(id);
             model.addAttribute("floors", floorService.findAll());
             return "task/form";
         }
-        updatedTask.setId(id);
-        taskService.save(updatedTask);
+
+        MaintenanceTask existingTask = taskService.findById(id);
+        if (existingTask != null) {
+            existingTask.setDescription(formData.getDescription());
+            existingTask.setStatus(formData.getStatus());
+
+            // Handle relationship update
+            if (floorId != null) {
+                existingTask.setFloor(floorService.findById(floorId));
+            }
+
+            taskService.save(existingTask);
+        }
         return "redirect:/tasks";
     }
 }
