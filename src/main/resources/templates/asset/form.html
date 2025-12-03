@@ -8,8 +8,14 @@
 <form th:action="${asset.id} != null ? @{'/assets/' + ${asset.id} + '/update'} : @{/assets}"
       th:object="${asset}" method="post">
 
-    <label>Floor ID:</label>
-    <input type="text" th:field="*{floorId}" /><br>
+    <label>Floor:</label>
+    <select th:field="*{floor}">
+        <option value="">-- Select Floor --</option>
+        <option th:each="f : ${floors}"
+                th:value="${f.id}"
+                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"></option>
+    </select>
+    <br>
 
     <label>Type:</label>
     <select th:field="*{type}">
@@ -23,7 +29,7 @@
     <select th:field="*{status}">
         <option value="Working">Working</option>
         <option value="Down">Down</option>
-    </select><br>
+    </select><br><br>
 
     <button type="submit">Save Asset</button>
 </form>

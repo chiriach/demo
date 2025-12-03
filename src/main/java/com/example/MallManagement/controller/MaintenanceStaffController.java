@@ -2,9 +2,11 @@ package com.example.MallManagement.controller;
 
 import com.example.MallManagement.model.MaintenanceStaff;
 import com.example.MallManagement.service.MaintenanceStaffService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -26,37 +28,41 @@ public class MaintenanceStaffController {
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
-        model.addAttribute("staff", new MaintenanceStaff(null, "", MaintenanceStaff.Type.Electrical, 0));
+        model.addAttribute("staff", new MaintenanceStaff());
         return "maintenance_staff/form";
     }
 
     @PostMapping
-    public String createStaff(@ModelAttribute MaintenanceStaff staff) {
-        maintenanceStaffService.add(staff);
+    public String createStaff(@Valid @ModelAttribute("staff") MaintenanceStaff staff, BindingResult result) {
+        if (result.hasErrors()) {
+            return "maintenance_staff/form";
+        }
+        maintenanceStaffService.save(staff);
         return "redirect:/maintenance_staff";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteStaff(@PathVariable String id) {
+    public String deleteStaff(@PathVariable Long id) {
         maintenanceStaffService.delete(id);
         return "redirect:/maintenance_staff";
     }
 
     @GetMapping("/{id}/update")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String showEditForm(@PathVariable Long id, Model model) {
         MaintenanceStaff staff = maintenanceStaffService.findById(id);
         if (staff == null) return "redirect:/maintenance_staff";
-
         model.addAttribute("staff", staff);
         return "maintenance_staff/form";
     }
 
     @PostMapping("/{id}/update")
-    public String updateStaff(@PathVariable String id,
-                              @ModelAttribute MaintenanceStaff updatedStaff) {
-
-        maintenanceStaffService.update(id, updatedStaff);
+    public String updateStaff(@PathVariable Long id, @Valid @ModelAttribute("staff") MaintenanceStaff updatedStaff, BindingResult result) {
+        if (result.hasErrors()) {
+            updatedStaff.setId(id);
+            return "maintenance_staff/form";
+        }
+        updatedStaff.setId(id);
+        maintenanceStaffService.save(updatedStaff);
         return "redirect:/maintenance_staff";
     }
-
 }

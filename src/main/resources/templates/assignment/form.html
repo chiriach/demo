@@ -8,11 +8,23 @@
 <form th:action="${assignment.id} != null ? @{'/assignments/' + ${assignment.id} + '/update'} : @{/assignments}"
       th:object="${assignment}" method="post">
 
-    <label>Floor ID:</label>
-    <input type="text" th:field="*{floorId}" /><br>
+    <label>Floor:</label>
+    <select th:field="*{floor}">
+        <option value="">-- Select Floor --</option>
+        <option th:each="f : ${floors}"
+                th:value="${f.id}"
+                th:text="'Floor ' + ${f.number}"></option>
+    </select>
+    <br>
 
-    <label>Staff ID:</label>
-    <input type="text" th:field="*{staffId}" /><br>
+    <label>Staff:</label>
+    <select th:field="*{staff}">
+        <option value="">-- Select Staff --</option>
+        <option th:each="s : ${staffList}"
+                th:value="${s.id}"
+                th:text="${s.name}"></option>
+    </select>
+    <br>
 
     <label>Shift:</label>
     <select th:field="*{shift}">

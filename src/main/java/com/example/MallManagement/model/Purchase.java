@@ -1,48 +1,46 @@
 package com.example.MallManagement.model;
 
-public class Purchase implements Identifiable{
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
-    private String id, customerId, shopId;
+@Entity
+public class Purchase {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Positive(message = "Betrag muss positiv sein")
     private double amount;
+
+    // Beziehung zum Kunden
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    // Beziehung zum Shop
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
 
     public Purchase() {}
 
-    public Purchase(String id, String customerId, String shopId, double amount){
-        this.id = id;
-        this.customerId = customerId;
-        this.shopId = shopId;
+    public Purchase(double amount, Customer customer, Shop shop) {
         this.amount = amount;
+        this.customer = customer;
+        this.shop = shop;
     }
 
-    public String getId() {
-        return id;
-    }
+    // Getter & Setter
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public double getAmount() { return amount; }
+    public void setAmount(double amount) { this.amount = amount; }
 
-    public double getAmount() {
-        return amount;
-    }
+    public Customer getCustomer() { return customer; }
+    public void setCustomer(Customer customer) { this.customer = customer; }
 
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public String getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(String shopId) {
-        this.shopId = shopId;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
+    public Shop getShop() { return shop; }
+    public void setShop(Shop shop) { this.shop = shop; }
 }

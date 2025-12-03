@@ -1,28 +1,36 @@
 package com.example.MallManagement.model;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Customer implements Identifiable{
+@Entity
+public class Customer {
 
-    private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "Name ist erforderlich")
     private String name;
+
+    @NotBlank(message = "Währung ist erforderlich")
     private String currency;
-    private List<String> purchases;
 
-    public Customer() {
-        this.purchases = new ArrayList<>();
-    }
+    // Ein Kunde tätigt viele Einkäufe
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Purchase> purchases = new ArrayList<>();
 
-    public Customer(String id, String name, String currency) {
-        this.id = id;
+    public Customer() {}
+
+    public Customer(String name, String currency) {
         this.name = name;
         this.currency = currency;
-        this.purchases = new ArrayList<>();
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -30,6 +38,6 @@ public class Customer implements Identifiable{
     public String getCurrency() { return currency; }
     public void setCurrency(String currency) { this.currency = currency; }
 
-    public List<String> getPurchases() { return purchases; }
-    public void setPurchases(List<String> purchases) { this.purchases = purchases; }
+    public List<Purchase> getPurchases() { return purchases; }
+    public void setPurchases(List<Purchase> purchases) { this.purchases = purchases; }
 }

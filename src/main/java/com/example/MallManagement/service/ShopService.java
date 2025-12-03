@@ -2,14 +2,27 @@ package com.example.MallManagement.service;
 
 import com.example.MallManagement.model.Shop;
 import com.example.MallManagement.repository.ShopRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.    util.List;
 
 @Service
-public class ShopService extends com.example.MallManagement.service.Service<Shop> {
+public class ShopService {
 
-    public ShopService(ShopRepository shopRepo) {
-        super(shopRepo);
-    }
+    private final ShopRepository shopRepo;
+
+    @Autowired
+    public ShopService(ShopRepository shopRepo) {this.shopRepo = shopRepo;}
+
+    public List<Shop> findAll() {return shopRepo.findAll();}
+
+    public Shop findById(Long id) {return shopRepo.findById(id).orElse(null);}
+
+    @Transactional
+    public void save(Shop shop) {shopRepo.save(shop);}
+
+    @Transactional
+    public void delete(Long id) {shopRepo.deleteById(id);}
 }

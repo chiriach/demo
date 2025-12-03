@@ -2,9 +2,11 @@ package com.example.MallManagement.controller;
 
 import com.example.MallManagement.model.Customer;
 import com.example.MallManagement.service.CustomerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -31,32 +33,36 @@ public class CustomerController {
     }
 
     @PostMapping
-    public String createCustomer(@ModelAttribute Customer customer) {
-        customerService.add(customer);
+    public String createCustomer(@Valid @ModelAttribute Customer customer, BindingResult result) {
+        if (result.hasErrors()) {
+            return "customer/form";
+        }
+        customerService.save(customer);
         return "redirect:/customers";
     }
 
     @PostMapping("/{id}/delete")
-    public String deleteCustomer(@PathVariable String id) {
+    public String deleteCustomer(@PathVariable Long id) {
         customerService.delete(id);
         return "redirect:/customers";
     }
 
     @GetMapping("/{id}/update")
-    public String showEditForm(@PathVariable String id, Model model) {
+    public String showEditForm(@PathVariable Long id, Model model) {
         Customer customer = customerService.findById(id);
         if (customer == null) return "redirect:/customers";
-
         model.addAttribute("customer", customer);
         return "customer/form";
     }
 
     @PostMapping("/{id}/update")
-    public String updateCustomer(@PathVariable String id,
-                                 @ModelAttribute Customer updatedCustomer) {
-
-        customerService.update(id, updatedCustomer);
+    public String updateCustomer(@PathVariable Long id, @Valid @ModelAttribute Customer updatedCustomer, BindingResult result) {
+        if (result.hasErrors()) {
+            updatedCustomer.setId(id);
+            return "customer/form";
+        }
+        updatedCustomer.setId(id);
+        customerService.save(updatedCustomer);
         return "redirect:/customers";
     }
-
 }

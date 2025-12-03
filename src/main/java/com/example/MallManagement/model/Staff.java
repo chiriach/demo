@@ -1,52 +1,46 @@
 package com.example.MallManagement.model;
 
-import java.util.*;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "staff_type", discriminatorType = DiscriminatorType.STRING)
+public abstract class Staff {
 
-public abstract class Staff implements Identifiable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    private String id, name;
+    @NotBlank(message = "Name ist erforderlich")
+    private String name;
+
+    @Min(value = 0, message = "Gehalt muss positiv sein")
     private int salary;
-    private List<StaffAssignment> assignments;
 
-    public Staff(){}
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL)
+    private List<StaffAssignment> assignments = new ArrayList<>();
 
-    Staff(String id, String name, int salary){
-        this.id = id;
+    public Staff() {}
+
+    public Staff(String name, int salary) {
         this.name = name;
         this.salary = salary;
-        this.assignments = new ArrayList<>();
     }
 
-    public List<StaffAssignment> getAssignments() {
-        return assignments;
-    }
+    // Getter & Setter (ID ist jetzt Long!)
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    public void setAssignments(List<StaffAssignment> assignments) {
-        this.assignments = assignments;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
+    public int getSalary() { return salary; }
+    public void setSalary(int salary) { this.salary = salary; }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public void setSalary(int salary) {
-        this.salary = salary;
-    }
+    public List<StaffAssignment> getAssignments() { return assignments; }
+    public void setAssignments(List<StaffAssignment> assignments) { this.assignments = assignments; }
 }

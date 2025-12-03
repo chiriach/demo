@@ -8,11 +8,23 @@
 <form th:action="${purchase.id} != null ? @{'/purchases/' + ${purchase.id} + '/update'} : @{/purchases}"
       th:object="${purchase}" method="post">
 
-    <label>Customer ID:</label>
-    <input type="text" th:field="*{customerId}" /><br>
+    <label>Customer:</label>
+    <select th:field="*{customer}">
+        <option value="">-- Select Customer --</option>
+        <option th:each="c : ${customers}"
+                th:value="${c.id}"
+                th:text="${c.name} + ' (' + ${c.currency} + ')'"></option>
+    </select>
+    <br>
 
-    <label>Shop ID:</label>
-    <input type="text" th:field="*{shopId}" /><br>
+    <label>Shop:</label>
+    <select th:field="*{shop}">
+        <option value="">-- Select Shop --</option>
+        <option th:each="s : ${shops}"
+                th:value="${s.id}"
+                th:text="${s.name}"></option>
+    </select>
+    <br>
 
     <label>Amount:</label>
     <input type="number" step="0.01" th:field="*{amount}" /><br><br>

@@ -19,7 +19,20 @@
 
     <label>Rating:</label>
     <input type="number" th:field="*{rating}" /><br><br>
-
+    <label>Floor:</label>
+    <select th:field="*{floor}">
+        <option value="">-- Select Floor --</option>
+        <option th:each="f : ${floors}"
+                th:value="${f.id}"
+                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"></option>
+    </select><br><br>
+    <label>Floor:</label>
+    <select th:field="*{floor}">
+        <option value="">-- Select Floor --</option>
+        <option th:each="f : ${floors}"
+                th:value="${f.id}"
+                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"></option>
+    </select><br><br>
     <button type="submit">Save Shop</button>
 </form>
 </body>
