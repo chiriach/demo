@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 @RequestMapping("/purchases")
@@ -28,6 +30,15 @@ public class PurchaseController {
         this.shopService = shopService;
     }
 
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        Purchase purchase = purchaseService.findById(id);
+        if (purchase == null) {
+            return "redirect:/purchases";
+        }
+        model.addAttribute("purchase", purchase);
+        return "purchase/details";
+    }
     @GetMapping
     public String listPurchases(Model model) {
         model.addAttribute("purchases", purchaseService.findAll());
@@ -55,7 +66,6 @@ public class PurchaseController {
             return "purchase/form";
         }
 
-        // Link manually
         if (customerId != null) purchase.setCustomer(customerService.findById(customerId));
         if (shopId != null) purchase.setShop(shopService.findById(shopId));
 
@@ -67,6 +77,12 @@ public class PurchaseController {
     public String deletePurchase(@PathVariable Long id) {
         purchaseService.delete(id);
         return "redirect:/purchases";
+    }
+
+    @GetMapping("/customer/{id}")
+    public String listPurchasesByCustomer(@PathVariable Long id, Model model) {
+        model.addAttribute("purchases", purchaseService.findByCustomerId(id));
+        return "purchase/index";
     }
 
     @GetMapping("/{id}/update")
@@ -95,7 +111,6 @@ public class PurchaseController {
             return "purchase/form";
         }
 
-        // Safe Update
         Purchase existing = purchaseService.findById(id);
         if (existing != null) {
             existing.setAmount(formData.getAmount());

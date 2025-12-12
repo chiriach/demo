@@ -20,6 +20,14 @@ public class MallController {
         this.mallService = mallService;
     }
 
+    @GetMapping("/{id}/details")
+    public String showDetails(@PathVariable Long id, Model model) {
+        Mall mall = mallService.findById(id);
+        if (mall == null) return "redirect:/malls";
+        model.addAttribute("mall", mall);
+        return "mall/details";
+    }
+
     @GetMapping
     public String listMalls(Model model) {
         model.addAttribute("malls", mallService.findAll());

@@ -25,6 +25,10 @@
             </ul>
         </td>
         <td>
+        <td>
+            <a th:href="@{'/malls/' + ${mall.id} + '/details'}">
+                <button type="button">Details</button>
+            </a>
             <a th:href="@{'/malls/' + ${mall.id} + '/update'}">
                 <button type="button">Update Mall</button>
             </a>

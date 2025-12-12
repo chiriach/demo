@@ -17,6 +17,9 @@ public class PurchaseService {
     public PurchaseService(PurchaseRepository purchaseRepo) {
         this.purchaseRepo = purchaseRepo;
     }
+    public List<Purchase> findByCustomerId(Long customerId) {
+        return purchaseRepo.findByCustomerId(customerId);
+    }
 
     public List<Purchase> findAll() {
         return purchaseRepo.findAll();
@@ -26,6 +29,8 @@ public class PurchaseService {
         return purchaseRepo.findById(id).orElse(null);
     }
 
+
+
     @Transactional
     public void save(Purchase purchase) {
         purchaseRepo.save(purchase);
@@ -34,5 +39,8 @@ public class PurchaseService {
     @Transactional
     public void delete(Long id) {
         purchaseRepo.deleteById(id);
+
+
+
     }
 }
