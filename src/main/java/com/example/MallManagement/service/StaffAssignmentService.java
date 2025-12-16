@@ -28,6 +28,8 @@ public class StaffAssignmentService {
 
     public List<StaffAssignment> findByFloorId(Long floorId) {return assignmentRepo.findByFloorId(floorId);}
 
+    public List<StaffAssignment> findByStaffId(Long staffId) {return assignmentRepo.findByStaffId(staffId);}
+
     @Transactional
     public void save(StaffAssignment assignment) {
         assignmentRepo.save(assignment);

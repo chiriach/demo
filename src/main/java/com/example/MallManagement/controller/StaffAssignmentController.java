@@ -49,6 +49,12 @@ public class StaffAssignmentController {
         return securityStaffService.findById(id);
     }
 
+    @GetMapping("/staff/{id}")
+    public String listAssignmentsByStaff(@PathVariable Long id, Model model) {
+        model.addAttribute("assignments", assignmentService.findByStaffId(id));
+        return "assignment/index";
+    }
+
     @GetMapping("/floor/{id}")
     public String listAssignmentsByFloor(@PathVariable Long id, Model model) {
         model.addAttribute("assignments", assignmentService.findByFloorId(id));

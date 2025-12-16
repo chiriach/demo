@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface StaffAssignmentRepository extends JpaRepository<StaffAssignment, Long> {
     List<StaffAssignment> findByFloorId(Long floorId);
+    List<StaffAssignment> findByStaffId(Long staffId);
 }

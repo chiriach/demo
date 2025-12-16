@@ -28,6 +28,8 @@ public class MaintenanceTaskService {
 
     public List<MaintenanceTask> findByFloorId(Long floorId) {return taskRepo.findByFloorId(floorId);}
 
+    public List<MaintenanceTask> findByStaffId(Long staffId) {return taskRepo.findByStaffId(staffId);}
+
     @Transactional
     public void save(MaintenanceTask task) {
         taskRepo.save(task);

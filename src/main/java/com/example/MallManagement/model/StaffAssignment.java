@@ -12,7 +12,6 @@ public class StaffAssignment {
     @Enumerated(EnumType.STRING)
     private Shift shift;
 
-    // Verknüpft Floor und Staff
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "floor_id")
     private Floor floor;

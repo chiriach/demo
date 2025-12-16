@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface MaintenanceTaskRepository extends JpaRepository<MaintenanceTask, Long> {
     List<MaintenanceTask> findByFloorId(Long floorId);
+    List<MaintenanceTask> findByStaffId(Long staffId);
 }

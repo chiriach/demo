@@ -1,10 +1,3 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Maintenance Staff</title>
-</head>
-<body>
-<h1>Maintenance Staff List</h1>
-<a th:href="@{/maintenance_staff/new}">Add New Staff</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -12,6 +5,7 @@
         <th>Type</th>
         <th>Salary</th>
         <th>Assignments</th>
+        <th>Tasks</th>
         <th>Actions</th>
     </tr>
     <tr th:each="staff : ${staffList}">
@@ -19,9 +13,19 @@
         <td th:text="${staff.name}"></td>
         <td th:text="${staff.type}"></td>
         <td th:text="${staff.salary}"></td>
+
         <td>
-            <span th:each="a : ${staff.assignments}" th:text="${a} + ' '"></span>
+            <a th:href="@{'/assignments/staff/' + ${staff.id}}">
+                <button type="button" th:text="'View (' + ${#lists.size(staff.assignments)} + ')'"></button>
+            </a>
         </td>
+
+        <td>
+            <a th:href="@{'/tasks/staff/' + ${staff.id}}">
+                <button type="button">View Tasks</button>
+            </a>
+        </td>
+
         <td>
             <a th:href="@{'/maintenance_staff/' + ${staff.id} + '/update'}">
                 <button type="button">Update Staff</button>
@@ -32,5 +36,3 @@
         </td>
     </tr>
 </table>
-</body>
-</html>

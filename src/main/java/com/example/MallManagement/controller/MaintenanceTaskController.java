@@ -30,6 +30,12 @@ public class MaintenanceTaskController {
         return "task/index";
     }
 
+    @GetMapping("/staff/{id}")
+    public String listTasksByStaff(@PathVariable Long id, Model model) {
+        model.addAttribute("tasks", taskService.findByStaffId(id));
+        return "task/index";
+    }
+
     @GetMapping
     public String listTasks(Model model) {
         model.addAttribute("tasks", taskService.findAll());
