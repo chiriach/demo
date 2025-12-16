@@ -1,12 +1,51 @@
-[
-  {"id":"1","name":"Alice","currency":"USD","purchases":[]},
-  {"id":"2","name":"Bob","currency":"EUR","purchases":[]},
-  {"id":"3","name":"Charlie","currency":"USD","purchases":[]},
-  {"id":"4","name":"Diana","currency":"EUR","purchases":[]},
-  {"id":"5","name":"Eve","currency":"USD","purchases":[]},
-  {"id":"6","name":"Frank","currency":"EUR","purchases":[]},
-  {"id":"7","name":"Grace","currency":"USD","purchases":[]},
-  {"id":"8","name":"Heidi","currency":"EUR","purchases":[]},
-  {"id":"9","name":"Ivan","currency":"USD","purchases":[]},
-  {"id":"10","name":"Judy","currency":"EUR","purchases":[]}
-]
+[ {
+  "id" : "1",
+  "name" : "Alice",
+  "currency" : "USD",
+  "purchases" : [ ]
+}, {
+  "id" : "2",
+  "name" : "Bobita",
+  "currency" : "EUR",
+  "purchases" : [ ]
+}, {
+  "id" : "3",
+  "name" : "Charlie",
+  "currency" : "USD",
+  "purchases" : [ ]
+}, {
+  "id" : "4",
+  "name" : "Diana",
+  "currency" : "EUR",
+  "purchases" : [ ]
+}, {
+  "id" : "5",
+  "name" : "Eve",
+  "currency" : "USD",
+  "purchases" : [ ]
+}, {
+  "id" : "6",
+  "name" : "Frank",
+  "currency" : "EUR",
+  "purchases" : [ ]
+}, {
+  "id" : "7",
+  "name" : "Grace",
+  "currency" : "USD",
+  "purchases" : [ ]
+}, {
+  "id" : "8",
+  "name" : "Heidi",
+  "currency" : "EUR",
+  "purchases" : [ ]
+}, {
+  "id" : "9",
+  "name" : "Ivan",
+  "currency" : "USD",
+  "purchases" : [ ]
+}, {
+  "id" : "10",
+  "name" : "Judy",
+  "currency" : "EUR",
+  "purchases" : [ ]
+} ]

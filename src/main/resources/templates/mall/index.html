@@ -1,10 +1,65 @@
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Malls</title>
 </head>
 <body>
+
 <h1>All Malls</h1>
+
+<!-- FILTER FORM ÜBER DER TABELLE -->
+<form method="get" th:action="@{/malls}">
+
+    <label>ID:</label>
+    <select name="id">
+        <option value="">All</option>
+        <option th:each="m : ${malls}"
+                th:value="${m.id}"
+                th:text="${m.id}"
+                th:selected="${m.id == id}">
+        </option>
+    </select>
+
+    <label>Name:</label>
+    <select name="name">
+        <option value="">All</option>
+        <option th:each="m : ${malls}"
+                th:value="${m.name}"
+                th:text="${m.name}"
+                th:selected="${m.name == name}">
+        </option>
+    </select>
+
+    <label>City:</label>
+    <select name="city">
+        <option value="">All</option>
+        <option th:each="m : ${malls}"
+                th:value="${m.city}"
+                th:text="${m.city}"
+                th:selected="${m.city == city}">
+        </option>
+    </select>
+
+    <label>Sort by:</label>
+    <select name="sortBy">
+        <option value="id" th:selected="${sortBy == 'id'}">ID</option>
+        <option value="name" th:selected="${sortBy == 'name'}">Name</option>
+        <option value="city" th:selected="${sortBy == 'city'}">City</option>
+    </select>
+
+    <label>Order:</label>
+    <select name="direction">
+        <option value="asc" th:selected="${direction == 'asc'}">Ascending</option>
+        <option value="desc" th:selected="${direction == 'desc'}">Descending</option>
+    </select>
+
+    <button type="submit">Apply</button>
+</form>
+
+<br>
+
 <a th:href="@{/malls/new}">Add New Mall</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
@@ -13,29 +68,32 @@
         <th>Floors</th>
         <th>Actions</th>
     </tr>
+
     <tr th:each="mall : ${malls}">
         <td th:text="${mall.id}"></td>
         <td th:text="${mall.name}"></td>
         <td th:text="${mall.city}"></td>
-
         <td>
-            <a th:href="@{'/floors/mall/' + ${mall.id}}">
-                <button type="button" th:text="'View (' + ${#lists.size(mall.floors)} + ')'"></button>
-            </a>
+            <ul>
+                <li th:each="floor : ${mall.floors}">
+                    Floor <span th:text="${floor.number}"></span>
+                </li>
+            </ul>
         </td>
-
         <td>
             <a th:href="@{'/malls/' + ${mall.id} + '/details'}">
                 <button type="button">Details</button>
             </a>
             <a th:href="@{'/malls/' + ${mall.id} + '/update'}">
-                <button type="button">Update Mall</button>
+                <button type="button">Update</button>
             </a>
-            <form th:action="@{'/malls/' + ${mall.id} + '/delete'}" method="post" style="display:inline;">
-                <button type="submit">Delete Mall</button>
+            <form th:action="@{'/malls/' + ${mall.id} + '/delete'}"
+                  method="post" style="display:inline;">
+                <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
 </table>
+
 </body>
 </html>

@@ -29,8 +29,25 @@ public class MallController {
     }
 
     @GetMapping
-    public String listMalls(Model model) {
-        model.addAttribute("malls", mallService.findAll());
+    public String listMalls(
+            @RequestParam(required = false) Long id,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String city,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction,
+            Model model
+    ) {
+        model.addAttribute(
+                "malls",
+                mallService.findFiltered(id, name, city, sortBy, direction)
+        );
+
+        model.addAttribute("id", id);
+        model.addAttribute("name", name);
+        model.addAttribute("city", city);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
+
         return "mall/index";
     }
 
@@ -64,7 +81,9 @@ public class MallController {
     }
 
     @PostMapping("/{id}/update")
-    public String updateMall(@PathVariable Long id, @Valid @ModelAttribute Mall updatedMall, BindingResult result) {
+    public String updateMall(@PathVariable Long id,
+                             @Valid @ModelAttribute Mall updatedMall,
+                             BindingResult result) {
         if (result.hasErrors()) {
             updatedMall.setId(id);
             return "mall/form";
