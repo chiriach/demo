@@ -32,7 +32,7 @@ public class FloorController {
     @GetMapping("/mall/{id}")
     public String listFloorsByMall(@PathVariable Long id, Model model) {
         model.addAttribute("floors", floorService.findByMallId(id));
-        return "floor/index"; // Reuses the existing floor list view
+        return "floor/index";
     }
 
     @GetMapping("/new")
@@ -43,7 +43,23 @@ public class FloorController {
     }
 
     @PostMapping
-    public String createFloor(@Valid @ModelAttribute Floor floor, BindingResult result, Model model) {
+    public String createFloor(@Valid @ModelAttribute Floor floor,
+                              BindingResult result,
+                              @RequestParam(value = "mallId", required = false) Long mallId,
+                              Model model) {
+
+        if (mallId == null) {
+            result.rejectValue("mall", "error.mall", "Please select a mall.");
+        }
+        if (mallId != null) {
+            var mall = mallService.findById(mallId);
+            if (mall == null) {
+                result.rejectValue("mall", "error.mall", "Selected mall does not exist.");
+            } else {
+                floor.setMall(mall);
+            }
+        }
+
         if (result.hasErrors()) {
             model.addAttribute("malls", mallService.findAll());
             return "floor/form";

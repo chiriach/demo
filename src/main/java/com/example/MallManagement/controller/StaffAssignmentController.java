@@ -1,5 +1,6 @@
 package com.example.MallManagement.controller;
 
+import com.example.MallManagement.model.Floor;
 import com.example.MallManagement.model.Staff;
 import com.example.MallManagement.model.StaffAssignment;
 import com.example.MallManagement.service.FloorService;
@@ -82,15 +83,35 @@ public class StaffAssignmentController {
                                    @RequestParam(value = "staffId", required = false) Long staffId,
                                    Model model) {
 
+        if (floorId == null) {
+            result.rejectValue("floor", "error.floor", "Please select a floor.");
+        }
+        if (staffId == null) {
+            result.rejectValue("staff", "error.staff", "Please select a staff member.");
+        }
+
+        if (floorId != null) {
+            Floor floor = floorService.findById(floorId);
+            if (floor == null) {
+                result.rejectValue("floor", "error.floor", "Selected floor does not exist.");
+            } else {
+                assignment.setFloor(floor);
+            }
+        }
+
+        if (staffId != null) {
+            Staff staff = findStaffById(staffId);
+            if (staff == null) {
+                result.rejectValue("staff", "error.staff", "Selected staff does not exist.");
+            } else {
+                assignment.setStaff(staff);
+            }
+        }
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             model.addAttribute("staffList", getAllStaff());
             return "assignment/form";
         }
-
-        // Link manually
-        if (floorId != null) assignment.setFloor(floorService.findById(floorId));
-        if (staffId != null) assignment.setStaff(findStaffById(staffId));
 
         assignmentService.save(assignment);
         return "redirect:/assignments";
