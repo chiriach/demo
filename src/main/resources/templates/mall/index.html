@@ -17,14 +17,13 @@
         <td th:text="${mall.id}"></td>
         <td th:text="${mall.name}"></td>
         <td th:text="${mall.city}"></td>
+
         <td>
-            <ul>
-                <li th:each="floor : ${mall.floors}">
-                    Floor <span th:text="${floor.number}"></span>
-                </li>
-            </ul>
+            <a th:href="@{'/floors/mall/' + ${mall.id}}">
+                <button type="button" th:text="'View (' + ${#lists.size(mall.floors)} + ')'"></button>
+            </a>
         </td>
-        <td>
+
         <td>
             <a th:href="@{'/malls/' + ${mall.id} + '/details'}">
                 <button type="button">Details</button>

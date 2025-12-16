@@ -11,13 +11,20 @@
         <th>Name</th>
         <th>Badge No</th>
         <th>Salary</th>
-        <th>Actions</th>
+        <th>Assignments</th> <th>Actions</th>
     </tr>
     <tr th:each="staff : ${staffList}">
         <td th:text="${staff.id}"></td>
         <td th:text="${staff.name}"></td>
         <td th:text="${staff.badgeNo}"></td>
         <td th:text="${staff.salary}"></td>
+
+        <td>
+            <a th:href="@{'/assignments/staff/' + ${staff.id}}">
+                <button type="button" th:text="'View (' + ${#lists.size(staff.assignments)} + ')'"></button>
+            </a>
+        </td>
+
         <td>
             <a th:href="@{'/security_staff/' + ${staff.id} + '/update'}">
                 <button type="button">Update Staff</button>

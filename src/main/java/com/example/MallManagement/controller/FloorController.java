@@ -29,6 +29,12 @@ public class FloorController {
         return "floor/index";
     }
 
+    @GetMapping("/mall/{id}")
+    public String listFloorsByMall(@PathVariable Long id, Model model) {
+        model.addAttribute("floors", floorService.findByMallId(id));
+        return "floor/index"; // Reuses the existing floor list view
+    }
+
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("floor", new Floor());
