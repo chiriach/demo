@@ -3,6 +3,7 @@ package com.example.MallManagement.service;
 import com.example.MallManagement.model.MaintenanceStaff;
 import com.example.MallManagement.repository.MaintenanceStaffRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,25 @@ public class MaintenanceStaffService {
     public MaintenanceStaffService(MaintenanceStaffRepository maintenanceStaffRepo) {
         this.maintenanceStaffRepo = maintenanceStaffRepo;
     }
+
+    // -------- FILTER + SORT (ADDED) --------
+    public List<MaintenanceStaff> filter(String value, String field, String dir) {
+        if (value == null) value = "";
+
+        Sort sort = dir.equalsIgnoreCase("desc")
+                ? Sort.by(field).descending()
+                : Sort.by(field).ascending();
+
+        String finalValue = value;
+        return maintenanceStaffRepo.findAll(sort).stream()
+                .filter(s ->
+                        s.getName().toLowerCase().contains(finalValue.toLowerCase()) ||
+                                (s.getType() != null && s.getType().name().toLowerCase().contains(finalValue.toLowerCase()))
+                )
+                .toList();
+    }
+
+    // -------- ORIGINAL METHODS --------
 
     public List<MaintenanceStaff> findAll() {
         return maintenanceStaffRepo.findAll();

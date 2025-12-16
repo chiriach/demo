@@ -21,8 +21,18 @@ public class CustomerController {
     }
 
     @GetMapping
-    public String listCustomers(Model model) {
-        model.addAttribute("customers", customerService.findAll());
+    public String listCustomers(
+            @RequestParam(required = false) String searchTerm,
+            @RequestParam(required = false, defaultValue = "name") String searchAttribute,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction,
+            Model model
+    ) {
+        model.addAttribute("customers", customerService.findFiltered(searchTerm, searchAttribute, sortBy, direction));
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("searchAttribute", searchAttribute);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
         return "customer/index";
     }
 
@@ -34,9 +44,7 @@ public class CustomerController {
 
     @PostMapping
     public String createCustomer(@Valid @ModelAttribute Customer customer, BindingResult result) {
-        if (result.hasErrors()) {
-            return "customer/form";
-        }
+        if (result.hasErrors()) return "customer/form";
         customerService.save(customer);
         return "redirect:/customers";
     }

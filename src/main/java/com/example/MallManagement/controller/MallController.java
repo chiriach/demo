@@ -30,21 +30,19 @@ public class MallController {
 
     @GetMapping
     public String listMalls(
-            @RequestParam(required = false) Long id,
-            @RequestParam(required = false) String name,
-            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String searchTerm,
+            @RequestParam(required = false, defaultValue = "name") String searchAttribute,
             @RequestParam(defaultValue = "name") String sortBy,
             @RequestParam(defaultValue = "asc") String direction,
             Model model
     ) {
         model.addAttribute(
                 "malls",
-                mallService.findFiltered(id, name, city, sortBy, direction)
+                mallService.findFiltered(searchTerm, searchAttribute, sortBy, direction)
         );
 
-        model.addAttribute("id", id);
-        model.addAttribute("name", name);
-        model.addAttribute("city", city);
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("searchAttribute", searchAttribute);
         model.addAttribute("sortBy", sortBy);
         model.addAttribute("direction", direction);
 

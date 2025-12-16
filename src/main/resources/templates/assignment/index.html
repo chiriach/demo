@@ -3,8 +3,34 @@
     <title>Staff Assignments</title>
 </head>
 <body>
+
 <h1>All Staff Assignments</h1>
+
+<form method="get" th:action="@{/assignments}">
+    <label>Search:</label>
+    <input type="text" name="value" th:value="${value}"/>
+
+    <select name="field">
+        <option value="shift" th:selected="${field == 'shift'}">Shift</option>
+        <option value="staff" th:selected="${field == 'staff'}">Staff Name</option>
+        <option value="floor" th:selected="${field == 'floor'}">Floor ID</option>
+    </select>
+
+    <br/><br/>
+
+    <label>Sort by:</label>
+    <select name="dir">
+        <option value="asc" th:selected="${dir == 'asc'}">Ascending</option>
+        <option value="desc" th:selected="${dir == 'desc'}">Descending</option>
+    </select>
+
+    <button type="submit">Apply</button>
+</form>
+
+<br/>
+
 <a th:href="@{/assignments/new}">New Assignment</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
@@ -13,23 +39,23 @@
         <th>Staff Name</th>
         <th>Actions</th>
     </tr>
+
     <tr th:each="assignment : ${assignments}">
         <td th:text="${assignment.id}"></td>
         <td th:text="${assignment.shift}"></td>
-
         <td th:text="${assignment.floor != null ? assignment.floor.id : 'N/A'}"></td>
-
         <td th:text="${assignment.staff != null ? assignment.staff.name : 'N/A'}"></td>
-
         <td>
             <a th:href="@{'/assignments/' + ${assignment.id} + '/update'}">
-                <button type="button">Update</button>
+                <button>Update</button>
             </a>
-            <form th:action="@{'/assignments/' + ${assignment.id} + '/delete'}" method="post" style="display:inline;">
+            <form th:action="@{'/assignments/' + ${assignment.id} + '/delete'}"
+                  method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
 </table>
+
 </body>
 </html>

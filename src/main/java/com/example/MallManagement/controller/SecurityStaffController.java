@@ -21,8 +21,16 @@ public class SecurityStaffController {
     }
 
     @GetMapping
-    public String listStaff(Model model) {
-        model.addAttribute("staffList", service.findAll());
+    public String listStaff(
+            @RequestParam(required = false) String value,
+            @RequestParam(defaultValue = "name") String field,
+            @RequestParam(defaultValue = "asc") String dir,
+            Model model
+    ) {
+        model.addAttribute("staffList", service.filter(value, field, dir));
+        model.addAttribute("value", value);
+        model.addAttribute("field", field);
+        model.addAttribute("dir", dir);
         return "security_staff/index";
     }
 

@@ -24,15 +24,25 @@ public class ShopController {
         this.floorService = floorService;
     }
 
-    @GetMapping("/floor/{id}")
-    public String listShopsByFloor(@PathVariable Long id, Model model) {
-        model.addAttribute("shops", shopService.findByFloorId(id));
+    @GetMapping
+    public String listShops(
+            @RequestParam(required = false) String searchTerm,
+            @RequestParam(required = false, defaultValue = "name") String searchAttribute,
+            @RequestParam(defaultValue = "name") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction,
+            Model model
+    ) {
+        model.addAttribute("shops", shopService.findFiltered(searchTerm, searchAttribute, sortBy, direction));
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("searchAttribute", searchAttribute);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
         return "shop/index";
     }
 
-    @GetMapping
-    public String listShops(Model model) {
-        model.addAttribute("shops", shopService.findAll());
+    @GetMapping("/floor/{id}")
+    public String listShopsByFloor(@PathVariable Long id, Model model) {
+        model.addAttribute("shops", shopService.findByFloorId(id));
         return "shop/index";
     }
 
@@ -51,19 +61,17 @@ public class ShopController {
 
         if (floorId == null) {
             result.rejectValue("floor", "error.floor", "Please select a floor.");
-        }
-        if (floorId != null) {
+        } else {
             Floor floor = floorService.findById(floorId);
-            if (floor == null) {
-                result.rejectValue("floor", "error.floor", "Selected floor does not exist.");
-            } else {
-                shop.setFloor(floor);
-            }
+            if (floor == null) result.rejectValue("floor", "error.floor", "Selected floor does not exist.");
+            else shop.setFloor(floor);
         }
+
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             return "shop/form";
         }
+
         shopService.save(shop);
         return "redirect:/shops";
     }
@@ -77,15 +85,16 @@ public class ShopController {
 
         if (floorId == null) {
             result.rejectValue("floor", "error.floor", "Please select a floor.");
-        }
-        if (floorId != null && floorService.findById(floorId) == null) {
+        } else if (floorService.findById(floorId) == null) {
             result.rejectValue("floor", "error.floor", "Selected floor does not exist.");
         }
+
         if (result.hasErrors()) {
             updatedShop.setId(id);
             model.addAttribute("floors", floorService.findAll());
             return "shop/form";
         }
+
         Shop existing = shopService.findById(id);
         if (existing != null) {
             existing.setName(updatedShop.getName());
@@ -95,6 +104,7 @@ public class ShopController {
             if (floorId != null) existing.setFloor(floorService.findById(floorId));
             shopService.save(existing);
         }
+
         return "redirect:/shops";
     }
 

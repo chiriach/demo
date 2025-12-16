@@ -3,16 +3,48 @@
     <title>Shops</title>
 </head>
 <body>
+
 <h1>All Shops</h1>
+
+<form method="get" th:action="@{/shops}">
+    <input type="text" name="searchTerm" placeholder="Search..."
+           th:value="${searchTerm}"/>
+
+    <select name="searchAttribute">
+        <option value="id">ID</option>
+        <option value="name">Name</option>
+        <option value="ownerName">Owner</option>
+        <option value="rating">Rating</option>
+    </select>
+
+    <br><br>
+
+    <label>Sort by:</label>
+    <select name="sortBy">
+        <option value="name">Name</option>
+        <option value="rating">Rating</option>
+        <option value="areaSqm">Area</option>
+    </select>
+
+    <select name="direction">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<br>
+
 <a th:href="@{/shops/new}">Add New Shop</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Owner Name</th>
-        <th>Area (sqm)</th>
+        <th>Owner</th>
+        <th>Area</th>
         <th>Rating</th>
-        <th>Purchases (Count)</th>
         <th>Actions</th>
     </tr>
     <tr th:each="shop : ${shops}">
@@ -21,16 +53,17 @@
         <td th:text="${shop.ownerName}"></td>
         <td th:text="${shop.areaSqm}"></td>
         <td th:text="${shop.rating}"></td>
-        <td th:text="${#lists.size(shop.purchases)}"></td>
         <td>
             <a th:href="@{'/shops/' + ${shop.id} + '/update'}">
-                <button type="button">Update Shop</button>
+                <button>Update</button>
             </a>
-            <form th:action="@{'/shops/' + ${shop.id} + '/delete'}" method="post" style="display:inline;">
-                <button type="submit">Delete Shop</button>
+            <form th:action="@{'/shops/' + ${shop.id} + '/delete'}"
+                  method="post" style="display:inline;">
+                <button>Delete</button>
             </form>
         </td>
     </tr>
 </table>
+
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.example.MallManagement.service;
 import com.example.MallManagement.model.Floor;
 import com.example.MallManagement.repository.FloorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +27,9 @@ public class FloorService {
         return floorRepo.findById(id).orElse(null);
     }
 
-    public List<Floor> findByMallId(Long mallId) {return floorRepo.findByMallId(mallId);}
+    public List<Floor> findByMallId(Long mallId) {
+        return floorRepo.findByMallId(mallId);
+    }
 
     @Transactional
     public void save(Floor floor) {
@@ -36,5 +39,16 @@ public class FloorService {
     @Transactional
     public void delete(Long id) {
         floorRepo.deleteById(id);
+    }
+
+    public List<Floor> findFiltered(String searchTerm, String searchAttribute, String sortBy, String direction) {
+        if (searchTerm == null) searchTerm = "";
+        if (searchAttribute == null) searchAttribute = "number";
+
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+
+        return floorRepo.searchByAttribute(searchTerm, searchAttribute, sort);
     }
 }

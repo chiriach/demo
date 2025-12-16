@@ -3,14 +3,46 @@
     <title>Customers</title>
 </head>
 <body>
+
 <h1>All Customers</h1>
+
+<form method="get" th:action="@{/customers}">
+    <input type="text" name="searchTerm" placeholder="Search..."
+           th:value="${searchTerm}"/>
+
+    <select name="searchAttribute">
+        <option value="id" th:selected="${searchAttribute == 'id'}">ID</option>
+        <option value="name" th:selected="${searchAttribute == 'name'}">Name</option>
+        <option value="currency" th:selected="${searchAttribute == 'currency'}">Currency</option>
+    </select>
+
+    <br><br>
+
+    <label>Sort by:</label>
+    <select name="sortBy">
+        <option value="id">ID</option>
+        <option value="name">Name</option>
+        <option value="currency">Currency</option>
+    </select>
+
+    <select name="direction">
+        <option value="asc">Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<br>
+
 <a th:href="@{/customers/new}">Add New Customer</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Currency</th>
-        <th>Purchases (Count)</th>
+        <th>Purchases</th>
         <th>Actions</th>
     </tr>
     <tr th:each="customer : ${customers}">
@@ -19,18 +51,16 @@
         <td th:text="${customer.currency}"></td>
         <td th:text="${#lists.size(customer.purchases)}"></td>
         <td>
-            <a th:href="@{'/purchases/customer/' + ${customer.id}}">
-                <button type="button">View Purchases</button>
-            </a>
-
             <a th:href="@{'/customers/' + ${customer.id} + '/update'}">
-                <button type="button">Update Customer</button>
+                <button>Update</button>
             </a>
-            <form th:action="@{'/customers/' + ${customer.id} + '/delete'}" method="post" style="display:inline;">
-                <button type="submit">Delete Customer</button>
+            <form th:action="@{'/customers/' + ${customer.id} + '/delete'}"
+                  method="post" style="display:inline;">
+                <button>Delete</button>
             </form>
         </td>
     </tr>
 </table>
+
 </body>
 </html>

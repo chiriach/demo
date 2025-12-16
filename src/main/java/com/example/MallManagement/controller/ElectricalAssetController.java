@@ -12,7 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/electrical-asset")
+@RequestMapping("/electrical-assets")
 public class ElectricalAssetController {
 
     private final ElectricalAssetService assetService;
@@ -24,15 +24,25 @@ public class ElectricalAssetController {
         this.floorService = floorService;
     }
 
-    @GetMapping("/floor/{id}")
-    public String listAssetsByFloor(@PathVariable Long id, Model model) {
-        model.addAttribute("assets", assetService.findByFloorId(id));
+    @GetMapping
+    public String listAssets(
+            @RequestParam(required = false) String searchTerm,
+            @RequestParam(required = false, defaultValue = "type") String searchAttribute,
+            @RequestParam(defaultValue = "type") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction,
+            Model model
+    ) {
+        model.addAttribute("assets", assetService.findFiltered(searchTerm, searchAttribute, sortBy, direction));
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("searchAttribute", searchAttribute);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
         return "asset/index";
     }
 
-    @GetMapping
-    public String listAssets(Model model) {
-        model.addAttribute("assets", assetService.findAll());
+    @GetMapping("/floor/{id}")
+    public String listAssetsByFloor(@PathVariable Long id, Model model) {
+        model.addAttribute("assets", assetService.findByFloorId(id));
         return "asset/index";
     }
 
@@ -49,25 +59,14 @@ public class ElectricalAssetController {
                               @RequestParam(value = "floorId", required = false) Long floorId,
                               Model model) {
 
-        if (floorId == null) {
-            result.rejectValue("floor", "error.floor", "Please select a floor.");
-        }
+        if (floorId != null) asset.setFloor(floorService.findById(floorId));
 
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             return "asset/form";
         }
 
-        Floor selectedFloor = floorService.findById(floorId);
-        asset.setFloor(selectedFloor);
-
         assetService.save(asset);
-        return "redirect:/electrical-assets";
-    }
-
-    @PostMapping("/{id}/delete")
-    public String deleteAsset(@PathVariable Long id) {
-        assetService.delete(id);
         return "redirect:/electrical-assets";
     }
 
@@ -75,7 +74,6 @@ public class ElectricalAssetController {
     public String showEditForm(@PathVariable Long id, Model model) {
         ElectricalAsset asset = assetService.findById(id);
         if (asset == null) return "redirect:/electrical-assets";
-
         model.addAttribute("asset", asset);
         model.addAttribute("floors", floorService.findAll());
         return "asset/form";
@@ -83,11 +81,10 @@ public class ElectricalAssetController {
 
     @PostMapping("/{id}/update")
     public String updateAsset(@PathVariable Long id,
-                              @Valid @ModelAttribute("asset") ElectricalAsset formData,
+                              @Valid @ModelAttribute ElectricalAsset formData,
                               BindingResult result,
                               @RequestParam(value = "floorId", required = false) Long floorId,
                               Model model) {
-
         if (result.hasErrors()) {
             formData.setId(id);
             model.addAttribute("floors", floorService.findAll());
@@ -95,19 +92,19 @@ public class ElectricalAssetController {
         }
 
         ElectricalAsset existingAsset = assetService.findById(id);
-
         if (existingAsset != null) {
             existingAsset.setType(formData.getType());
             existingAsset.setStatus(formData.getStatus());
-
-            if (floorId != null) {
-                Floor newFloor = floorService.findById(floorId);
-                existingAsset.setFloor(newFloor);
-            }
-
+            if (floorId != null) existingAsset.setFloor(floorService.findById(floorId));
             assetService.save(existingAsset);
         }
 
+        return "redirect:/electrical-assets";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteAsset(@PathVariable Long id) {
+        assetService.delete(id);
         return "redirect:/electrical-assets";
     }
 }

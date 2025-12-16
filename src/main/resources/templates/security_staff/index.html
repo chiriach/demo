@@ -3,37 +3,64 @@
     <title>Security Staff</title>
 </head>
 <body>
-<h1>Security Staff List</h1>
+
+<h1>Security Staff</h1>
+
+<form method="get" th:action="@{/security_staff}">
+    <input type="text" name="value" th:value="${value}"/>
+
+    <select name="field">
+        <option value="name" th:selected="${field == 'name'}">Name</option>
+        <option value="badgeNo" th:selected="${field == 'badgeNo'}">Badge No</option>
+        <option value="salary" th:selected="${field == 'salary'}">Salary</option>
+    </select>
+
+    <br/><br/>
+
+    <label>Sort:</label>
+    <select name="dir">
+        <option value="asc" th:selected="${dir == 'asc'}">Ascending</option>
+        <option value="desc" th:selected="${dir == 'desc'}">Descending</option>
+    </select>
+
+    <button type="submit">Apply</button>
+</form>
+
+<br/>
+
 <a th:href="@{/security_staff/new}">Add New Staff</a>
+
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Badge No</th>
         <th>Salary</th>
-        <th>Assignments</th> <th>Actions</th>
+        <th>Assignments</th>
+        <th>Actions</th>
     </tr>
+
     <tr th:each="staff : ${staffList}">
         <td th:text="${staff.id}"></td>
         <td th:text="${staff.name}"></td>
         <td th:text="${staff.badgeNo}"></td>
         <td th:text="${staff.salary}"></td>
-
         <td>
             <a th:href="@{'/assignments/staff/' + ${staff.id}}">
-                <button type="button" th:text="'View (' + ${#lists.size(staff.assignments)} + ')'"></button>
+                <button th:text="'View (' + ${#lists.size(staff.assignments)} + ')'"></button>
             </a>
         </td>
-
         <td>
             <a th:href="@{'/security_staff/' + ${staff.id} + '/update'}">
-                <button type="button">Update Staff</button>
+                <button>Update</button>
             </a>
-            <form th:action="@{'/security_staff/' + ${staff.id} + '/delete'}" method="post" style="display:inline;">
-                <button type="submit">Delete Staff</button>
+            <form th:action="@{'/security_staff/' + ${staff.id} + '/delete'}"
+                  method="post" style="display:inline;">
+                <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
 </table>
+
 </body>
 </html>

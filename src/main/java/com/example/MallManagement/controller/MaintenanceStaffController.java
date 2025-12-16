@@ -20,11 +20,30 @@ public class MaintenanceStaffController {
         this.maintenanceStaffService = maintenanceStaffService;
     }
 
+    // ✅ ONLY EXTENDED: filter + sort
     @GetMapping
-    public String listStaff(Model model) {
-        model.addAttribute("staffList", maintenanceStaffService.findAll());
+    public String listStaff(
+            @RequestParam(required = false) String value,
+            @RequestParam(defaultValue = "name") String field,
+            @RequestParam(defaultValue = "asc") String dir,
+            Model model
+    ) {
+        model.addAttribute(
+                "staffList",
+                maintenanceStaffService.filter(value, field, dir)
+        );
+
+        // keep form values
+        model.addAttribute("value", value);
+        model.addAttribute("field", field);
+        model.addAttribute("dir", dir);
+
         return "maintenance_staff/index";
     }
+
+    // -------------------------
+    // EVERYTHING BELOW IS UNCHANGED
+    // -------------------------
 
     @GetMapping("/new")
     public String showCreateForm(Model model) {
@@ -33,7 +52,10 @@ public class MaintenanceStaffController {
     }
 
     @PostMapping
-    public String createStaff(@Valid @ModelAttribute("staff") MaintenanceStaff staff, BindingResult result) {
+    public String createStaff(
+            @Valid @ModelAttribute("staff") MaintenanceStaff staff,
+            BindingResult result
+    ) {
         if (result.hasErrors()) {
             return "maintenance_staff/form";
         }
@@ -50,13 +72,19 @@ public class MaintenanceStaffController {
     @GetMapping("/{id}/update")
     public String showEditForm(@PathVariable Long id, Model model) {
         MaintenanceStaff staff = maintenanceStaffService.findById(id);
-        if (staff == null) return "redirect:/maintenance_staff";
+        if (staff == null) {
+            return "redirect:/maintenance_staff";
+        }
         model.addAttribute("staff", staff);
         return "maintenance_staff/form";
     }
 
     @PostMapping("/{id}/update")
-    public String updateStaff(@PathVariable Long id, @Valid @ModelAttribute("staff") MaintenanceStaff updatedStaff, BindingResult result) {
+    public String updateStaff(
+            @PathVariable Long id,
+            @Valid @ModelAttribute("staff") MaintenanceStaff updatedStaff,
+            BindingResult result
+    ) {
         if (result.hasErrors()) {
             updatedStaff.setId(id);
             return "maintenance_staff/form";

@@ -3,34 +3,65 @@
     <title>Electrical Assets</title>
 </head>
 <body>
+
 <h1>All Electrical Assets</h1>
+
+<form method="get" th:action="@{/electrical-assets}">
+    <input type="text" name="searchTerm" placeholder="Search..."
+           th:value="${searchTerm}"/>
+
+    <select name="searchAttribute">
+        <option value="id" th:selected="${searchAttribute == 'id'}">ID</option>
+        <option value="type" th:selected="${searchAttribute == 'type'}">Type</option>
+        <option value="status" th:selected="${searchAttribute == 'status'}">Status</option>
+        <option value="floor" th:selected="${searchAttribute == 'floor'}">Floor</option>
+    </select>
+
+    <br><br>
+
+    <label>Sort by:</label>
+    <select name="sortBy">
+        <option value="id" th:selected="${sortBy == 'id'}">ID</option>
+        <option value="type" th:selected="${sortBy == 'type'}">Type</option>
+        <option value="status" th:selected="${sortBy == 'status'}">Status</option>
+    </select>
+
+    <select name="direction">
+        <option value="asc" th:selected="${direction == 'asc'}">Ascending</option>
+        <option value="desc" th:selected="${direction == 'desc'}">Descending</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<br>
 
 <a href="/electrical-assets/new">Add New Asset</a>
 
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Floor ID</th>
+        <th>Floor</th>
         <th>Type</th>
         <th>Status</th>
         <th>Actions</th>
     </tr>
     <tr th:each="asset : ${assets}">
         <td th:text="${asset.id}"></td>
-
         <td th:text="${asset.floor != null ? asset.floor.id : 'N/A'}"></td>
-
         <td th:text="${asset.type}"></td>
         <td th:text="${asset.status}"></td>
         <td>
             <a th:href="@{'/electrical-assets/' + ${asset.id} + '/update'}">
-                <button type="button">Update Asset</button>
+                <button>Update</button>
             </a>
-            <form th:action="@{'/electrical-assets/' + ${asset.id} + '/delete'}" method="post" style="display:inline;">
-                <button type="submit">Delete Asset</button>
+            <form th:action="@{'/electrical-assets/' + ${asset.id} + '/delete'}"
+                  method="post" style="display:inline;">
+                <button>Delete</button>
             </form>
         </td>
     </tr>
 </table>
+
 </body>
 </html>

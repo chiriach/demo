@@ -35,30 +35,18 @@ public class MallService {
     }
 
     public List<Mall> findFiltered(
-            Long id,
-            String name,
-            String city,
+            String searchTerm,
+            String searchAttribute,
             String sortBy,
             String direction
     ) {
-        if (name == null) name = "";
-        if (city == null) city = "";
+        if (searchTerm == null) searchTerm = "";
+        if (searchAttribute == null) searchAttribute = "name";
 
         Sort sort = direction.equalsIgnoreCase("desc")
                 ? Sort.by(sortBy).descending()
                 : Sort.by(sortBy).ascending();
 
-        List<Mall> malls =
-                mallRepository.findByNameContainingIgnoreCaseAndCityContainingIgnoreCase(
-                        name, city, sort
-                );
-
-        if (id != null) {
-            malls = malls.stream()
-                    .filter(m -> m.getId().equals(id))
-                    .toList();
-        }
-
-        return malls;
+        return mallRepository.searchByAttribute(searchTerm, searchAttribute, sort);
     }
 }

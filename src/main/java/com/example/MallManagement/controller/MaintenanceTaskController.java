@@ -24,6 +24,22 @@ public class MaintenanceTaskController {
         this.floorService = floorService;
     }
 
+    @GetMapping
+    public String listTasks(
+            @RequestParam(required = false) String searchTerm,
+            @RequestParam(required = false, defaultValue = "description") String searchAttribute,
+            @RequestParam(defaultValue = "description") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction,
+            Model model
+    ) {
+        model.addAttribute("tasks", taskService.findFiltered(searchTerm, searchAttribute, sortBy, direction));
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("searchAttribute", searchAttribute);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
+        return "task/index";
+    }
+
     @GetMapping("/floor/{id}")
     public String listTasksByFloor(@PathVariable Long id, Model model) {
         model.addAttribute("tasks", taskService.findByFloorId(id));
@@ -33,12 +49,6 @@ public class MaintenanceTaskController {
     @GetMapping("/staff/{id}")
     public String listTasksByStaff(@PathVariable Long id, Model model) {
         model.addAttribute("tasks", taskService.findByStaffId(id));
-        return "task/index";
-    }
-
-    @GetMapping
-    public String listTasks(Model model) {
-        model.addAttribute("tasks", taskService.findAll());
         return "task/index";
     }
 
@@ -54,30 +64,14 @@ public class MaintenanceTaskController {
                              BindingResult result,
                              @RequestParam(value = "floorId", required = false) Long floorId,
                              Model model) {
-
-        if (floorId == null) {
-            // Manual error if no floor selected
-            // result.rejectValue... (optional)
-        }
+        if (floorId != null) task.setFloor(floorService.findById(floorId));
 
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             return "task/form";
         }
 
-        // Link Floor manually
-        if (floorId != null) {
-            Floor selectedFloor = floorService.findById(floorId);
-            task.setFloor(selectedFloor);
-        }
-
         taskService.save(task);
-        return "redirect:/tasks";
-    }
-
-    @PostMapping("/{id}/delete")
-    public String deleteTask(@PathVariable Long id) {
-        taskService.delete(id);
         return "redirect:/tasks";
     }
 
@@ -92,11 +86,10 @@ public class MaintenanceTaskController {
 
     @PostMapping("/{id}/update")
     public String updateTask(@PathVariable Long id,
-                             @Valid @ModelAttribute("task") MaintenanceTask formData,
+                             @Valid @ModelAttribute MaintenanceTask formData,
                              BindingResult result,
                              @RequestParam(value = "floorId", required = false) Long floorId,
                              Model model) {
-
         if (result.hasErrors()) {
             formData.setId(id);
             model.addAttribute("floors", floorService.findAll());
@@ -107,14 +100,15 @@ public class MaintenanceTaskController {
         if (existingTask != null) {
             existingTask.setDescription(formData.getDescription());
             existingTask.setStatus(formData.getStatus());
-
-            // Handle relationship update
-            if (floorId != null) {
-                existingTask.setFloor(floorService.findById(floorId));
-            }
-
+            if (floorId != null) existingTask.setFloor(floorService.findById(floorId));
             taskService.save(existingTask);
         }
+        return "redirect:/tasks";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteTask(@PathVariable Long id) {
+        taskService.delete(id);
         return "redirect:/tasks";
     }
 }

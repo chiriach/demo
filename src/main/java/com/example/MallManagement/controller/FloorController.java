@@ -24,8 +24,18 @@ public class FloorController {
     }
 
     @GetMapping
-    public String listFloors(Model model) {
-        model.addAttribute("floors", floorService.findAll());
+    public String listFloors(
+            @RequestParam(required = false) String searchTerm,
+            @RequestParam(required = false, defaultValue = "number") String searchAttribute,
+            @RequestParam(defaultValue = "number") String sortBy,
+            @RequestParam(defaultValue = "asc") String direction,
+            Model model
+    ) {
+        model.addAttribute("floors", floorService.findFiltered(searchTerm, searchAttribute, sortBy, direction));
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("searchAttribute", searchAttribute);
+        model.addAttribute("sortBy", sortBy);
+        model.addAttribute("direction", direction);
         return "floor/index";
     }
 
@@ -38,7 +48,7 @@ public class FloorController {
     @GetMapping("/new")
     public String showCreateForm(Model model) {
         model.addAttribute("floor", new Floor());
-        model.addAttribute("malls", mallService.findAll()); // Für Dropdown
+        model.addAttribute("malls", mallService.findAll());
         return "floor/form";
     }
 
@@ -50,8 +60,7 @@ public class FloorController {
 
         if (mallId == null) {
             result.rejectValue("mall", "error.mall", "Please select a mall.");
-        }
-        if (mallId != null) {
+        } else {
             var mall = mallService.findById(mallId);
             if (mall == null) {
                 result.rejectValue("mall", "error.mall", "Selected mall does not exist.");
@@ -78,14 +87,16 @@ public class FloorController {
     public String showEditForm(@PathVariable Long id, Model model) {
         Floor floor = floorService.findById(id);
         if (floor == null) return "redirect:/floors";
-
         model.addAttribute("floor", floor);
         model.addAttribute("malls", mallService.findAll());
         return "floor/form";
     }
 
     @PostMapping("/{id}/update")
-    public String updateFloor(@PathVariable Long id, @Valid @ModelAttribute Floor updatedFloor, BindingResult result, Model model) {
+    public String updateFloor(@PathVariable Long id,
+                              @Valid @ModelAttribute Floor updatedFloor,
+                              BindingResult result,
+                              Model model) {
         if (result.hasErrors()) {
             updatedFloor.setId(id);
             model.addAttribute("malls", mallService.findAll());

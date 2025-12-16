@@ -1,48 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Floors</title>
+</head>
+<body>
+<h1>All Floors</h1>
+
+<a th:href="@{/floors/new}">Add New Floor</a>
+
+<!-- Filter & Sort Form -->
+<form method="get" action="#" style="margin-top:20px;margin-bottom:20px;">
+    <label>Search Term:</label>
+    <input type="text" name="searchTerm" th:value="${searchTerm}" />
+
+    <label>Attribute:</label>
+    <select name="searchAttribute">
+        <option value="id" th:selected="${searchAttribute == 'id'}">ID</option>
+        <option value="number" th:selected="${searchAttribute == 'number'}">Number</option>
+        <option value="mall" th:selected="${searchAttribute == 'mall'}">Mall Name</option>
+    </select>
+
+    <br><br>
+
+    <label>Sort by:</label>
+    <select name="sortBy">
+        <option value="id" th:selected="${sortBy == 'id'}">ID</option>
+        <option value="number" th:selected="${sortBy == 'number'}">Number</option>
+        <option value="mall.name" th:selected="${sortBy == 'mall.name'}">Mall Name</option>
+    </select>
+
+    <select name="direction">
+        <option value="asc" th:selected="${direction == 'asc'}">Ascending</option>
+        <option value="desc" th:selected="${direction == 'desc'}">Descending</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Number</th>
+        <th>Mall</th>
         <th>Shops</th>
-        <th>Tasks</th>
-        <th>Electricals</th>
-        <th>Assignments</th>
         <th>Actions</th>
     </tr>
     <tr th:each="floor : ${floors}">
         <td th:text="${floor.id}"></td>
         <td th:text="${floor.number}"></td>
-
+        <td th:text="${floor.mall.name}"></td>
         <td>
-            <a th:href="@{'/shops/floor/' + ${floor.id}}">
-                <button type="button" th:text="'View (' + ${#lists.size(floor.shops)} + ')'"></button>
-            </a>
+            <ul>
+                <li th:each="shop : ${floor.shops}" th:text="${shop.name}"></li>
+            </ul>
         </td>
-
         <td>
-            <a th:href="@{'/tasks/floor/' + ${floor.id}}">
-                <button type="button" th:text="'View (' + ${#lists.size(floor.tasks)} + ')'"></button>
-            </a>
-        </td>
-
-        <td>
-            <a th:href="@{'/electrical-asset/floor/' + ${floor.id}}">
-                <button type="button" th:text="'View (' + ${#lists.size(floor.electricals)} + ')'"></button>
-            </a>
-        </td>
-
-        <td>
-            <a th:href="@{'/assignments/floor/' + ${floor.id}}">
-                <button type="button" th:text="'View (' + ${#lists.size(floor.assignments)} + ')'"></button>
-            </a>
-        </td>
-
-        <td>
-            <a th:href="@{'/floors/' + ${floor.id} + '/update'}">
-                <button type="button">Update Floor</button>
-            </a>
+            <a th:href="@{'/floors/' + ${floor.id} + '/update'}"><button>Update Floor</button></a>
             <form th:action="@{'/floors/' + ${floor.id} + '/delete'}" method="post" style="display:inline;">
                 <button type="submit">Delete Floor</button>
             </form>
         </td>
     </tr>
 </table>
+</body>
+</html>

@@ -3,6 +3,7 @@ package com.example.MallManagement.service;
 import com.example.MallManagement.model.MaintenanceTask;
 import com.example.MallManagement.repository.MaintenanceTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,25 +19,25 @@ public class MaintenanceTaskService {
         this.taskRepo = taskRepo;
     }
 
-    public List<MaintenanceTask> findAll() {
-        return taskRepo.findAll();
-    }
-
-    public MaintenanceTask findById(Long id) {
-        return taskRepo.findById(id).orElse(null);
-    }
-
-    public List<MaintenanceTask> findByFloorId(Long floorId) {return taskRepo.findByFloorId(floorId);}
-
-    public List<MaintenanceTask> findByStaffId(Long staffId) {return taskRepo.findByStaffId(staffId);}
+    public List<MaintenanceTask> findAll() { return taskRepo.findAll(); }
+    public MaintenanceTask findById(Long id) { return taskRepo.findById(id).orElse(null); }
+    public List<MaintenanceTask> findByFloorId(Long floorId) { return taskRepo.findByFloorId(floorId); }
+    public List<MaintenanceTask> findByStaffId(Long staffId) { return taskRepo.findByStaffId(staffId); }
 
     @Transactional
-    public void save(MaintenanceTask task) {
-        taskRepo.save(task);
-    }
+    public void save(MaintenanceTask task) { taskRepo.save(task); }
 
     @Transactional
-    public void delete(Long id) {
-        taskRepo.deleteById(id);
+    public void delete(Long id) { taskRepo.deleteById(id); }
+
+    public List<MaintenanceTask> findFiltered(String searchTerm, String searchAttribute, String sortBy, String direction) {
+        if (searchTerm == null) searchTerm = "";
+        if (searchAttribute == null) searchAttribute = "description";
+
+        Sort sort = direction.equalsIgnoreCase("desc")
+                ? Sort.by(sortBy).descending()
+                : Sort.by(sortBy).ascending();
+
+        return taskRepo.searchByAttribute(searchTerm, searchAttribute, sort);
     }
 }
