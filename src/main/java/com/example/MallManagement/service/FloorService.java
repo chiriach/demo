@@ -27,9 +27,7 @@ public class FloorService {
         return floorRepo.findById(id).orElse(null);
     }
 
-    public List<Floor> findByMallId(Long mallId) {
-        return floorRepo.findByMallId(mallId);
-    }
+    public List<Floor> findByMallId(Long mallId) {return floorRepo.findByMallId(mallId);}
 
     @Transactional
     public void save(Floor floor) {

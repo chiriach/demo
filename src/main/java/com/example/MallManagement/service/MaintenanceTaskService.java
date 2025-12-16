@@ -19,13 +19,22 @@ public class MaintenanceTaskService {
         this.taskRepo = taskRepo;
     }
 
-    public List<MaintenanceTask> findAll() { return taskRepo.findAll(); }
-    public MaintenanceTask findById(Long id) { return taskRepo.findById(id).orElse(null); }
-    public List<MaintenanceTask> findByFloorId(Long floorId) { return taskRepo.findByFloorId(floorId); }
-    public List<MaintenanceTask> findByStaffId(Long staffId) { return taskRepo.findByStaffId(staffId); }
+    public List<MaintenanceTask> findAll() {
+        return taskRepo.findAll();
+    }
+
+    public MaintenanceTask findById(Long id) {
+        return taskRepo.findById(id).orElse(null);
+    }
+
+    public List<MaintenanceTask> findByFloorId(Long floorId) {return taskRepo.findByFloorId(floorId);}
+
+    public List<MaintenanceTask> findByStaffId(Long staffId) {return taskRepo.findByStaffId(staffId);}
 
     @Transactional
-    public void save(MaintenanceTask task) { taskRepo.save(task); }
+    public void save(MaintenanceTask task) {
+        taskRepo.save(task);
+    }
 
     @Transactional
     public void delete(Long id) { taskRepo.deleteById(id); }

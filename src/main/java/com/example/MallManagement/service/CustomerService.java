@@ -19,11 +19,18 @@ public class CustomerService {
         this.customerRepo = customerRepo;
     }
 
-    public List<Customer> findAll() { return customerRepo.findAll(); }
-    public Customer findById(Long id) { return customerRepo.findById(id).orElse(null); }
+    public List<Customer> findAll() {
+        return customerRepo.findAll();
+    }
+
+    public Customer findById(Long id) {
+        return customerRepo.findById(id).orElse(null);
+    }
 
     @Transactional
-    public void save(Customer customer) { customerRepo.save(customer); }
+    public void save(Customer customer) {
+        customerRepo.save(customer);
+    }
 
     @Transactional
     public void delete(Long id) { customerRepo.deleteById(id); }

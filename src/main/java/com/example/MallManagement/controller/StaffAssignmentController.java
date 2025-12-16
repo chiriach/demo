@@ -24,12 +24,10 @@ public class StaffAssignmentController {
     private final SecurityStaffService securityStaffService;
 
     @Autowired
-    public StaffAssignmentController(
-            StaffAssignmentService assignmentService,
-            FloorService floorService,
-            MaintenanceStaffService maintenanceStaffService,
-            SecurityStaffService securityStaffService
-    ) {
+    public StaffAssignmentController(StaffAssignmentService assignmentService,
+                                     FloorService floorService,
+                                     MaintenanceStaffService maintenanceStaffService,
+                                     SecurityStaffService securityStaffService) {
         this.assignmentService = assignmentService;
         this.floorService = floorService;
         this.maintenanceStaffService = maintenanceStaffService;
@@ -37,18 +35,18 @@ public class StaffAssignmentController {
     }
 
     private List<Staff> getAllStaff() {
-        List<Staff> all = new ArrayList<>();
-        all.addAll(maintenanceStaffService.findAll());
-        all.addAll(securityStaffService.findAll());
-        return all;
+        List<Staff> allStaff = new ArrayList<>();
+        allStaff.addAll(maintenanceStaffService.findAll());
+        allStaff.addAll(securityStaffService.findAll());
+        return allStaff;
     }
 
     private Staff findStaffById(Long id) {
         Staff s = maintenanceStaffService.findById(id);
-        return (s != null) ? s : securityStaffService.findById(id);
+        if (s != null) return s;
+        return securityStaffService.findById(id);
     }
 
-    // ✅ EXTENDED ONLY
     @GetMapping
     public String listAssignments(
             @RequestParam(required = false) String value,
@@ -65,8 +63,6 @@ public class StaffAssignmentController {
         model.addAttribute("dir", dir);
         return "assignment/index";
     }
-
-    // ---------------- ORIGINAL METHODS ----------------
 
     @GetMapping("/staff/{id}")
     public String listAssignmentsByStaff(@PathVariable Long id, Model model) {
@@ -89,16 +85,36 @@ public class StaffAssignmentController {
     }
 
     @PostMapping
-    public String createAssignment(
-            @Valid @ModelAttribute StaffAssignment assignment,
-            BindingResult result,
-            @RequestParam(required = false) Long floorId,
-            @RequestParam(required = false) Long staffId,
-            Model model
-    ) {
-        if (floorId != null) assignment.setFloor(floorService.findById(floorId));
-        if (staffId != null) assignment.setStaff(findStaffById(staffId));
+    public String createAssignment(@Valid @ModelAttribute StaffAssignment assignment,
+                                   BindingResult result,
+                                   @RequestParam(value = "floorId", required = false) Long floorId,
+                                   @RequestParam(value = "staffId", required = false) Long staffId,
+                                   Model model) {
 
+        if (floorId == null) {
+            result.rejectValue("floor", "error.floor", "Please select a floor.");
+        }
+        if (staffId == null) {
+            result.rejectValue("staff", "error.staff", "Please select a staff member.");
+        }
+
+        if (floorId != null) {
+            Floor floor = floorService.findById(floorId);
+            if (floor == null) {
+                result.rejectValue("floor", "error.floor", "Selected floor does not exist.");
+            } else {
+                assignment.setFloor(floor);
+            }
+        }
+
+        if (staffId != null) {
+            Staff staff = findStaffById(staffId);
+            if (staff == null) {
+                result.rejectValue("staff", "error.staff", "Selected staff does not exist.");
+            } else {
+                assignment.setStaff(staff);
+            }
+        }
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             model.addAttribute("staffList", getAllStaff());
@@ -127,14 +143,13 @@ public class StaffAssignmentController {
     }
 
     @PostMapping("/{id}/update")
-    public String updateAssignment(
-            @PathVariable Long id,
-            @Valid @ModelAttribute("assignment") StaffAssignment formData,
-            BindingResult result,
-            @RequestParam(required = false) Long floorId,
-            @RequestParam(required = false) Long staffId,
-            Model model
-    ) {
+    public String updateAssignment(@PathVariable Long id,
+                                   @Valid @ModelAttribute("assignment") StaffAssignment formData,
+                                   BindingResult result,
+                                   @RequestParam(value = "floorId", required = false) Long floorId,
+                                   @RequestParam(value = "staffId", required = false) Long staffId,
+                                   Model model) {
+
         if (result.hasErrors()) {
             formData.setId(id);
             model.addAttribute("floors", floorService.findAll());
@@ -142,11 +157,14 @@ public class StaffAssignmentController {
             return "assignment/form";
         }
 
+        // Safe Update
         StaffAssignment existing = assignmentService.findById(id);
         if (existing != null) {
             existing.setShift(formData.getShift());
+
             if (floorId != null) existing.setFloor(floorService.findById(floorId));
             if (staffId != null) existing.setStaff(findStaffById(staffId));
+
             assignmentService.save(existing);
         }
         return "redirect:/assignments";

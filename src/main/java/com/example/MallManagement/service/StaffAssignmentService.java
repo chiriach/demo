@@ -50,13 +50,9 @@ public class StaffAssignmentService {
         return assignmentRepo.findById(id).orElse(null);
     }
 
-    public List<StaffAssignment> findByFloorId(Long floorId) {
-        return assignmentRepo.findByFloorId(floorId);
-    }
+    public List<StaffAssignment> findByFloorId(Long floorId) {return assignmentRepo.findByFloorId(floorId);}
 
-    public List<StaffAssignment> findByStaffId(Long staffId) {
-        return assignmentRepo.findByStaffId(staffId);
-    }
+    public List<StaffAssignment> findByStaffId(Long staffId) {return assignmentRepo.findByStaffId(staffId);}
 
     @Transactional
     public void save(StaffAssignment assignment) {

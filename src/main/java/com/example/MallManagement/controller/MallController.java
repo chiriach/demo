@@ -79,9 +79,7 @@ public class MallController {
     }
 
     @PostMapping("/{id}/update")
-    public String updateMall(@PathVariable Long id,
-                             @Valid @ModelAttribute Mall updatedMall,
-                             BindingResult result) {
+    public String updateMall(@PathVariable Long id, @Valid @ModelAttribute Mall updatedMall, BindingResult result) {
         if (result.hasErrors()) {
             updatedMall.setId(id);
             return "mall/form";

@@ -3,7 +3,6 @@
     <title>Electrical Assets</title>
 </head>
 <body>
-
 <h1>All Electrical Assets</h1>
 
 <form method="get" th:action="@{/electrical-assets}">
@@ -41,27 +40,27 @@
 <table border="1">
     <tr>
         <th>ID</th>
-        <th>Floor</th>
+        <th>Floor ID</th>
         <th>Type</th>
         <th>Status</th>
         <th>Actions</th>
     </tr>
     <tr th:each="asset : ${assets}">
         <td th:text="${asset.id}"></td>
+
         <td th:text="${asset.floor != null ? asset.floor.id : 'N/A'}"></td>
+
         <td th:text="${asset.type}"></td>
         <td th:text="${asset.status}"></td>
         <td>
             <a th:href="@{'/electrical-assets/' + ${asset.id} + '/update'}">
-                <button>Update</button>
+                <button type="button">Update Asset</button>
             </a>
-            <form th:action="@{'/electrical-assets/' + ${asset.id} + '/delete'}"
-                  method="post" style="display:inline;">
-                <button>Delete</button>
+            <form th:action="@{'/electrical-assets/' + ${asset.id} + '/delete'}" method="post" style="display:inline;">
+                <button type="submit">Delete Asset</button>
             </form>
         </td>
     </tr>
 </table>
-
 </body>
 </html>

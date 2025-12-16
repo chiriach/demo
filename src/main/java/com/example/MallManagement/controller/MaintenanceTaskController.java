@@ -64,14 +64,30 @@ public class MaintenanceTaskController {
                              BindingResult result,
                              @RequestParam(value = "floorId", required = false) Long floorId,
                              Model model) {
-        if (floorId != null) task.setFloor(floorService.findById(floorId));
+
+        if (floorId == null) {
+            // Manual error if no floor selected
+            // result.rejectValue... (optional)
+        }
 
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             return "task/form";
         }
 
+        // Link Floor manually
+        if (floorId != null) {
+            Floor selectedFloor = floorService.findById(floorId);
+            task.setFloor(selectedFloor);
+        }
+
         taskService.save(task);
+        return "redirect:/tasks";
+    }
+
+    @PostMapping("/{id}/delete")
+    public String deleteTask(@PathVariable Long id) {
+        taskService.delete(id);
         return "redirect:/tasks";
     }
 
@@ -86,10 +102,11 @@ public class MaintenanceTaskController {
 
     @PostMapping("/{id}/update")
     public String updateTask(@PathVariable Long id,
-                             @Valid @ModelAttribute MaintenanceTask formData,
+                             @Valid @ModelAttribute("task") MaintenanceTask formData,
                              BindingResult result,
                              @RequestParam(value = "floorId", required = false) Long floorId,
                              Model model) {
+
         if (result.hasErrors()) {
             formData.setId(id);
             model.addAttribute("floors", floorService.findAll());
@@ -100,15 +117,14 @@ public class MaintenanceTaskController {
         if (existingTask != null) {
             existingTask.setDescription(formData.getDescription());
             existingTask.setStatus(formData.getStatus());
-            if (floorId != null) existingTask.setFloor(floorService.findById(floorId));
+
+            // Handle relationship update
+            if (floorId != null) {
+                existingTask.setFloor(floorService.findById(floorId));
+            }
+
             taskService.save(existingTask);
         }
-        return "redirect:/tasks";
-    }
-
-    @PostMapping("/{id}/delete")
-    public String deleteTask(@PathVariable Long id) {
-        taskService.delete(id);
         return "redirect:/tasks";
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.    util.List;
 
 @Service
 public class ShopService {
@@ -15,14 +15,16 @@ public class ShopService {
     private final ShopRepository shopRepo;
 
     @Autowired
-    public ShopService(ShopRepository shopRepo) { this.shopRepo = shopRepo; }
+    public ShopService(ShopRepository shopRepo) {this.shopRepo = shopRepo;}
 
-    public List<Shop> findAll() { return shopRepo.findAll(); }
-    public Shop findById(Long id) { return shopRepo.findById(id).orElse(null); }
-    public List<Shop> findByFloorId(Long floorId) { return shopRepo.findByFloorId(floorId); }
+    public List<Shop> findAll() {return shopRepo.findAll();}
+
+    public Shop findById(Long id) {return shopRepo.findById(id).orElse(null);}
+
+    public List<Shop> findByFloorId(Long floorId) {return shopRepo.findByFloorId(floorId);}
 
     @Transactional
-    public void save(Shop shop) { shopRepo.save(shop); }
+    public void save(Shop shop) {shopRepo.save(shop);}
 
     @Transactional
     public void delete(Long id) { shopRepo.deleteById(id); }

@@ -15,14 +15,24 @@ public class ElectricalAssetService {
     private final ElectricalAssetRepository assetRepo;
 
     @Autowired
-    public ElectricalAssetService(ElectricalAssetRepository assetRepo) { this.assetRepo = assetRepo; }
+    public ElectricalAssetService(ElectricalAssetRepository assetRepo) {
+        this.assetRepo = assetRepo;
+    }
 
-    public List<ElectricalAsset> findAll() { return assetRepo.findAll(); }
-    public ElectricalAsset findById(Long id) { return assetRepo.findById(id).orElse(null); }
-    public List<ElectricalAsset> findByFloorId(Long floorId) { return assetRepo.findByFloorId(floorId); }
+    public List<ElectricalAsset> findAll() {
+        return assetRepo.findAll();
+    }
+
+    public ElectricalAsset findById(Long id) {
+        return assetRepo.findById(id).orElse(null);
+    }
+
+    public List<ElectricalAsset> findByFloorId(Long floorId) {return assetRepo.findByFloorId(floorId);}
 
     @Transactional
-    public void save(ElectricalAsset asset) { assetRepo.save(asset); }
+    public void save(ElectricalAsset asset) {
+        assetRepo.save(asset);
+    }
 
     @Transactional
     public void delete(Long id) { assetRepo.deleteById(id); }

@@ -29,38 +29,35 @@
 <br/>
 
 <a th:href="@{/security_staff/new}">Add New Staff</a>
-
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Badge No</th>
         <th>Salary</th>
-        <th>Assignments</th>
-        <th>Actions</th>
+        <th>Assignments</th> <th>Actions</th>
     </tr>
-
     <tr th:each="staff : ${staffList}">
         <td th:text="${staff.id}"></td>
         <td th:text="${staff.name}"></td>
         <td th:text="${staff.badgeNo}"></td>
         <td th:text="${staff.salary}"></td>
+
         <td>
             <a th:href="@{'/assignments/staff/' + ${staff.id}}">
-                <button th:text="'View (' + ${#lists.size(staff.assignments)} + ')'"></button>
+                <button type="button" th:text="'View (' + ${#lists.size(staff.assignments)} + ')'"></button>
             </a>
         </td>
+
         <td>
             <a th:href="@{'/security_staff/' + ${staff.id} + '/update'}">
-                <button>Update</button>
+                <button type="button">Update Staff</button>
             </a>
-            <form th:action="@{'/security_staff/' + ${staff.id} + '/delete'}"
-                  method="post" style="display:inline;">
-                <button type="submit">Delete</button>
+            <form th:action="@{'/security_staff/' + ${staff.id} + '/delete'}" method="post" style="display:inline;">
+                <button type="submit">Delete Staff</button>
             </form>
         </td>
     </tr>
 </table>
-
 </body>
 </html>

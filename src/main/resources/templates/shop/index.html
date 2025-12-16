@@ -3,7 +3,6 @@
     <title>Shops</title>
 </head>
 <body>
-
 <h1>All Shops</h1>
 
 <form method="get" th:action="@{/shops}">
@@ -37,14 +36,14 @@
 <br>
 
 <a th:href="@{/shops/new}">Add New Shop</a>
-
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Owner</th>
-        <th>Area</th>
+        <th>Owner Name</th>
+        <th>Area (sqm)</th>
         <th>Rating</th>
+        <th>Purchases (Count)</th>
         <th>Actions</th>
     </tr>
     <tr th:each="shop : ${shops}">
@@ -53,17 +52,16 @@
         <td th:text="${shop.ownerName}"></td>
         <td th:text="${shop.areaSqm}"></td>
         <td th:text="${shop.rating}"></td>
+        <td th:text="${#lists.size(shop.purchases)}"></td>
         <td>
             <a th:href="@{'/shops/' + ${shop.id} + '/update'}">
-                <button>Update</button>
+                <button type="button">Update Shop</button>
             </a>
-            <form th:action="@{'/shops/' + ${shop.id} + '/delete'}"
-                  method="post" style="display:inline;">
-                <button>Delete</button>
+            <form th:action="@{'/shops/' + ${shop.id} + '/delete'}" method="post" style="display:inline;">
+                <button type="submit">Delete Shop</button>
             </form>
         </td>
     </tr>
 </table>
-
 </body>
 </html>

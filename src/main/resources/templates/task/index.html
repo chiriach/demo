@@ -3,7 +3,6 @@
     <title>Maintenance Tasks</title>
 </head>
 <body>
-
 <h1>All Maintenance Tasks</h1>
 
 <form method="get" th:action="@{/tasks}">
@@ -36,31 +35,30 @@
 <br>
 
 <a th:href="@{/tasks/new}">Add New Task</a>
-
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Description</th>
         <th>Status</th>
-        <th>Floor</th>
+        <th>Floor ID</th>
         <th>Actions</th>
     </tr>
     <tr th:each="task : ${tasks}">
         <td th:text="${task.id}"></td>
         <td th:text="${task.description}"></td>
         <td th:text="${task.status}"></td>
+
         <td th:text="${task.floor != null ? task.floor.id : 'N/A'}"></td>
+
         <td>
             <a th:href="@{'/tasks/' + ${task.id} + '/update'}">
-                <button>Update</button>
+                <button type="button">Update Task</button>
             </a>
-            <form th:action="@{'/tasks/' + ${task.id} + '/delete'}"
-                  method="post" style="display:inline;">
-                <button>Delete</button>
+            <form th:action="@{'/tasks/' + ${task.id} + '/delete'}" method="post" style="display:inline;">
+                <button type="submit">Delete Task</button>
             </form>
         </td>
     </tr>
 </table>
-
 </body>
 </html>

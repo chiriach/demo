@@ -3,7 +3,6 @@
     <title>Customers</title>
 </head>
 <body>
-
 <h1>All Customers</h1>
 
 <form method="get" th:action="@{/customers}">
@@ -36,13 +35,12 @@
 <br>
 
 <a th:href="@{/customers/new}">Add New Customer</a>
-
 <table border="1">
     <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Currency</th>
-        <th>Purchases</th>
+        <th>Purchases (Count)</th>
         <th>Actions</th>
     </tr>
     <tr th:each="customer : ${customers}">
@@ -51,16 +49,18 @@
         <td th:text="${customer.currency}"></td>
         <td th:text="${#lists.size(customer.purchases)}"></td>
         <td>
-            <a th:href="@{'/customers/' + ${customer.id} + '/update'}">
-                <button>Update</button>
+            <a th:href="@{'/purchases/customer/' + ${customer.id}}">
+                <button type="button">View Purchases</button>
             </a>
-            <form th:action="@{'/customers/' + ${customer.id} + '/delete'}"
-                  method="post" style="display:inline;">
-                <button>Delete</button>
+
+            <a th:href="@{'/customers/' + ${customer.id} + '/update'}">
+                <button type="button">Update Customer</button>
+            </a>
+            <form th:action="@{'/customers/' + ${customer.id} + '/delete'}" method="post" style="display:inline;">
+                <button type="submit">Delete Customer</button>
             </form>
         </td>
     </tr>
 </table>
-
 </body>
 </html>
