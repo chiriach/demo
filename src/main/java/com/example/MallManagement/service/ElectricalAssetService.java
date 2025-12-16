@@ -26,6 +26,8 @@ public class ElectricalAssetService {
         return assetRepo.findById(id).orElse(null);
     }
 
+    public List<ElectricalAsset> findByFloorId(Long floorId) {return assetRepo.findByFloorId(floorId);}
+
     @Transactional
     public void save(ElectricalAsset asset) {
         assetRepo.save(asset);

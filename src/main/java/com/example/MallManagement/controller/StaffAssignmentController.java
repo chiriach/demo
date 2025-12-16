@@ -36,7 +36,6 @@ public class StaffAssignmentController {
         this.securityStaffService = securityStaffService;
     }
 
-    // Combine lists for the dropdown
     private List<Staff> getAllStaff() {
         List<Staff> allStaff = new ArrayList<>();
         allStaff.addAll(maintenanceStaffService.findAll());
@@ -44,11 +43,16 @@ public class StaffAssignmentController {
         return allStaff;
     }
 
-    // Helper to find staff by ID from either service
     private Staff findStaffById(Long id) {
         Staff s = maintenanceStaffService.findById(id);
         if (s != null) return s;
         return securityStaffService.findById(id);
+    }
+
+    @GetMapping("/floor/{id}")
+    public String listAssignmentsByFloor(@PathVariable Long id, Model model) {
+        model.addAttribute("assignments", assignmentService.findByFloorId(id));
+        return "assignment/index";
     }
 
     @GetMapping

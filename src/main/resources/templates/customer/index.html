@@ -14,19 +14,15 @@
         <th>Actions</th>
     </tr>
     <tr th:each="customer : ${customers}">
-        <td th:text="${customer.name}"></td>
-        <td>
-            <a th:href="@{'/purchases/customer/' + ${customer.id}}">
-                <button type="button">View Purchases</button>
-            </a>
-        </td>
-    </tr>
-    <tr th:each="customer : ${customers}">
         <td th:text="${customer.id}"></td>
         <td th:text="${customer.name}"></td>
         <td th:text="${customer.currency}"></td>
         <td th:text="${#lists.size(customer.purchases)}"></td>
         <td>
+            <a th:href="@{'/purchases/customer/' + ${customer.id}}">
+                <button type="button">View Purchases</button>
+            </a>
+
             <a th:href="@{'/customers/' + ${customer.id} + '/update'}">
                 <button type="button">Update Customer</button>
             </a>

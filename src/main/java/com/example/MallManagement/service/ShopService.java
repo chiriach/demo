@@ -20,6 +20,8 @@ public class ShopService {
 
     public Shop findById(Long id) {return shopRepo.findById(id).orElse(null);}
 
+    public List<Shop> findByFloorId(Long floorId) {return shopRepo.findByFloorId(floorId);}
+
     @Transactional
     public void save(Shop shop) {shopRepo.save(shop);}
 

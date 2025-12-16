@@ -1,10 +1,3 @@
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Floors</title>
-</head>
-<body>
-<h1>All Floors</h1>
-<a th:href="@{/floors/new}">Add New Floor</a>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -18,10 +11,31 @@
     <tr th:each="floor : ${floors}">
         <td th:text="${floor.id}"></td>
         <td th:text="${floor.number}"></td>
-        <td th:text="${#lists.size(floor.shops)}"></td>
-        <td th:text="${#lists.size(floor.tasks)}"></td>
-        <td th:text="${#lists.size(floor.electricals)}"></td>
-        <td th:text="${#lists.size(floor.assignments)}"></td>
+
+        <td>
+            <a th:href="@{'/shops/floor/' + ${floor.id}}">
+                <button type="button" th:text="'View (' + ${#lists.size(floor.shops)} + ')'"></button>
+            </a>
+        </td>
+
+        <td>
+            <a th:href="@{'/tasks/floor/' + ${floor.id}}">
+                <button type="button" th:text="'View (' + ${#lists.size(floor.tasks)} + ')'"></button>
+            </a>
+        </td>
+
+        <td>
+            <a th:href="@{'/electrical-asset/floor/' + ${floor.id}}">
+                <button type="button" th:text="'View (' + ${#lists.size(floor.electricals)} + ')'"></button>
+            </a>
+        </td>
+
+        <td>
+            <a th:href="@{'/assignments/floor/' + ${floor.id}}">
+                <button type="button" th:text="'View (' + ${#lists.size(floor.assignments)} + ')'"></button>
+            </a>
+        </td>
+
         <td>
             <a th:href="@{'/floors/' + ${floor.id} + '/update'}">
                 <button type="button">Update Floor</button>
@@ -32,5 +46,3 @@
         </td>
     </tr>
 </table>
-</body>
-</html>

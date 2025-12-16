@@ -23,6 +23,12 @@ public class ShopController {
         this.floorService = floorService;
     }
 
+    @GetMapping("/floor/{id}")
+    public String listShopsByFloor(@PathVariable Long id, Model model) {
+        model.addAttribute("shops", shopService.findByFloorId(id));
+        return "shop/index";
+    }
+
     @GetMapping
     public String listShops(Model model) {
         model.addAttribute("shops", shopService.findAll());

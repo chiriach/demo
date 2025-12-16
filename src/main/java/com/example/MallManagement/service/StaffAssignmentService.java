@@ -26,6 +26,8 @@ public class StaffAssignmentService {
         return assignmentRepo.findById(id).orElse(null);
     }
 
+    public List<StaffAssignment> findByFloorId(Long floorId) {return assignmentRepo.findByFloorId(floorId);}
+
     @Transactional
     public void save(StaffAssignment assignment) {
         assignmentRepo.save(assignment);

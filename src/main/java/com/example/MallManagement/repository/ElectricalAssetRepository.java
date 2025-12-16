@@ -3,5 +3,9 @@ import com.example.MallManagement.model.ElectricalAsset;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public interface ElectricalAssetRepository extends JpaRepository<ElectricalAsset, Long> {}
+public interface ElectricalAssetRepository extends JpaRepository<ElectricalAsset, Long> {
+    List<ElectricalAsset> findByFloorId(Long floorId);
+}

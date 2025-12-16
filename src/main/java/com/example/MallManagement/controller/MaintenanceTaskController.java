@@ -24,6 +24,12 @@ public class MaintenanceTaskController {
         this.floorService = floorService;
     }
 
+    @GetMapping("/floor/{id}")
+    public String listTasksByFloor(@PathVariable Long id, Model model) {
+        model.addAttribute("tasks", taskService.findByFloorId(id));
+        return "task/index";
+    }
+
     @GetMapping
     public String listTasks(Model model) {
         model.addAttribute("tasks", taskService.findAll());

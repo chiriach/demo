@@ -26,6 +26,8 @@ public class MaintenanceTaskService {
         return taskRepo.findById(id).orElse(null);
     }
 
+    public List<MaintenanceTask> findByFloorId(Long floorId) {return taskRepo.findByFloorId(floorId);}
+
     @Transactional
     public void save(MaintenanceTask task) {
         taskRepo.save(task);

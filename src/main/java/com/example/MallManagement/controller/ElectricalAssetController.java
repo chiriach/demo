@@ -24,6 +24,12 @@ public class ElectricalAssetController {
         this.floorService = floorService;
     }
 
+    @GetMapping("/floor/{id}")
+    public String listAssetsByFloor(@PathVariable Long id, Model model) {
+        model.addAttribute("assets", assetService.findByFloorId(id));
+        return "asset/index";
+    }
+
     @GetMapping
     public String listAssets(Model model) {
         model.addAttribute("assets", assetService.findAll());
