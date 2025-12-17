@@ -1,5 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
     <title>Floors</title>
 </head>
 <body>
@@ -7,7 +9,7 @@
 
 <a th:href="@{/floors/new}">Add New Floor</a>
 
-<!-- Filter & Sort Form -->
+
 <form method="get" action="#" style="margin-top:20px;margin-bottom:20px;">
     <label>Search Term:</label>
     <input type="text" name="searchTerm" th:value="${searchTerm}" />

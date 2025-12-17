@@ -58,9 +58,6 @@ public class FloorController {
                               @RequestParam(value = "mallId", required = false) Long mallId,
                               Model model) {
 
-        if (mallId == null) {
-            result.rejectValue("mall", "error.mall", "Please select a mall.");
-        }
         if (mallId != null) {
             var mall = mallService.findById(mallId);
             if (mall == null) {

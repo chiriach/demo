@@ -1,5 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+
     <title>Floor</title>
 </head>
 <body>
@@ -10,6 +12,17 @@
 
     <label>Number:</label>
     <input type="number" th:field="*{number}" min="0" /><br><br>
+
+    <label>Mall:</label>
+    <select name="mallId">
+        <option value="">-- Select Mall --</option>
+        <option th:each="m : ${malls}"
+                th:value="${m.id}"
+                th:text="${m.name} + ' (' + ${m.city} + ')'"
+                th:selected="${floor.mall != null and floor.mall.id == m.id}">
+        </option>
+    </select>
+    <br><br>
 
     <button type="submit">Save Floor</button>
 </form>

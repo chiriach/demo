@@ -65,17 +65,11 @@ public class MaintenanceTaskController {
                              @RequestParam(value = "floorId", required = false) Long floorId,
                              Model model) {
 
-        if (floorId == null) {
-            // Manual error if no floor selected
-            // result.rejectValue... (optional)
-        }
 
         if (result.hasErrors()) {
             model.addAttribute("floors", floorService.findAll());
             return "task/form";
         }
-
-        // Link Floor manually
         if (floorId != null) {
             Floor selectedFloor = floorService.findById(floorId);
             task.setFloor(selectedFloor);
@@ -118,7 +112,6 @@ public class MaintenanceTaskController {
             existingTask.setDescription(formData.getDescription());
             existingTask.setStatus(formData.getStatus());
 
-            // Handle relationship update
             if (floorId != null) {
                 existingTask.setFloor(floorService.findById(floorId));
             }
