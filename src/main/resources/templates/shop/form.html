@@ -10,8 +10,20 @@
 <form th:action="${shop.id} != null ? @{'/shops/' + ${shop.id} + '/update'} : @{/shops}"
       th:object="${shop}" method="post">
 
+    <label>Area (sqm):</label>
+    <input type="number" step="0.01" th:field="*{areaSqm}" />
+    <span th:if="${#fields.hasErrors('areaSqm')}" th:errors="*{areaSqm}" style="color:red;"></span>
+    <br>
+
+    <label>Rating:</label>
+    <input type="number" th:field="*{rating}" />
+    <span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" style="color:red;"></span>
+    <br><br>
+
     <label>Name:</label>
-    <input type="text" th:field="*{name}" /><br>
+    <input type="text" th:field="*{name}" />
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color:red;"></span>
+    <br>
 
     <label>Owner Name:</label>
     <input type="text" th:field="*{ownerName}" /><br>
@@ -20,21 +32,30 @@
     <input type="number" step="0.01" th:field="*{areaSqm}" /><br>
 
     <label>Rating:</label>
-    <input type="number" th:field="*{rating}" /><br><br>
+    <input type="number" th:field="*{rating}" />
+    <span th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}" style="color:red;"></span>
+
     <label>Floor:</label>
-    <select th:field="*{floor}">
+    <select name="floorId">
         <option value="">-- Select Floor --</option>
         <option th:each="f : ${floors}"
                 th:value="${f.id}"
-                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"></option>
-    </select><br><br>
+                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"
+                th:selected="${shop.floor != null and shop.floor.id == f.id}">
+        </option>
+    </select>
+
     <label>Floor:</label>
-    <select th:field="*{floor}">
+    <select name="floorId">
         <option value="">-- Select Floor --</option>
         <option th:each="f : ${floors}"
                 th:value="${f.id}"
-                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"></option>
-    </select><br><br>
+                th:text="'Floor ' + ${f.number} + ' (in ' + ${f.mall.name} + ')'"
+                th:selected="${shop.floor != null and shop.floor.id == f.id}">
+        </option>
+    </select>
+    <span th:if="${#fields.hasErrors('floor')}" th:errors="*{floor}" style="color:red;"></span>
+    <br><br>
     <button type="submit">Save Shop</button>
 </form>
 </body>

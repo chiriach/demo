@@ -18,12 +18,12 @@ public class Shop {
     @NotBlank(message = "Besitzername ist erforderlich")
     private String ownerName;
 
-    @Positive(message = "Fläche muss positiv sein")
-    private double areaSqm;
-
-    @Min(value = 1, message = "Bewertung min. 1")
-    @Max(value = 5, message = "Bewertung max. 5")
-    private int rating;
+    @NotNull(message = "Area is required")
+    @Positive
+    private Double areaSqm;
+    @NotNull(message = "Rating is required")
+    @Min(1) @Max(5)
+    private Integer rating;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "floor_id")
