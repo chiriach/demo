@@ -1,4 +1,3 @@
-Mall Management System 
 📝 Overview
 This project is a **Mall Management System** developed as part of the Fortgeschrittene Programmierungs course at Babeș-Bolyai University. 
 
