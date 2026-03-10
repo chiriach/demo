@@ -1,86 +1,123 @@
+:root {
+    --bg-main: #071427;
+    --bg-accent: #0c2347;
+    --surface: #102b56;
+    --surface-soft: #15386e;
+    --text-main: #e9f2ff;
+    --text-muted: #b5caec;
+    --border: rgba(145, 181, 235, 0.28);
+    --link: #6db4ff;
+    --link-hover: #9bcfff;
+    --primary: #3d8df0;
+    --primary-hover: #2f79d8;
+    --neutral-btn: #2f4f7d;
+    --neutral-btn-hover: #3b6197;
+    --danger: #d15064;
+    --danger-hover: #ba4256;
+    --shadow: 0 14px 35px rgba(2, 8, 20, 0.45);
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%, #14396f 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, #1d4f93 0%, transparent 30%),
+        linear-gradient(145deg, var(--bg-main) 0%, var(--bg-accent) 100%);
+    color: var(--text-main);
     margin: 20px;
     line-height: 1.6;
+    min-height: 100vh;
 }
 
 h1 {
-    color: #444;
-    border-bottom: 2px solid #007bff;
+    color: #f3f8ff;
+    border-bottom: 2px solid var(--link);
     padding-bottom: 10px;
     display: inline-block;
+    letter-spacing: 0.4px;
 }
 
-/* Links */
 a {
     text-decoration: none;
-    color: #007bff;
+    color: var(--link);
+    transition: color 0.2s ease;
 }
 
 a:hover {
+    color: var(--link-hover);
     text-decoration: underline;
 }
 
-/* Tables (Index & Details pages) */
 table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background: rgba(13, 33, 66, 0.86);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
 }
 
-th, td {
+th,
+td {
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(145, 181, 235, 0.2);
     text-align: left;
 }
 
 th {
-    background-color: #007bff;
-    color: white;
+    background: linear-gradient(180deg, #285ca3 0%, #1f4d8c 100%);
+    color: #f2f7ff;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: rgba(24, 52, 96, 0.45);
 }
 
 tr:hover {
-    background-color: #e9ecef;
+    background-color: rgba(69, 129, 214, 0.2);
 }
 
-/* Forms (Create/Update pages & Filter bars) */
 form {
-    background-color: #fff;
+    background: linear-gradient(170deg, rgba(19, 47, 90, 0.95), rgba(15, 37, 72, 0.95));
     padding: 20px;
     margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
     max-width: 800px;
 }
 
 label {
     display: block;
     margin-top: 10px;
-    font-weight: bold;
+    font-weight: 600;
+    color: var(--text-main);
 }
 
 input[type="text"],
 input[type="number"],
 select {
-    width: 100%; /* Full width for inputs */
-    padding: 8px;
+    width: 100%;
+    padding: 10px;
     margin-top: 5px;
     margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid rgba(138, 177, 235, 0.35);
+    border-radius: 6px;
     box-sizing: border-box;
+    background: rgba(9, 23, 46, 0.85);
+    color: var(--text-main);
 }
 
-/* Adjust width for filter forms to not be too wide if fields are inline */
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--link);
+    box-shadow: 0 0 0 3px rgba(109, 180, 255, 0.22);
+}
+
 form[method="get"] input,
 form[method="get"] select {
     width: auto;
@@ -88,36 +125,36 @@ form[method="get"] select {
     margin-right: 10px;
 }
 
-/* Buttons */
 button {
-    background-color: #28a745; /* Green for primary actions */
-    color: white;
+    background: linear-gradient(180deg, var(--primary) 0%, #2f74cd 100%);
+    color: #f6fbff;
     padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
+    border: 1px solid rgba(153, 200, 255, 0.25);
+    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
+    transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
 }
 
 button:hover {
-    background-color: #218838;
+    background: linear-gradient(180deg, #4a9cfc 0%, var(--primary-hover) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(23, 78, 150, 0.35);
 }
 
-/* Buttons inside links (like 'Update', 'Details') usually need neutral colors */
 a button {
-    background-color: #6c757d; /* Grey */
+    background: var(--neutral-btn);
     margin-right: 5px;
 }
 
 a button:hover {
-    background-color: #5a6268;
+    background: var(--neutral-btn-hover);
 }
 
-/* Delete button specific styling */
 form[action*="delete"] button {
-    background-color: #dc3545; /* Red */
+    background: linear-gradient(180deg, var(--danger) 0%, #af3a4e 100%);
 }
 
 form[action*="delete"] button:hover {
-    background-color: #c82333;
+    background: linear-gradient(180deg, #df6679 0%, var(--danger-hover) 100%);
 }

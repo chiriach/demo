@@ -2,120 +2,172 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mall Management Dashboard</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <style>
-        .dashboard-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            padding: 40px;
-            justify-content: center;
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap');
+
+        body {
+            font-family: 'Manrope', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .dashboard-shell {
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 35px auto 0;
+            padding: 0 16px 30px;
+        }
+
+        .dashboard-hero {
+            background: linear-gradient(145deg, rgba(34, 84, 150, 0.62), rgba(13, 35, 71, 0.86));
+            border: 1px solid rgba(155, 197, 255, 0.25);
+            border-radius: 14px;
+            box-shadow: 0 14px 35px rgba(2, 8, 20, 0.45);
+            padding: 26px 28px;
+            margin-bottom: 26px;
+        }
+
+        .dashboard-title {
+            margin: 0;
+            border-bottom: none;
+            color: #f3f8ff;
+            font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+            letter-spacing: 0.5px;
+        }
+
+        .dashboard-subtitle {
+            margin: 10px 0 0;
+            color: #bfd8fb;
+            font-size: 0.98rem;
+            max-width: 760px;
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
         }
 
         .card {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            width: 220px;
-            padding: 25px;
+            background: linear-gradient(175deg, rgba(24, 58, 108, 0.92), rgba(13, 33, 66, 0.92));
+            border: 1px solid rgba(140, 180, 235, 0.26);
+            border-radius: 12px;
+            box-shadow: 0 14px 30px rgba(4, 12, 25, 0.42);
+            padding: 24px 18px 18px;
             text-align: center;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            min-height: 170px;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            transform: translateY(-6px);
+            box-shadow: 0 18px 34px rgba(7, 20, 41, 0.6);
+            border-color: rgba(160, 205, 255, 0.55);
         }
 
         .card h3 {
             margin-top: 0;
-            color: #444;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
+            color: #e7f1ff;
+            font-size: 1.06rem;
+            margin-bottom: 18px;
+            font-weight: 700;
         }
 
         .card-btn {
-            background-color: #007bff;
-            color: white;
-            border: none;
+            background: linear-gradient(180deg, #3e8fec 0%, #2f73cc 100%);
+            color: #f5faff;
+            border: 1px solid rgba(169, 208, 255, 0.25);
             padding: 10px 0;
             width: 100%;
-            border-radius: 4px;
-            font-size: 1rem;
+            border-radius: 7px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.2px;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
+            transition: background 0.2s ease, transform 0.15s ease;
         }
 
         .card-btn:hover {
-            background-color: #0056b3;
+            background: linear-gradient(180deg, #57a5ff 0%, #347edb 100%);
             text-decoration: none;
+            transform: translateY(-1px);
         }
 
-        .header-title {
-            text-align: center;
-            margin-top: 40px;
-            color: #333;
-            border-bottom: none;
+        @media (max-width: 640px) {
+            .dashboard-shell {
+                margin-top: 22px;
+                padding: 0 12px 24px;
+            }
+
+            .dashboard-hero {
+                padding: 20px;
+            }
+
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
-<h1 class="header-title">Mall Management Dashboard</h1>
+<main class="dashboard-shell">
+    <section class="dashboard-hero">
+        <h1 class="dashboard-title">Mall Management Dashboard</h1>
+        <p class="dashboard-subtitle">Centralize day-to-day operations across infrastructure, teams, tenants, and customer activity from one control panel.</p>
+    </section>
 
-<div class="dashboard-container">
-    <div class="card">
-        <h3>Malls</h3>
-        <a th:href="@{/malls}" class="card-btn">Manage Malls</a>
-    </div>
-    <div class="card">
-        <h3>Floors</h3>
-        <a th:href="@{/floors}" class="card-btn">Manage Floors</a>
-    </div>
-    <div class="card">
-        <h3>Shops</h3>
-        <a th:href="@{/shops}" class="card-btn">Manage Shops</a>
-    </div>
+    <div class="dashboard-container">
+        <div class="card">
+            <h3>Malls</h3>
+            <a th:href="@{/malls}" class="card-btn">Manage Malls</a>
+        </div>
+        <div class="card">
+            <h3>Floors</h3>
+            <a th:href="@{/floors}" class="card-btn">Manage Floors</a>
+        </div>
+        <div class="card">
+            <h3>Shops</h3>
+            <a th:href="@{/shops}" class="card-btn">Manage Shops</a>
+        </div>
 
-    <div class="card">
-        <h3>Security Staff</h3>
-        <a th:href="@{/security_staff}" class="card-btn">Manage Security</a>
-    </div>
-    <div class="card">
-        <h3>Maintenance Staff</h3>
-        <a th:href="@{/maintenance_staff}" class="card-btn">Manage Maintenance</a>
-    </div>
-    <div class="card">
-        <h3>Assignments</h3>
-        <a th:href="@{/assignments}" class="card-btn">Staff Assignments</a>
-    </div>
+        <div class="card">
+            <h3>Security Staff</h3>
+            <a th:href="@{/security_staff}" class="card-btn">Manage Security</a>
+        </div>
+        <div class="card">
+            <h3>Maintenance Staff</h3>
+            <a th:href="@{/maintenance_staff}" class="card-btn">Manage Maintenance</a>
+        </div>
+        <div class="card">
+            <h3>Assignments</h3>
+            <a th:href="@{/assignments}" class="card-btn">Staff Assignments</a>
+        </div>
 
-    <div class="card">
-        <h3>Electrical Assets</h3>
-        <a th:href="@{/electrical-assets}" class="card-btn">Manage Assets</a>
-    </div>
-    <div class="card">
-        <h3>Maintenance Tasks</h3>
-        <a th:href="@{/tasks}" class="card-btn">Manage Tasks</a>
-    </div>
+        <div class="card">
+            <h3>Electrical Assets</h3>
+            <a th:href="@{/electrical-assets}" class="card-btn">Manage Assets</a>
+        </div>
+        <div class="card">
+            <h3>Maintenance Tasks</h3>
+            <a th:href="@{/tasks}" class="card-btn">Manage Tasks</a>
+        </div>
 
-    <div class="card">
-        <h3>Customers</h3>
-        <a th:href="@{/customers}" class="card-btn">Manage Customers</a>
+        <div class="card">
+            <h3>Customers</h3>
+            <a th:href="@{/customers}" class="card-btn">Manage Customers</a>
+        </div>
+        <div class="card">
+            <h3>Purchases</h3>
+            <a th:href="@{/purchases}" class="card-btn">Manage Purchases</a>
+        </div>
     </div>
-    <div class="card">
-        <h3>Purchases</h3>
-        <a th:href="@{/purchases}" class="card-btn">Manage Purchases</a>
-    </div>
-</div>
+</main>
 
 </body>
 </html>
